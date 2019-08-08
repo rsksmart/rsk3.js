@@ -1,0 +1,17 @@
+{
+    "name": "rsk3-account",
+    "namespace": "RSK",
+    "version": "0.0.1",
+    "description": "Rsk3 module to interact with the RSK nodes networking properties.",
+    "repository": "",
+    "engines": {
+        "node": ">=8.11.3"
+    },
+    "license": "LGPL-3.0",
+    "scripts": {
+        "test": "jest"
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "files": []
+}

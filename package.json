@@ -1,0 +1,53 @@
+{
+  "name": "rsk3",
+  "version": "0.0.1",
+  "description": "RSK JavaScript Wallet API repository",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "lint": "eslint --cache --fix .",
+    "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
+    "test": "lerna run test",
+    "test:coverage": "lerna run test -- --coverage && npm run istanbulCombine",
+    "istanbulCombine": "istanbul-combine -d coverage -r lcov -r html ./packages/**/coverage-final.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisli30/rsk-web3.js.git"
+  },
+  "keywords": [
+    "RSK",
+    "Javascript",
+    "API"
+  ],
+  "author": "RSK Innovation Labs",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/chrisli30/rsk-web3.js/issues"
+  },
+  "homepage": "https://github.com/chrisli30/rsk-web3.js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "babel-jest": "^24.8.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "istanbul-combine": "^0.3.0",
+    "lerna": "^3.16.4",
+    "prettier": "^1.18.2",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {}
+}
