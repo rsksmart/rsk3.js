@@ -3,7 +3,7 @@
     "namespace": "RSK",
     "version": "0.0.1",
     "description": "Rsk3 module to interact with the RSK nodes networking properties.",
-    "repository": "",
+    "repository": "https://github.com/chrisli30/rsk3.js/tree/master/packages/rsk3-utils",
     "engines": {
         "node": ">=8.11.3"
     },

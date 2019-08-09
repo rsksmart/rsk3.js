@@ -7,8 +7,12 @@ describe('UtilsTest', () => {
   it('calls toDecimal and returns the expected results', () => {
     const tests = [
       {
-        value: 'myString',
-        expected: '0x6d79537472696e67000000000000000000000000000000000000000000000000'
+        value: '0x1a',
+        expected: 26,
+      },
+      {
+          value:'0x1b',
+          expected: 28,
       }
     ];
 
