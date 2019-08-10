@@ -27,7 +27,7 @@ import cjsSha3 from 'crypto-js/sha3';
  * Utils test
  */
 describe('UtilsTest', () => {
-  it('calls toDecimal and returns the expected results', () => {
+  it('calls hexToNumber and returns the expected results', () => {
     const tests = [
       {
         value: '0x1a',
@@ -144,13 +144,11 @@ describe('UtilsTest', () => {
       /* eslint-enable */
       { value: 'function', is: false },
       { value: {}, is: false },
-      { value: '0xc6d9d2cd449a754c494264e1809c50e34d64562b', is: true },
-      { value: 'c6d9d2cd449a754c494264e1809c50e34d64562b', is: true },
-      { value: '0xE247A45c287191d435A8a5D72A7C8dc030451E9F', is: true },
-      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
-      { value: '0xe247a45c287191d435a8a5d72a7c8dc030451e9f', is: true },
-      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: true },
-      { value: '0XE247A45C287191D435A8A5D72A7C8DC030451E9F', is: true }
+      { value: '0xEC4DdeB4380ad69b3e509baad9F158cdF4E4681d', is: true },
+      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
+      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
+      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: false },
+      { value: '0xa4DEa4d5c954f5Fd9E87f0e9752911E83A3D18b3', is: true },
     ];
 
     tests.forEach((test) => {
@@ -158,42 +156,44 @@ describe('UtilsTest', () => {
     });
   });
 
-  it('calls isAddress with chainId 30 and returns the expected results', () => {
+  it('calls isAddress with chainId 33 and returns the expected results', () => {
     const tests = [
-      { value: '0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD', is: true },
-      { value: '0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359', is: true },
-      { value: '0xDBF03B407c01E7CD3cBea99509D93F8Dddc8C6FB', is: true },
+      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
+      { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
+      { value: '0x0a3AA774752ec2042C46548456c094A76C7f3a79', is: true },
+      { value: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036', is: true },
+      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
+      { value: '0xc354D97642FAa06781B76ffb6786F72Cd7746c97', is: true },
       { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
-      { value: '0xD1220A0Cf47c7B9BE7a2e6ba89F429762E7B9adB', is: true },
-      { value: '0xe247a45c287191d435a8a5d72a7c8dc030451e9f', is: true },
-      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: true }
     ];
 
     tests.forEach((test) => {
-      expect(isAddress(test.value, 30)).toEqual(test.is);
+      expect(isAddress(test.value, 33)).toEqual(test.is);
     });
   });
 
-  it('calls toChecksumAddress with chainId 30 and returns the expected results', () => {
+  it('calls toChecksumAddress with chainId 33 and returns the expected results', () => {
+
     const tests = [
-      { value: '0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', is: '0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD' },
-      { value: '0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359', is: '0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359' },
-      { value: '0xdbf03b407c01e7cd3cbea99509d93f8dddc8c6fb', is: '0xDBF03B407c01E7CD3cBea99509D93F8Dddc8C6FB' },
-      { value: '0xd1220a0cf47c7b9be7a2e6ba89f429762e7b9adb', is: '0xD1220A0Cf47c7B9BE7a2e6ba89F429762E7B9adB' }
+      { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826' },
+      { value: '7986b3df570230288501eea3d890bd66948c9b79', is: '0x7986b3df570230288501EeA3D890bD66948C9B79' },
+      { value: '0a3aa774752ec2042c46548456c094a76c7f3a79', is: '0x0a3AA774752ec2042C46548456c094A76C7f3a79' },
+      { value: 'cf7cdbbb5f7ba79d3ffe74a0bba13fc0295f6036', is: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036' }
     ];
 
     tests.forEach((test) => {
-      expect(toChecksumAddress(test.value, 30)).toEqual(test.is);
+      expect(toChecksumAddress(test.value,33)).toEqual(test.is);
     });
   });
 
   it('calls toChecksumAddress and returns the expected results', () => {
     const tests = [
-      { value: '0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', is: '0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed' },
-      { value: '0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359', is: '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359' },
-      { value: '0xdbf03b407c01e7cd3cbea99509d93f8dddc8c6fb', is: '0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB' },
-      { value: '0xd1220a0cf47c7b9be7a2e6ba89f429762e7b9adb', is: '0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb' }
+      { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826' },
+      { value: '7986b3df570230288501eea3d890bd66948c9b79', is: '0x7986b3df570230288501EeA3D890bD66948C9B79' },
+      { value: '0a3aa774752ec2042c46548456c094a76c7f3a79', is: '0x0a3AA774752ec2042C46548456c094A76C7f3a79' },
+      { value: 'cf7cdbbb5f7ba79d3ffe74a0bba13fc0295f6036', is: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036' }
     ];
+
 
     tests.forEach((test) => {
       expect(toChecksumAddress(test.value)).toEqual(test.is);
@@ -214,39 +214,43 @@ describe('UtilsTest', () => {
 
   it('calls checkAddressChecksum and returns the expected results', () => {
     const tests = [
-      { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: true },
-      { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: true },
-      { value: '0xde709f2102306220921060314715629080e2fb77', is: true },
-      { value: '0x27b1fdb04752bbc536007a920d24acb045561c26', is: true },
-      { value: '0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed', is: true },
-      { value: '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359', is: true },
-      { value: '0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB', is: true },
-      { value: '0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb', is: true },
-      { value: '0XD1220A0CF47C7B9BE7A2E6BA89F429762E7B9ADB', is: false },
-      { value: '0xd1220a0cf47c7b9be7a2e6ba89f429762e7b9adb', is: false }
+      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
+      { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
+      { value: '0x0a3AA774752ec2042C46548456c094A76C7f3a79', is: true },
+      { value: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036', is: true },
+      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
+      { value: '0xc354D97642FAa06781B76ffb6786F72Cd7746c97', is: true },
+      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+      { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: false },
+      { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: false },
     ];
 
     tests.forEach((test) => {
-      expect(checkAddressChecksum(test.value)).toEqual(test.is);
+      expect(checkAddressChecksum(test.value,33)).toEqual(test.is);
     });
   });
 
-  it('calls checkAddressChecksum with chainId 31 and returns the expected results', () => {
+  it('calls checkAddressChecksum with chainId 33 and returns the expected results', () => {
     const tests = [
-      { value: '0x5aAeb6053F3e94c9b9A09F33669435E7EF1BEaEd', is: true },
-      { value: '0xFb6916095CA1dF60bb79CE92ce3Ea74C37c5D359', is: true },
-      { value: '0xdbF03B407C01E7cd3cbEa99509D93f8dDDc8C6fB', is: true },
-      { value: '0xd1220a0CF47c7B9Be7A2E6Ba89f429762E7b9adB', is: true },
-      { value: '0XD1220A0CF47C7B9BE7A2E6BA89F429762E7B9ADB', is: false },
-      { value: '0xd1220a0cf47c7b9be7a2e6ba89f429762e7b9adb', is: false },
-      { value: '0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB', is: false },
-      { value: '0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb', is: false }
+      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
+      { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
+      { value: '0x0a3AA774752ec2042C46548456c094A76C7f3a79', is: true },
+      { value: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036', is: true },
+      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
+      { value: '0xc354D97642FAa06781B76ffb6786F72Cd7746c97', is: true },
+      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+      { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: false },
+      { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: false },
     ];
+    console.log(toChecksumAddress('0x407D73d8a49eeb85D32Cf465507dd71d507100c1'))
+    
 
     tests.forEach((test) => {
-      expect(checkAddressChecksum(test.value, 31)).toEqual(test.is);
+      
+      expect(checkAddressChecksum(test.value, 33)).toEqual(test.is);
     });
   });
+
   it('calls toHex and returns the expected results', () => {
     const tests = [
       { value: 1, expected: '0x1' },
@@ -508,45 +512,23 @@ describe('UtilsTest', () => {
 
     expect(toWei('1', 'Kwei')).toEqual('1000');
 
-    expect(toWei('1', 'babbage')).toEqual('1000');
-
     expect(toWei('1', 'mwei')).toEqual('1000000');
 
     expect(toWei('1', 'Mwei')).toEqual('1000000');
-
-    expect(toWei('1', 'lovelace')).toEqual('1000000');
 
     expect(toWei('1', 'gwei')).toEqual('1000000000');
 
     expect(toWei('1', 'Gwei')).toEqual('1000000000');
 
-    expect(toWei('1', 'shannon')).toEqual('1000000000');
-
-    expect(toWei('1', 'szabo')).toEqual('1000000000000');
-
-    expect(toWei('1', 'finney')).toEqual('1000000000000000');
-
     expect(toWei('1', 'ether')).toEqual('1000000000000000000');
 
     expect(toWei('1', 'kether')).toEqual('1000000000000000000000');
-
-    expect(toWei('1', 'grand')).toEqual('1000000000000000000000');
 
     expect(toWei('1', 'mether')).toEqual('1000000000000000000000000');
 
     expect(toWei('1', 'gether')).toEqual('1000000000000000000000000000');
 
     expect(toWei('1', 'tether')).toEqual('1000000000000000000000000000000');
-
-    expect(toWei('1', 'kwei')).toEqual(toWei('1', 'femtoether'));
-
-    expect(toWei('1', 'szabo')).toEqual(toWei('1', 'microether'));
-
-    expect(toWei('1', 'finney')).toEqual(toWei('1', 'milliether'));
-
-    expect(toWei('1', 'milli')).toEqual(toWei('1', 'milliether'));
-
-    expect(toWei('1', 'milli')).toEqual(toWei('1000', 'micro'));
 
     expect(() => {
       toWei(1, 'wei');
@@ -562,15 +544,9 @@ describe('UtilsTest', () => {
 
     expect(fromWei('1000000000000000000', 'gwei')).toEqual('1000000000');
 
-    expect(fromWei('1000000000000000000', 'szabo')).toEqual('1000000');
-
-    expect(fromWei('1000000000000000000', 'finney')).toEqual('1000');
-
     expect(fromWei('1000000000000000000', 'ether')).toEqual('1');
 
     expect(fromWei('1000000000000000000', 'kether')).toEqual('0.001');
-
-    expect(fromWei('1000000000000000000', 'grand')).toEqual('0.001');
 
     expect(fromWei('1000000000000000000', 'mether')).toEqual('0.000001');
 

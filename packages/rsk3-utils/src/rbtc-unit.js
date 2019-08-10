@@ -7,31 +7,15 @@ var zero = new BN(0);
 var negative1 = new BN(-1);
 
 var unitMap = {
-  'noether': '0', 
   'wei': '1', 
   'kwei': '1000', 
   'Kwei': '1000', 
-  'babbage': '1000', 
-  'femtoether': '1000', 
   'mwei': '1000000', 
   'Mwei': '1000000', 
-  'lovelace': '1000000', 
-  'picoether': '1000000', 
   'gwei': '1000000000', 
   'Gwei': '1000000000', 
-  'shannon': '1000000000', 
-  'nanoether': '1000000000', 
-  'nano': '1000000000', 
-  'szabo': '1000000000000', 
-  'microether': '1000000000000', 
-  'micro': '1000000000000', 
-  'finney': '1000000000000000', 
-  'milliether': '1000000000000000', 
-  'milli': '1000000000000000', 
-  'ether': '1000000000000000000', 
   'ether': '1000000000000000000', 
   'kether': '1000000000000000000000', 
-  'grand': '1000000000000000000000', 
   'mether': '1000000000000000000000000', 
   'gether': '1000000000000000000000000000', 
   'tether': '1000000000000000000000000000000'
@@ -50,12 +34,20 @@ function getValueOfUnit(unitInput) {
   var unitValue = unitMap[unit]; 
 
   if (typeof unitValue !== 'string') {
-    throw new Error('[ethjs-unit] the unit provided ' + unitInput + ' doesn\'t exists, please use the one of the following units ' + JSON.stringify(unitMap, null, 2));
+    throw new Error('[rbtc-unit] the unit provided ' + unitInput + ' doesn\'t exists, please use the one of the following units ' + JSON.stringify(unitMap, null, 2));
   }
 
   return new BN(unitValue, 10);
 }
 
+/**
+ * Returns value of unit in Wei
+ *
+ * @method numberToString
+ * @param {String|Number|Object} arg need to convert to string number
+ * @returns {String} value of the string number
+ * @throws error if the arg is invalid
+ */
 function numberToString(arg) {
   if (typeof arg === 'string') {
     if (!arg.match(/^-?[0-9.]+$/)) {
@@ -75,6 +67,15 @@ function numberToString(arg) {
   throw new Error('while converting number to string, invalid number value \'' + arg + '\' type ' + typeof arg + '.');
 }
 
+/**
+ * Returns value of unit in Wei
+ *
+ * @method fromWei
+ * @param {String|Number} weiInput the value of unit in wei
+ * @param {String} unit the target unit
+ * @param {Object} optionsInput the options of Fuction
+ * @returns {String} value of the unit
+ */
 function fromWei(weiInput, unit, optionsInput) {
   var wei = numberToBN(weiInput); 
   var negative = wei.lt(zero); 
@@ -111,6 +112,15 @@ function fromWei(weiInput, unit, optionsInput) {
   return value;
 }
 
+/**
+ * Returns value of unit in Wei
+ *
+ * @method toWei
+ * @param {String} etherInput the value of unit in ether
+ * @param {String} unit the unit want to convert to
+ * @returns {BigNumber} value of the unit (in wei)
+ * @throws error if the converting value is invalid
+ */
 function toWei(etherInput, unit) {
   var ether = numberToString(etherInput); 
   var base = getValueOfUnit(unit);
@@ -123,13 +133,13 @@ function toWei(etherInput, unit) {
   }
 
   if (ether === '.') {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei, invalid value');
+    throw new Error('[rbtc-unit] while converting number ' + etherInput + ' to wei, invalid value');
   }
 
   // Split it into a whole and fractional part
   var comps = ether.split('.'); 
   if (comps.length > 2) {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei,  too many decimal points');
+    throw new Error('[rbtc-unit] while converting number ' + etherInput + ' to wei,  too many decimal points');
   }
 
   var whole = comps[0],
@@ -142,7 +152,7 @@ function toWei(etherInput, unit) {
     fraction = '0';
   }
   if (fraction.length > baseLength) {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei, too many decimal places');
+    throw new Error('[rbtc-unit] while converting number ' + etherInput + ' to wei, too many decimal places');
   }
 
   while (fraction.length < baseLength) {

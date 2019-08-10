@@ -141,6 +141,7 @@ const isHexStrict = hex => {
   return (isString(hex) || isNumber(hex)) && /^(-)?0x[0-9a-f]*$/i.test(hex);
 };
 
+
 /**
  * Checks if the given string is an address
  *
@@ -152,50 +153,39 @@ const isHexStrict = hex => {
  *
  * @returns {Boolean}
  */
-const isAddress = (address, chainId = null) => {
-  // check if it has the basic requirements of an address
-  if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
-    return false;
-    // If it's ALL lowercase or ALL upppercase
-  } else if (/^(0x|0X)?[0-9a-f]{40}$/.test(address) || /^(0x|0X)?[0-9A-F]{40}$/.test(address)) {
-    return true;
-    // Otherwise check each case
-  } else {
-    return checkAddressChecksum(address, chainId);
-  }
+const isAddress = (address, chainId = 33) => {
+  return /^0x[0-9a-fA-F]{40}$/.test(address) && checkAddressChecksum(address, chainId);
 };
 
 /**
- * Converts to a checksum address
- *
- * @method toChecksumAddress
- *
- * @param {string} address the given HEX address
- *
+ * Convert to a checksummed address.
+ * 
+ * @param {string} address
+ * 
  * @param {number} chain where checksummed address should be valid.
- *
+ * 
  * @returns {string} address with checksum applied.
  */
-const toChecksumAddress = (address, chainId = null) => {
-  if (typeof address !== 'string') {
-    return '';
+function toChecksumAddress(address, chainId = 33) {
+  if (typeof address !== "string") {
+    throw new Error(
+      "stripHexPrefix param must be type 'string', is currently type " +
+      typeof address +
+      ".",
+    );
   }
 
-  if (!/^(0x)?[0-9a-f]{40}$/i.test(address))
-    throw new Error(`Given address "${address}" is not a valid Ethereum address.`);
-
-  const stripAddress = stripHexPrefix(address).toLowerCase();
-  const prefix = chainId != null ? chainId.toString() + '0x' : '';
-  const keccakHash = Hash.keccak256(prefix + stripAddress)
-    .toString('hex')
-    .replace(/^0x/i, '');
+  const strip_address = stripHexPrefix(address).toLowerCase();
+  const prefix = chainId != null ? chainId.toString() + "0x" : "";
+  const keccak_hash = keccak256(prefix + strip_address).toString('hex').replace(/^0x/i, '');
   let checksumAddress = '0x';
-
-  for (let i = 0; i < stripAddress.length; i++)
-    checksumAddress += parseInt(keccakHash[i], 16) >= 8 ? stripAddress[i].toUpperCase() : stripAddress[i];
-
+  for (let i = 0; i < strip_address.length; i++)
+  checksumAddress +=
+      parseInt(keccak_hash[i], 16) >= 8
+        ? strip_address[i].toUpperCase()
+        : strip_address[i];
   return checksumAddress;
-};
+}
 
 /**
  * Removes prefix from address if exists.
@@ -207,7 +197,7 @@ const toChecksumAddress = (address, chainId = null) => {
  * @returns {string} address without prefix
  */
 const stripHexPrefix = (string) => {
-  return string.startsWith('0x') || string.startsWith('0X') ? string.slice(2) : string;
+  return string.slice(0, 2) === "0x" ? string.slice(2) : string;
 };
 
 /**
@@ -221,20 +211,10 @@ const stripHexPrefix = (string) => {
  *
  * @returns {Boolean}
  */
-const checkAddressChecksum = (address, chainId = null) => {
-  const stripAddress = stripHexPrefix(address).toLowerCase();
-  const prefix = chainId != null ? chainId.toString() + '0x' : '';
-  const keccakHash = Hash.keccak256(prefix + stripAddress)
-    .toString('hex')
-    .replace(/^0x/i, '');
-
-  for (let i = 0; i < stripAddress.length; i++) {
-    let output = parseInt(keccakHash[i], 16) >= 8 ? stripAddress[i].toUpperCase() : stripAddress[i];
-    if (stripHexPrefix(address)[i] !== output) {
-      return false;
-    }
-  }
-  return true;
+const checkAddressChecksum = (address, chainId = 33) => {
+  return (
+    toChecksumAddress(address, chainId) === address
+  );
 };
 
 /**
@@ -518,15 +498,15 @@ const bytesToHex = (bytes) => {
  * Takes a number of a unit and converts it to wei.
  *
  * Possible units are:
- *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoether     babbage
- * - mwei       picoether      lovelace
- * - gwei       nanoether      shannon      nano
- * - --         microether     szabo        micro
- * - --         microether     szabo        micro
- * - --         milliether     finney       milli
- * - ether      --             --
- * - kether                    --           grand
+ *   SI Short   
+ * - kwei       
+ * - mwei       
+ * - gwei       
+ * - --        
+ * - --         
+ * - --         
+ * - ether      
+ * - kether                    
  * - mether
  * - gether
  * - tether
@@ -578,14 +558,14 @@ const getUnitValue = (unit) => {
  * Takes a number of wei and converts it to any other ether unit.
  *
  * Possible units are:
- *   SI Short   SI Full        Effigy       Other
- * - kwei       femtoether     babbage
- * - mwei       picoether      lovelace
- * - gwei       nanoether      shannon      nano
- * - --         microether     szabo        micro
- * - --         milliether     finney       milli
- * - ether      --             --
- * - kether                    --           grand
+ *   SI Short   
+ * - kwei       
+ * - mwei       
+ * - gwei       
+ * - --         
+ * - --         
+ * - ether      
+ * - kether                    
  * - mether
  * - gether
  * - tether
