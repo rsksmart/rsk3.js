@@ -133,7 +133,39 @@ describe('UtilsTest', () => {
     });
   });
 
-  it('calls isAddress and returns the expected results', () => {
+
+  it('calls isAddress with chainId 30 (RSK Mainnet) and returns the expected results', () => {
+    const tests = [
+      { value: '0xCD2a3d9F938E13CD947ec05Abc7Fe734DF8dd826', is: true },
+      { value: '0x7986b3DF570230288501EEA3D890bD66948c9B79', is: true },
+      { value: '0x0A3aa774752Ec2042c46548456C094A76c7F3A79', is: true },
+      { value: '0xcf7CdBBB5F7bA79D3FFe74A0Bba13fc0295F6036', is: true },
+      { value: '0x39b12c05e8503356E3A7DF0b7b33EFA4C054c409', is: true },
+      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+    ];
+
+    tests.forEach((test) => {
+      expect(isAddress(test.value, 30)).toEqual(test.is);
+    });
+  });
+
+  it('calls isAddress with chainId 31 (RSK testnet) and returns the expected results', () => {
+    const tests = [
+      { value: '0xCD2a3D9f938e13cD947ec05abC7Fe734Df8DD826', is: true },
+      { value: '0x7986B3Df570230288501eea3D890bD66948c9b79', is: true },
+      { value: '0x0a3aa774752Ec2042C46548456c094A76C7F3a79', is: true },
+      { value: '0xcF7cDbbB5F7BA79D3FFe74a0bBA13fc0295F6036', is: true },
+      { value: '0x39B12C05e8503356E3a7DF0B7b33efa4C054C409', is: true },
+      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+    ];
+
+    tests.forEach((test) => {
+      expect(isAddress(test.value, 31)).toEqual(test.is);
+    });
+  });
+
+
+  it('calls isAddress with chainId 33 (RSK regtest) and returns the expected results', () => {
     const tests = [
       {
         value: () => { },
@@ -144,27 +176,13 @@ describe('UtilsTest', () => {
       /* eslint-enable */
       { value: 'function', is: false },
       { value: {}, is: false },
+
+
       { value: '0xEC4DdeB4380ad69b3e509baad9F158cdF4E4681d', is: true },
       { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
       { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
-      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: false },
       { value: '0xa4DEa4d5c954f5Fd9E87f0e9752911E83A3D18b3', is: true },
-    ];
-
-    tests.forEach((test) => {
-      expect(isAddress(test.value)).toEqual(test.is);
-    });
-  });
-
-  it('calls isAddress with chainId 33 and returns the expected results', () => {
-    const tests = [
-      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
-      { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
-      { value: '0x0a3AA774752ec2042C46548456c094A76C7f3a79', is: true },
-      { value: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036', is: true },
-      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
-      { value: '0xc354D97642FAa06781B76ffb6786F72Cd7746c97', is: true },
-      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: false },
     ];
 
     tests.forEach((test) => {
@@ -172,7 +190,35 @@ describe('UtilsTest', () => {
     });
   });
 
-  it('calls toChecksumAddress with chainId 33 and returns the expected results', () => {
+  it('calls toChecksumAddress with chainId 30 (RSK Mainnet) and returns the expected results', () => {
+    const tests = [
+      { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCD2a3d9F938E13CD947ec05Abc7Fe734DF8dd826' },
+      { value: '7986b3df570230288501eea3d890bd66948c9b79', is: '0x7986b3DF570230288501EEA3D890bD66948c9B79' },
+      { value: '0a3aa774752ec2042c46548456c094a76c7f3a79', is: '0x0A3aa774752Ec2042c46548456C094A76c7F3A79' },
+      { value: 'cf7cdbbb5f7ba79d3ffe74a0bba13fc0295f6036', is: '0xcf7CdBBB5F7bA79D3FFe74A0Bba13fc0295F6036' }
+    ];
+
+
+    tests.forEach((test) => {
+      expect(toChecksumAddress(test.value, 30));
+    });
+  });
+
+  it('calls toChecksumAddress with chainId 31 (RSK testnet) and returns the expected results', () => {
+    const tests = [
+      { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCD2a3D9f938e13cD947ec05abC7Fe734Df8DD826' },
+      { value: '7986b3df570230288501eea3d890bd66948c9b79', is: '0x7986B3Df570230288501eea3D890bD66948c9b79' },
+      { value: '0a3aa774752ec2042c46548456c094a76c7f3a79', is: '0x0a3aa774752Ec2042C46548456c094A76C7F3a79' },
+      { value: 'cf7cdbbb5f7ba79d3ffe74a0bba13fc0295f6036', is: '0xcF7cDbbB5F7BA79D3FFe74a0bBA13fc0295F6036' }
+    ];
+
+
+    tests.forEach((test) => {
+      expect(toChecksumAddress(test.value, 31)).toEqual(test.is);
+    });
+  });
+
+  it('calls toChecksumAddress with chainId 33 (RSK regtest) and returns the expected results', () => {
 
     const tests = [
       { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826' },
@@ -182,23 +228,12 @@ describe('UtilsTest', () => {
     ];
 
     tests.forEach((test) => {
-      expect(toChecksumAddress(test.value,33)).toEqual(test.is);
+      expect(toChecksumAddress(test.value, 33)).toEqual(test.is);
     });
   });
 
-  it('calls toChecksumAddress and returns the expected results', () => {
-    const tests = [
-      { value: 'cd2a3d9f938e13cd947ec05abc7fe734df8dd826', is: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826' },
-      { value: '7986b3df570230288501eea3d890bd66948c9b79', is: '0x7986b3df570230288501EeA3D890bD66948C9B79' },
-      { value: '0a3aa774752ec2042c46548456c094a76c7f3a79', is: '0x0a3AA774752ec2042C46548456c094A76C7f3a79' },
-      { value: 'cf7cdbbb5f7ba79d3ffe74a0bba13fc0295f6036', is: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036' }
-    ];
 
 
-    tests.forEach((test) => {
-      expect(toChecksumAddress(test.value)).toEqual(test.is);
-    });
-  });
 
   it('calls stripHexPrefix and returns the expected results', () => {
     const tests = [
@@ -212,25 +247,45 @@ describe('UtilsTest', () => {
     });
   });
 
-  it('calls checkAddressChecksum and returns the expected results', () => {
+  it('calls checkAddressChecksum with chainId 30 (RSK Mainnet) and returns the expected results', () => {
     const tests = [
-      { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
-      { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
-      { value: '0x0a3AA774752ec2042C46548456c094A76C7f3a79', is: true },
-      { value: '0xCf7CDBBb5f7ba79d3FfE74a0Bba13FC0295F6036', is: true },
-      { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
-      { value: '0xc354D97642FAa06781B76ffb6786F72Cd7746c97', is: true },
+      { value: '0xCD2a3d9F938E13CD947ec05Abc7Fe734DF8dd826', is: true },
+      { value: '0x7986b3DF570230288501EEA3D890bD66948c9B79', is: true },
+      { value: '0x0A3aa774752Ec2042c46548456C094A76c7F3A79', is: true },
+      { value: '0xcf7CdBBB5F7bA79D3FFe74A0Bba13fc0295F6036', is: true },
+      { value: '0x39b12c05e8503356E3A7DF0b7b33EFA4C054c409', is: true },
+      { value: '0xc354D97642FAA06781b76ffB6786f72cD7746C97', is: true },
       { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
       { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: false },
       { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: false },
     ];
 
     tests.forEach((test) => {
-      expect(checkAddressChecksum(test.value,33)).toEqual(test.is);
+
+      expect(checkAddressChecksum(test.value, 30)).toEqual(test.is);
     });
   });
 
-  it('calls checkAddressChecksum with chainId 33 and returns the expected results', () => {
+  it('calls checkAddressChecksum with chainId 31 (RSK testnet) and returns the expected results', () => {
+    const tests = [
+      { value: '0xCD2a3D9f938e13cD947ec05abC7Fe734Df8DD826', is: true },
+      { value: '0x7986B3Df570230288501eea3D890bD66948c9b79', is: true },
+      { value: '0x0a3aa774752Ec2042C46548456c094A76C7F3a79', is: true },
+      { value: '0xcF7cDbbB5F7BA79D3FFe74a0bBA13fc0295F6036', is: true },
+      { value: '0x39B12C05e8503356E3a7DF0B7b33efa4C054C409', is: true },
+      { value: '0xC354d97642fAA06781b76ffB6786F72cd7746C97', is: true },
+      { value: '0xE247a45c287191d435A8a5D72A7C8dc030451E9F', is: false },
+      { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: false },
+      { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: false },
+    ];
+
+    tests.forEach((test) => {
+
+      expect(checkAddressChecksum(test.value, 31)).toEqual(test.is);
+    });
+  });
+
+  it('calls checkAddressChecksum with chainId 33 (RSK regtest) and returns the expected results', () => {
     const tests = [
       { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
       { value: '0x7986b3df570230288501EeA3D890bD66948C9B79', is: true },
@@ -242,14 +297,13 @@ describe('UtilsTest', () => {
       { value: '0x52908400098527886E0F7030069857D2E4169EE7', is: false },
       { value: '0x8617E340B3D01FA5F11F306F4090FD50E238070D', is: false },
     ];
-    console.log(toChecksumAddress('0x407D73d8a49eeb85D32Cf465507dd71d507100c1'))
-    
 
     tests.forEach((test) => {
-      
       expect(checkAddressChecksum(test.value, 33)).toEqual(test.is);
     });
   });
+
+
 
   it('calls toHex and returns the expected results', () => {
     const tests = [
