@@ -91,7 +91,6 @@ const _solidityPack = (type, value, arraySize) => {
         } else {
             size = 40;
         }
-        console.log(utils.toChecksumAddress('0x85F43D8a49eeB85d32Cf465507DD71d507100C1d'));
         if (!utils.isAddress(value)) {
             throw new Error(`${value} is not a valid address, or the checksum is invalid.`);
         }
