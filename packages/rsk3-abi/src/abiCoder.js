@@ -1,8 +1,5 @@
-
-
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
-
 
 export default class AbiCoder {
     /**
@@ -129,7 +126,7 @@ export default class AbiCoder {
         }
 
         const result = this.ethersAbiCoder.decode(outputs, bytes);
-        let returnValues = {};
+        const returnValues = {};
         let decodedValue;
 
         if (isArray(result)) {
@@ -178,8 +175,8 @@ export default class AbiCoder {
         const returnValues = {};
         let topicCount = 0;
         let value;
-        let nonIndexedInputKeys = [];
-        let nonIndexedInputItems = [];
+        const nonIndexedInputKeys = [];
+        const nonIndexedInputItems = [];
 
         if (!isArray(topics)) {
             topics = [topics];
@@ -209,7 +206,7 @@ export default class AbiCoder {
         });
 
         if (data) {
-            let values = this.decodeParameters(nonIndexedInputItems, data);
+            const values = this.decodeParameters(nonIndexedInputItems, data);
 
             let decodedValue;
             nonIndexedInputKeys.forEach((itemKey, index) => {
