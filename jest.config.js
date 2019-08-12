@@ -33,7 +33,6 @@ const config = {
  * @returns {Object}
  */
 module.exports = (moduleNameMapper) => {
-  console.log("process.env", process.env);
     if (moduleNameMapper) {
         config['moduleNameMapper'] = moduleNameMapper;
 
