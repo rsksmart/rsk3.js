@@ -153,8 +153,16 @@ const isHexStrict = hex => {
  *
  * @returns {Boolean}
  */
-const isAddress = (address, chainId = 33) => {
-  return /^0x[0-9a-fA-F]{40}$/.test(address) && checkAddressChecksum(address, chainId);
+const isAddress = (address, chainId = null) => {
+  if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+    return false;
+    // If it's ALL lowercase or ALL upppercase	
+  } else if (/^(0x|0X)?[0-9a-f]{40}$/.test(address) || /^(0x|0X)?[0-9A-F]{40}$/.test(address)) {
+    return true;
+    // Otherwise check each case	
+  } else {
+    return checkAddressChecksum(address, chainId);
+  }
 };
 
 /**
@@ -166,24 +174,24 @@ const isAddress = (address, chainId = 33) => {
  * 
  * @returns {string} address with checksum applied.
  */
-function toChecksumAddress(address, chainId = 33) {
-  if (typeof address !== "string") {
-    throw new Error(
-      "stripHexPrefix param must be type 'string', is currently type " +
-      typeof address +
-      ".",
-    );
+function toChecksumAddress(address, chainId = null) {
+  if (typeof address !== 'string') {
+    return '';
   }
 
-  const strip_address = stripHexPrefix(address).toLowerCase();
-  const prefix = chainId != null ? chainId.toString() + "0x" : "";
-  const keccak_hash = keccak256(prefix + strip_address).toString('hex').replace(/^0x/i, '');
+  if (!/^(0x)?[0-9a-f]{40}$/i.test(address))
+    throw new Error(`Given address "${address}" is not a valid Ethereum address.`);
+
+  const stripAddress = stripHexPrefix(address).toLowerCase();
+  const prefix = chainId != null ? chainId.toString() + '0x' : '';
+  const keccakHash = Hash.keccak256(prefix + stripAddress)
+    .toString('hex')
+    .replace(/^0x/i, '');
   let checksumAddress = '0x';
-  for (let i = 0; i < strip_address.length; i++)
-  checksumAddress +=
-      parseInt(keccak_hash[i], 16) >= 8
-        ? strip_address[i].toUpperCase()
-        : strip_address[i];
+
+  for (let i = 0; i < stripAddress.length; i++)
+    checksumAddress += parseInt(keccakHash[i], 16) >= 8 ? stripAddress[i].toUpperCase() : stripAddress[i];
+
   return checksumAddress;
 }
 
@@ -197,7 +205,7 @@ function toChecksumAddress(address, chainId = 33) {
  * @returns {string} address without prefix
  */
 const stripHexPrefix = (string) => {
-  return string.slice(0, 2) === "0x" ? string.slice(2) : string;
+  return string.startsWith('0x') || string.startsWith('0X') ? string.slice(2) : string;
 };
 
 /**
@@ -211,10 +219,20 @@ const stripHexPrefix = (string) => {
  *
  * @returns {Boolean}
  */
-const checkAddressChecksum = (address, chainId = 33) => {
-  return (
-    toChecksumAddress(address, chainId) === address
-  );
+const checkAddressChecksum = (address, chainId = null) => {
+  const stripAddress = stripHexPrefix(address).toLowerCase();
+  const prefix = chainId != null ? chainId.toString() + '0x' : '';
+  const keccakHash = Hash.keccak256(prefix + stripAddress)
+    .toString('hex')
+    .replace(/^0x/i, '');
+
+  for (let i = 0; i < stripAddress.length; i++) {
+    let output = parseInt(keccakHash[i], 16) >= 8 ? stripAddress[i].toUpperCase() : stripAddress[i];
+    if (stripHexPrefix(address)[i] !== output) {
+      return false;
+    }
+  }
+  return true;
 };
 
 /**

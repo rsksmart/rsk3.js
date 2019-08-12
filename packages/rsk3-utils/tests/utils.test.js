@@ -182,7 +182,7 @@ describe('UtilsTest', () => {
       { value: '0xCd2a3D9f938e13Cd947EC05aBc7fE734df8dD826', is: true },
       { value: '0x39B12c05e8503356e3a7DF0B7B33EfA4C054c409', is: true },
       { value: '0xa4DEa4d5c954f5Fd9E87f0e9752911E83A3D18b3', is: true },
-      { value: '0xE247A45C287191D435A8A5D72A7C8DC030451E9F', is: false },
+      { value: '0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB', is: false },
     ];
 
     tests.forEach((test) => {
