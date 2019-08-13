@@ -11,7 +11,7 @@ import BN from 'bn.js';
 import Hash from 'eth-lib/lib/hash';
 
 import {soliditySha3} from './soliditySha3';
-import * as ethjsUnit from './rbtc-unit';
+import * as ethjsUnit from './rbtcUnit';
 const {unitMap} = ethjsUnit;
 
 // TODO: Let's try to write all functions in this file
@@ -221,8 +221,9 @@ const checkAddressChecksum = (address, chainId = null) => {
         .toString('hex')
         .replace(/^0x/i, '');
 
-    for (const [i, element] of stripAddress.entries()) {
-        const output = parseInt(keccakHash[i], 16) >= 8 ? element.toUpperCase() : element;
+    // eslint-disable-next-line unicorn/no-for-loop
+    for (let i = 0; i < stripAddress.length; i++) {
+        const output = parseInt(keccakHash[i], 16) >= 8 ? stripAddress[i].toUpperCase() : stripAddress[i];
         if (stripHexPrefix(address)[i] !== output) {
             return false;
         }

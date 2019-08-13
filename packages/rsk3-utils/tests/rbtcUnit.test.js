@@ -1,4 +1,4 @@
-import {toWei, fromWei, numberToString, getValueOfUnit} from '../src/rbtc-unit.js';
+import {toWei, fromWei, numberToString, getValueOfUnit} from '../src/rbtcUnit.js';
 import BigNumber from 'bn.js';
 
 describe('toWei', function() {
