@@ -36,7 +36,7 @@
                 "case": {
                     "kebabCase": true,
                     "camelCase": true,
-			        "pascalCase": true,
+			        "pascalCase": true
                 }
             }
         ],
@@ -56,7 +56,7 @@
             "error",
             "single",
             {
-                "avoidEscape": true
+                "avoidEscape": false
             }
         ],
         "semi": [
