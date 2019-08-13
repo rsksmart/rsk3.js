@@ -32,7 +32,7 @@
         "unicorn/filename-case": [
             "error",
             {
-                "case": "pascalCase"
+                "case": "camelCase"
             }
         ],
         "prettier/prettier": "error",

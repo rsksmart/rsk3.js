@@ -1,8 +1,9 @@
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import map from 'lodash/map';
+import has from 'lodash/has';
 import BN from 'bn.js';
-import * as utils from './index.js';
+import * as utils from '.';
 
 const _elementaryName = (name) => {
     if (name.startsWith('int[')) {
@@ -164,13 +165,10 @@ const _processSoliditySha3Arguments = (argument) => {
     // if type is given
     if (
         isObject(argument) &&
-        (argument.hasOwnProperty('v') ||
-            argument.hasOwnProperty('t') ||
-            argument.hasOwnProperty('value') ||
-            argument.hasOwnProperty('type'))
+        (has(argument, 'v') || has(argument, 't') || has(argument, 'value') || has(argument, 'type'))
     ) {
-        type = argument.hasOwnProperty('t') ? argument.t : argument.type;
-        value = argument.hasOwnProperty('v') ? argument.v : argument.value;
+        type = has(argument, 't') ? argument.t : argument.type;
+        value = has(argument, 'v') ? argument.v : argument.value;
 
         // otherwise try to guess the type
     } else {

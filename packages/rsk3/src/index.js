@@ -13,9 +13,12 @@ export default class Web3 {
      * @constructor
      */
     constructor(provider, net, options = {}) {
+        // eslint-disable-next-line constructor-super
         super(provider, options, null, net);
 
+        // eslint-disable-next-line no-undef
         this.eth = new Eth(this.currentProvider, net, options);
+        // eslint-disable-next-line no-undef
         this.shh = new Shh(this.currentProvider, net, options);
         this.utils = Utils;
         this.version = version;
@@ -241,7 +244,7 @@ export default class Web3 {
             },
             Personal: (provider, options, net) => {
                 return new Personal(providerResolver.resolve(provider, net), options);
-            },
+            }
         };
     }
 }
