@@ -29,15 +29,10 @@
         "no-useless-constructor": 0,
         "no-new": 0,
         "standard/no-callback-literal": 0,
-        "no-useless-catch":0,
         "unicorn/filename-case": [
             "error",
             {
-                "case": {
-                    "kebabCase": true,
-                    "camelCase": true,
-                    "pascalCase": true
-                }
+                "case": "camelCase"
             }
         ],
         "prettier/prettier": "error",
