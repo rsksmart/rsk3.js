@@ -5,7 +5,7 @@
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chrisli30/rsk3.js/tree/master/packages/rsk3-utils"
+    "url": "git+https://github.com/rootstock/rsk3.js.git"
   },
   "engines": {
     "node": ">=8.11.3"
