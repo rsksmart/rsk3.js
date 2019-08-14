@@ -11,7 +11,6 @@
     "node": ">=8.11.3"
   },
   "license": "LGPL-3.0",
-  "main": "src/index.js",
   "module": "dist/rsk3-net.esm.js",
   "browser": "dist/rsk3-net.umd.js",
   "scripts": {
@@ -27,6 +26,7 @@
   "files": [],
   "author": "xuhuang <xuhuang@theapollobox.com.cn>",
   "homepage": "https://github.com/chrisli30/rsk-web3.js/tree/master/packages/rsk3#readme",
+  "main": "src/index.js",
   "bugs": {
     "url": "https://github.com/rootstock/rsk3.js/issues"
   }

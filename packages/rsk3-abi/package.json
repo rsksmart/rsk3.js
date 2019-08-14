@@ -24,10 +24,6 @@
   "author": "xuhuang <xuhuang@theapollobox.com.cn>",
   "homepage": "https://github.com/chrisli30/rsk-web3.js/tree/master/packages/rsk3-abi#readme",
   "main": "lib/rsk3-abi.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
   "bugs": {
     "url": "https://github.com/rootstock/rsk3.js/issues"
   }
