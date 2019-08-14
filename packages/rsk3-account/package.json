@@ -11,7 +11,22 @@
     "scripts": {
         "test": "jest"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@babel/runtime": "^7.3.1",
+        "browserify-cipher": "^1.0.1",
+        "eth-lib": "0.2.8",
+        "lodash": "^4.17.11",
+        "pbkdf2": "^3.0.17",
+        "randombytes": "^2.1.0",
+        "scryptsy": "2.1.0",
+        "semver": "6.2.0",
+        "uuid": "3.3.2",
+        "web3-core": "2.0.0-alpha.1",
+        "web3-core-helpers": "2.0.0-alpha.1",
+        "web3-core-method": "2.0.0-alpha.1",
+        "web3-providers": "2.0.0-alpha.1",
+        "web3-utils": "2.0.0-alpha.1"
+    },
     "devDependencies": {},
     "files": []
 }
