@@ -7,6 +7,7 @@
     "node": ">=8.11.3"
   },
   "scripts": {
+    "install-all": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "lint": "eslint --cache --fix .",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
@@ -16,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisli30/rsk-web3.js.git"
+    "url": "git+https://github.com/rootstock/rsk3.js.git"
   },
   "keywords": [
     "RSK",
@@ -26,9 +27,9 @@
   "author": "RSK Innovation Labs",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/chrisli30/rsk-web3.js/issues"
+    "url": "https://github.com/rootstock/rsk3.js/issues"
   },
-  "homepage": "https://github.com/chrisli30/rsk-web3.js#readme",
+  "homepage": "https://github.com/rootstock/rsk3.js#readme",
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",

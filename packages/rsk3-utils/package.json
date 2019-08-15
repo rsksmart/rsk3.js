@@ -1,29 +1,35 @@
 {
-    "name": "rsk3-utils",
-    "namespace": "RSK",
-    "version": "0.0.1",
-    "description": "Rsk3 module to interact with the RSK nodes networking properties.",
-    "repository": "https://github.com/chrisli30/rsk3.js/tree/master/packages/rsk3-utils",
-    "engines": {
-        "node": ">=8.11.3"
-    },
-    "license": "LGPL-3.0",
-    "scripts": {
-        "test": "jest",
-        "lint": "eslint --cache --fix ."
-    },
-    "dependencies": {
-        "@babel/runtime": "^7.5.5",
-        "bn.js": "^5.0.0",
-        "eth-lib": "^0.2.8",
-        "lodash": "4.17.15",
-        "number-to-bn": "1.7.0",
-        "randombytes": "^2.1.0",
-        "randomhex": "0.1.5",
-        "utf8": "^3.0.0"
-    },
-    "devDependencies": {
-        "crypto-js": "^3.1.9-1"
-    },
-    "files": []
+  "name": "rsk3-utils",
+  "namespace": "RSK",
+  "version": "0.0.1",
+  "description": "Rsk3 module to interact with the RSK nodes networking properties.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rootstock/rsk3.js.git"
+  },
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "license": "LGPL-3.0",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --cache --fix ."
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.5.5",
+    "bn.js": "^5.0.0",
+    "eth-lib": "^0.2.8",
+    "lodash": "4.17.15",
+    "number-to-bn": "1.7.0",
+    "randombytes": "^2.1.0",
+    "randomhex": "0.1.5",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
+  "files": [],
+  
+  "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-utils#readme",
+  "main": "src/index.js"
 }
