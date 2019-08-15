@@ -18,18 +18,16 @@
     "@babel/runtime": "^7.3.1",
     "@types/bn.js": "^4.11.4",
     "lodash": "^4.17.11",
+    "rsk3-utils": "^0.0.1",
+    "rsk3-abi": "^0.0.1",
+    "rsk3-account": "^0.0.1",
     "web3-core": "2.0.0-alpha.1",
     "web3-core-helpers": "2.0.0-alpha.1",
     "web3-core-method": "2.0.0-alpha.1",
     "web3-core-subscriptions": "2.0.0-alpha.1",
-    "web3-eth-abi": "2.0.0-alpha.1",
-    "web3-eth-accounts": "2.0.0-alpha.1",
-    "web3-providers": "2.0.0-alpha.1",
-    "web3-utils": "2.0.0-alpha.1"
+    "web3-providers": "2.0.0-alpha.1"
   },
-  "devDependencies": {},
   "files": [],
-  
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-contract#readme",
   "main": "src/index.js",
   "bugs": {

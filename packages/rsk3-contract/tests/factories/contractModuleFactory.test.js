@@ -1,5 +1,5 @@
-import {AbiCoder} from 'web3-eth-abi';
-import * as Utils from 'web3-utils';
+import {AbiCoder} from 'rsk3-abi';
+import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 
 import MethodOptionsValidator from '../../src/validators/methodOptionsValidator';
@@ -22,8 +22,8 @@ import MethodFactory from '../../src/factories/methodFactory';
 import ContractModuleFactory from '../../src/factories/contractModuleFactory';
 
 // Mocks
-jest.mock('web3-eth-abi');
-jest.mock('web3-utils');
+jest.mock('rsk3-abi');
+jest.mock('rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('../../src/validators/methodOptionsValidator');
 jest.mock('../../src/mappers/methodOptionsMapper');

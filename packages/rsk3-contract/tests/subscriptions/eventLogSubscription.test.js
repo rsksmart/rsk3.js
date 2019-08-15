@@ -1,4 +1,4 @@
-import * as Utils from 'web3-utils';
+import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {GetPastLogsMethod} from 'web3-core-method';
 import {LogSubscription} from 'web3-core-subscriptions';
@@ -8,7 +8,7 @@ import AbiItemModel from '../../src/models/abiItemModel';
 import EventLogSubscription from '../../src/subscriptions/eventLogSubscription';
 
 // Mocks
-jest.mock('web3-utils');
+jest.mock('rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('web3-core-method');
 jest.mock('../../src/abstractContract');

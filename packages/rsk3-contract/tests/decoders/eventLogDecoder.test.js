@@ -1,9 +1,9 @@
-import {AbiCoder} from 'web3-eth-abi';
+import {AbiCoder} from 'rsk3-abi';
 import EventLogDecoder from '../../src/decoders/eventLogDecoder';
 import AbiItemModel from '../../src/models/abiItemModel';
 
 // Mocks
-jest.mock('web3-eth-abi');
+jest.mock('rsk3-abi');
 jest.mock('../../src/models/abiItemModel');
 
 /**
