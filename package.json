@@ -7,7 +7,7 @@
     "node": ">=8.11.3"
   },
   "scripts": {
-    "install-all": "lerna bootstrap --hoist",
+    "install-loc": "lerna bootstrap --force-local",
     "build": "lerna run build",
     "lint": "eslint --cache --fix .",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
