@@ -1,5 +1,5 @@
 import {formatters} from 'web3-core-helpers';
-import * as Utils from 'web3-utils';
+import * as Utils from 'rsk3-utils';
 
 import EventSubscriptionFactory from '../../src/factories/eventSubscriptionFactory';
 import EventLogSubscription from '../../src/subscriptions/eventLogSubscription';
@@ -7,7 +7,7 @@ import AllEventsLogSubscription from '../../src/subscriptions/allEventsLogSubscr
 
 // Mocks
 jest.mock('web3-core-helpers');
-jest.mock('web3-utils');
+jest.mock('rsk3-utils');
 jest.mock('../../src/subscriptions/eventLogSubscription');
 jest.mock('../../src/subscriptions/allEventsLogSubscription');
 

@@ -1,9 +1,9 @@
-import * as Utils from 'web3-utils';
+import * as Utils from 'rsk3-utils';
 import SendContractMethod from '../../src/methods/sendContractMethod';
 import MethodOptionsValidator from '../../src/validators/methodOptionsValidator';
 
 // Mocks
-jest.mock('web3-utils');
+jest.mock('rsk3-utils');
 jest.mock('../../src/methods/sendContractMethod');
 
 /**

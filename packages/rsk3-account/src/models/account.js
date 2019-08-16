@@ -7,7 +7,7 @@ import Hash from 'eth-lib/lib/hash';
 import randomBytes from 'randombytes';
 import {pbkdf2Sync} from 'pbkdf2';
 import {createCipheriv, createDecipheriv} from 'browserify-cipher';
-import {isHexStrict, hexToBytes, randomHex, keccak256} from 'web3-utils';
+import {isHexStrict, hexToBytes, randomHex, keccak256} from 'rsk3-utils';
 
 export default class Account {
     /**

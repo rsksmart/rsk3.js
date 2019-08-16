@@ -1,6 +1,6 @@
-import * as Utils from 'web3-utils';
+import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
-import {AbiCoder} from 'web3-eth-abi';
+import {AbiCoder} from 'rsk3-abi';
 import {AbstractWeb3Module} from 'web3-core';
 import AbiMapper from '../src/mappers/abiMapper';
 import AbiModel from '../src/models/abiModel';
@@ -12,7 +12,7 @@ import EventSubscriptionsProxy from '../src/proxies/eventSubscriptionsProxy';
 import AbstractContract from '../src/abstractContract';
 
 // Mocks
-jest.mock('web3-eth-abi');
+jest.mock('rsk3-abi');
 jest.mock('../src/models/abiModel');
 jest.mock('../src/mappers/abiMapper');
 jest.mock('../src/proxies/methodsProxy');

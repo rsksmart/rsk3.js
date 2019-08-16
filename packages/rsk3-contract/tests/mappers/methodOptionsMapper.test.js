@@ -1,10 +1,10 @@
-import * as Utils from 'web3-utils';
+import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 
 import MethodOptionsMapper from '../../src/mappers/methodOptionsMapper';
 
 // Mocks
-jest.mock('web3-utils');
+jest.mock('rsk3-utils');
 jest.mock('web3-core-helpers');
 
 /**
