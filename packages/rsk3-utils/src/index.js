@@ -1,3 +1,4 @@
+/* eslint no-useless-catch: 0 */
 import numberToBN from 'number-to-bn';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
@@ -12,8 +13,12 @@ import BN from 'bn.js';
 import Hash from 'eth-lib/lib/hash';
 
 import {soliditySha3} from './soliditySha3';
-import * as ethjsUnit from './rbtcUnit';
-const {unitMap} = ethjsUnit;
+import * as rskUnit from './rbtcUnit';
+const bs58 = require('bs58');
+const wallet = require('ethereumjs-wallet');
+const convertHex = require('convert-hex');
+const sha256 = require('js-sha256');
+const {unitMap} = rskUnit;
 
 // TODO: Let's try to write all functions in this file
 // Or, for any function that requires npm library BN, we put them to under bn.js and export here
@@ -602,7 +607,7 @@ const toWei = (number, unit) => {
         throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
     }
 
-    return isBN(number) ? ethjsUnit.toWei(number, unit) : ethjsUnit.toWei(number, unit).toString(10);
+    return isBN(number) ? rskUnit.toWei(number, unit) : rskUnit.toWei(number, unit).toString(10);
 };
 
 /**
@@ -617,10 +622,10 @@ const toWei = (number, unit) => {
  */
 const getUnitValue = (unit) => {
     unit = unit ? unit.toLowerCase() : 'ether';
-    if (!ethjsUnit.unitMap[unit]) {
+    if (!rskUnit.unitMap[unit]) {
         throw new Error(
             `This unit "${unit}" doesn't exist, please use the one of the following units${JSON.stringify(
-                ethjsUnit.unitMap,
+                rskUnit.unitMap,
                 null,
                 2
             )}`
@@ -660,7 +665,7 @@ const fromWei = (number, unit) => {
         throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
     }
 
-    return isBN(number) ? ethjsUnit.fromWei(number, unit) : ethjsUnit.fromWei(number, unit).toString(10);
+    return isBN(number) ? rskUnit.fromWei(number, unit) : rskUnit.fromWei(number, unit).toString(10);
 };
 
 /**
@@ -746,6 +751,70 @@ const getSignatureParameters = (signature) => {
     };
 };
 
+/**
+ * Decode BTC private key to into bypes
+ * @param {string} bitcoinPrivateKey
+ */
+const keyBtcToRskInBytes = (btcPrivateKey) => {
+    var decodedKey = bs58.decode(btcPrivateKey);
+    var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
+    return privKeyBytes;
+};
+
+/**
+ * Convert a BTC private key into RSK private key format
+ * @param {string} btcPrivateKey
+ */
+const privateKeyToRskFormat = (btcPrivateKey) => {
+    const privKeyBytes = keyBtcToRskInBytes(btcPrivateKey);
+    const privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+    return privKeyInRskFormat;
+};
+
+/**
+ * Generate a RSK public address with a BTC private key
+ * @param {string} btcPrivateKey
+ */
+const getRskAddress = (btcPrivateKey) => {
+    const myWallet = wallet.fromPrivateKey(Buffer.from(keyBtcToRskInBytes(btcPrivateKey)));
+    const addressInRskFormat = myWallet.getAddress();
+    return addressInRskFormat.toString('hex');
+};
+
+/**
+ * Generate BTC private key based on Bitcoin network (mainnet, testnet) and RSK wallet public address
+ * @param {string} btcNet MAIN_NET or TEST_NET
+ * @param {string} rskAddress RSK wallet public address
+ */
+const getBtcPrivateKey = (btcNet, rskAddress) => {
+    const addressArray = convertHex.hexToBytes(rskAddress);
+    const partialResult = [];
+    const result = [];
+
+    if (btcNet === 'MAIN_NET') {
+        partialResult.push(0x80);
+    } else {
+        partialResult.push(0xef);
+    }
+
+    for (const element of addressArray) {
+        partialResult.push(element);
+    }
+
+    partialResult.push(0x01);
+    var check = convertHex.hexToBytes(sha256(convertHex.hexToBytes(sha256(partialResult))));
+
+    for (const element of partialResult) {
+        result.push(element);
+    }
+
+    for (var i = 0; i < 4; i++) {
+        result.push(check[i]);
+    }
+
+    return bs58.encode(result);
+};
+
 export {
     randomHex,
     jsonInterfaceMethodToString,
@@ -788,5 +857,8 @@ export {
     padLeft,
     padLeft as leftPad,
     toTwosComplement,
-    getSignatureParameters
+    getSignatureParameters,
+    privateKeyToRskFormat,
+    getRskAddress,
+    getBtcPrivateKey
 };
