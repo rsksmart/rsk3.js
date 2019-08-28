@@ -1,250 +1,59 @@
-import {ProviderDetector, ProvidersModuleFactory} from 'rsk3-providers';
-import * as Utils from 'rsk3-utils';
-import {Network} from 'rsk3-net';
+import {formatters} from 'web3-core-helpers';
+import {Accounts} from 'rsk3-account';
+import {ContractModuleFactory} from 'rsk3-contract';
 import {Personal} from 'rsk3-personal';
-import {version} from '../package.json';
+import {AbiCoder} from 'rsk3-abi';
+import {Network} from 'rsk3-net';
+import * as Utils from 'rsk3-utils';
+import RskTransactionSigner from './signers/transactionSigner';
+import MethodFactory from './factories/methodFactory';
+import SubscriptionsFactory from './factories/subscriptionsFactory';
+import {ProviderResolver} from 'rsk3-providers';
+import RskModule from './rsk3.js';
 
-export default class Web3 {
-    /**
-     * @param {AbstractSocketProvider|HttpProvider|CustomProvider|String} provider
-     * @param {Net} net
-     * @param {Object} options
-     *
-     * @constructor
-     */
-    constructor(provider, net, options = {}) {
-        // eslint-disable-next-line constructor-super
-        super(provider, options, null, net);
+/**
+ * Creates the TransactionSigner class
+ *
+ * @returns {TransactionSigner}
+ * @constructor
+ */
+export function TransactionSigner() {
+    return new RskTransactionSigner(Utils, formatters);
+}
 
-        // eslint-disable-next-line no-undef
-        this.eth = new Eth(this.currentProvider, net, options);
-        // eslint-disable-next-line no-undef
-        this.shh = new Shh(this.currentProvider, net, options);
-        this.utils = Utils;
-        this.version = version;
+/**
+ * Creates the Rsk3 object
+ *
+ * @method Rsk3
+ *
+ * @param {AbstractSocketProvider|HttpProvider|CustomProvider|String} provider
+ * @param {Net} net
+ * @param {Object} options
+ *
+ * @returns {Eth}
+ * @constructor
+ */
+export function Rsk3(provider, net = null, options = {}) {
+    if (!options.transactionSigner || options.transactionSigner.type === 'TransactionSigner') {
+        options.transactionSigner = new TransactionSigner();
     }
 
-    /**
-     * Returns the Accounts module from the Eth module
-     *
-     * @property accounts
-     *
-     * @returns {Accounts}
-     */
-    get accounts() {
-        return this.eth.accounts;
-    }
+    const resolvedProvider = new ProviderResolver().resolve(provider, net);
+    const accounts = new Accounts(resolvedProvider, null, options);
+    const abiCoder = new AbiCoder();
 
-    /**
-     * Sets the defaultGasPrice property on the eth module and also on the shh module
-     *
-     * @property defaultGasPrice
-     *
-     * @param {String} value
-     */
-    set defaultGasPrice(value) {
-        super.defaultGasPrice = value;
-        this.eth.defaultGasPrice = value;
-        this.shh.defaultGasPrice = value;
-    }
-
-    /**
-     * Gets the defaultGasPrice property
-     *
-     * @property defaultGasPrice
-     *
-     * @returns {String|Number} value
-     */
-    get defaultGasPrice() {
-        return super.defaultGasPrice;
-    }
-
-    /**
-     * Sets the defaultGas property on the eth module and also on the shh module
-     *
-     * @property defaultGas
-     *
-     * @param {Number} value
-     */
-    set defaultGas(value) {
-        super.defaultGas = value;
-        this.eth.defaultGas = value;
-        this.shh.defaultGas = value;
-    }
-
-    /**
-     * Gets the defaultGas property
-     *
-     * @property defaultGas
-     *
-     * @returns {String|Number} value
-     */
-    get defaultGas() {
-        return super.defaultGas;
-    }
-
-    /**
-     * Sets the transactionBlockTimeout property on all contracts and on all sub-modules
-     *
-     * @property transactionBlockTimeout
-     *
-     * @param {Number} value
-     */
-    set transactionBlockTimeout(value) {
-        super.transactionBlockTimeout = value;
-        this.eth.transactionBlockTimeout = value;
-        this.shh.transactionBlockTimeout = value;
-    }
-
-    /**
-     * Gets the transactionBlockTimeout property
-     *
-     * @property transactionBlockTimeout
-     *
-     * @returns {Number} value
-     */
-    get transactionBlockTimeout() {
-        return super.transactionBlockTimeout;
-    }
-
-    /**
-     * Sets the transactionConfirmationBlocks property on all contracts and on all sub-modules
-     *
-     * @property transactionConfirmationBlocks
-     *
-     * @param {Number} value
-     */
-    set transactionConfirmationBlocks(value) {
-        super.transactionConfirmationBlocks = value;
-        this.eth.transactionConfirmationBlocks = value;
-        this.shh.transactionConfirmationBlocks = value;
-    }
-
-    /**
-     * Gets the transactionConfirmationBlocks property
-     *
-     * @property transactionConfirmationBlocks
-     *
-     * @returns {Number} value
-     */
-    get transactionConfirmationBlocks() {
-        return super.transactionConfirmationBlocks;
-    }
-
-    /**
-     * Sets the transactionConfirmationBlocks property on all contracts and on all sub-modules
-     *
-     * @property transactionConfirmationBlocks
-     *
-     * @param {Number} value
-     */
-    set transactionPollingTimeout(value) {
-        super.transactionPollingTimeout = value;
-        this.eth.transactionPollingTimeout = value;
-        this.shh.transactionPollingTimeout = value;
-    }
-
-    /**
-     * Gets the transactionPollingTimeout property
-     *
-     * @property transactionPollingTimeout
-     *
-     * @returns {Number} value
-     */
-    get transactionPollingTimeout() {
-        return super.transactionPollingTimeout;
-    }
-
-    /**
-     * Sets the defaultAccount property on the eth module and also on the shh module
-     *
-     * @property defaultAccount
-     *
-     * @param {String} value
-     */
-    set defaultAccount(value) {
-        super.defaultAccount = value;
-        this.eth.defaultAccount = value;
-        this.shh.defaultAccount = value;
-    }
-
-    /**
-     * Gets the defaultAccount property
-     *
-     * @property defaultAccount
-     *
-     * @returns {String} value
-     */
-    get defaultAccount() {
-        return super.defaultAccount;
-    }
-
-    /**
-     * Sets the defaultBlock property on the eth module and also on the shh module
-     *
-     * @property defaultBlock
-     *
-     * @param {Number|String} value
-     */
-    set defaultBlock(value) {
-        super.defaultBlock = value;
-        this.eth.defaultBlock = value;
-        this.shh.defaultBlock = value;
-    }
-
-    /**
-     * Gets the defaultBlock property
-     *
-     * @property defaultBlock
-     *
-     * @returns {String|Number} value
-     */
-    get defaultBlock() {
-        return super.defaultBlock;
-    }
-
-    /**
-     * Sets the provider for all packages
-     *
-     * @method setProvider
-     *
-     * @param {Object|String} provider
-     * @param {Net} net
-     *
-     * @returns {Boolean}
-     */
-    setProvider(provider, net) {
-        return (
-            super.setProvider(provider, net) &&
-            this.eth.setProvider(provider, net) &&
-            this.shh.setProvider(provider, net)
-        );
-    }
-
-    /**
-     * Returns the detected provider
-     *
-     * @returns {Object}
-     */
-    static get givenProvider() {
-        return ProviderDetector.detect();
-    }
-
-    /**
-     * Returns an object with all public web3 modules
-     *
-     * @returns {Object}
-     */
-    static get modules() {
-        const providerResolver = new ProvidersModuleFactory().createProviderResolver();
-
-        return {
-            Net: (provider, options, net) => {
-                return new Network(providerResolver.resolve(provider, net), options);
-            },
-            Personal: (provider, options, net) => {
-                return new Personal(providerResolver.resolve(provider, net), options);
-            }
-        };
-    }
+    return new RskModule(
+        resolvedProvider,
+        new MethodFactory(Utils, formatters),
+        new Network(resolvedProvider, null, options),
+        accounts,
+        new Personal(resolvedProvider, null, accounts, options),
+        abiCoder,
+        Utils,
+        formatters,
+        new SubscriptionsFactory(Utils, formatters),
+        new ContractModuleFactory(Utils, formatters, abiCoder, accounts),
+        options,
+        net
+    );
 }

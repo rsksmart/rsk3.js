@@ -18,7 +18,11 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "bn.js": "^5.0.0",
+    "bs58": "^4.0.1",
+    "convert-hex": "^0.1.0",
     "eth-lib": "^0.2.8",
+    "ethereumjs-wallet": "^0.6.3",
+    "js-sha256": "^0.9.0",
     "lodash": "4.17.15",
     "number-to-bn": "1.7.0",
     "randombytes": "^2.1.0",
@@ -29,7 +33,6 @@
     "crypto-js": "^3.1.9-1"
   },
   "files": [],
-  
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-utils#readme",
   "main": "src/index.js"
 }
