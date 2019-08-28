@@ -34,9 +34,9 @@ import GetUncleMethod from '../../src/methods/getUncleMethod';
 import GetBlockTransactionCountMethod from '../../src/methods/getBlockTransactionCountMethod';
 import GetBlockUncleCountMethod from '../../src/methods/getBlockUncleCountMethod';
 import GetTransactionFromBlockMethod from '../../src/methods/getTransactionFromBlockMethod';
-import EthSignTransactionMethod from '../../src/methods/ethSignTransactionMethod';
-import EthSignMethod from '../../src/methods/ethSignMethod';
-import EthGetAccountsMethod from '../../src/methods/ethGetAccountsMethod';
+import RskSignTransactionMethod from '../../src/methods/rskSignTransactionMethod';
+import RskSignMethod from '../../src/methods/rskSignMethod';
+import RskGetAccountsMethod from '../../src/methods/rskGetAccountsMethod';
 
 jest.mock('rsk3-utils');
 jest.mock('web3-core-helpers');
@@ -66,7 +66,7 @@ describe('MethodFactoryTest', () => {
             getHashrate: GetHashrateMethod,
             isSyncing: IsSyncingMethod,
             getGasPrice: GetGasPriceMethod,
-            getAccounts: EthGetAccountsMethod,
+            getAccounts: RskGetAccountsMethod,
             getBlockNumber: GetBlockNumberMethod,
             getBalance: GetBalanceMethod,
             getStorageAt: GetStorageAtMethod,
@@ -81,9 +81,9 @@ describe('MethodFactoryTest', () => {
             getTransactionReceipt: GetTransactionReceiptMethod,
             getTransactionCount: GetTransactionCountMethod,
             sendSignedTransaction: SendRawTransactionMethod,
-            signTransaction: EthSignTransactionMethod,
+            signTransaction: RskSignTransactionMethod,
             sendTransaction: EthSendTransactionMethod,
-            sign: EthSignMethod,
+            sign: RskSignMethod,
             call: CallMethod,
             estimateGas: EstimateGasMethod,
             submitWork: SubmitWorkMethod,

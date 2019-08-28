@@ -33,9 +33,9 @@ import GetUncleMethod from '../methods/getUncleMethod';
 import GetBlockTransactionCountMethod from '../methods/getBlockTransactionCountMethod';
 import GetBlockUncleCountMethod from '../methods/getBlockUncleCountMethod';
 import GetTransactionFromBlockMethod from '../methods/getTransactionFromBlockMethod';
-import EthSignTransactionMethod from '../methods/ethSignTransactionMethod';
-import EthSignMethod from '../methods/ethSignMethod';
-import EthGetAccountsMethod from '../methods/ethGetAccountsMethod';
+import RskSignTransactionMethod from '../methods/rskSignTransactionMethod';
+import RskSignMethod from '../methods/rskSignMethod';
+import RskGetAccountsMethod from '../methods/rskGetAccountsMethod';
 
 export default class MethodFactory extends AbstractMethodFactory {
     /**
@@ -55,7 +55,7 @@ export default class MethodFactory extends AbstractMethodFactory {
             getHashrate: GetHashrateMethod,
             isSyncing: IsSyncingMethod,
             getGasPrice: GetGasPriceMethod,
-            getAccounts: EthGetAccountsMethod,
+            getAccounts: RskGetAccountsMethod,
             getBlockNumber: GetBlockNumberMethod,
             getBalance: GetBalanceMethod,
             getStorageAt: GetStorageAtMethod,
@@ -70,9 +70,9 @@ export default class MethodFactory extends AbstractMethodFactory {
             getTransactionReceipt: GetTransactionReceiptMethod,
             getTransactionCount: GetTransactionCountMethod,
             sendSignedTransaction: SendRawTransactionMethod,
-            signTransaction: EthSignTransactionMethod,
+            signTransaction: RskSignTransactionMethod,
             sendTransaction: EthSendTransactionMethod,
-            sign: EthSignMethod,
+            sign: RskSignMethod,
             call: CallMethod,
             estimateGas: EstimateGasMethod,
             submitWork: SubmitWorkMethod,

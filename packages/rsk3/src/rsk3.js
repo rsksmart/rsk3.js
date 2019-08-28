@@ -2,7 +2,7 @@ import {AbstractWeb3Module} from 'web3-core';
 
 export default class Rsk3 extends AbstractWeb3Module {
     /**
-     * @param {Web3EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
+     * @param {Rsk3EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
      * @param {MethodFactory} methodFactory
      * @param {Network} net
      * @param {Accounts} accounts

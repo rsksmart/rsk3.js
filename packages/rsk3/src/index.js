@@ -30,7 +30,7 @@ export function TransactionSigner() {
  * @param {Net} net
  * @param {Object} options
  *
- * @returns {Eth}
+ * @returns {Rsk3}
  * @constructor
  */
 export function Rsk3(provider, net = null, options = {}) {

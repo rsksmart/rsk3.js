@@ -1,7 +1,7 @@
 import isString from 'lodash/isString';
 import {SignTransactionMethod} from 'web3-core-method';
 
-export default class EthSignTransactionMethod extends SignTransactionMethod {
+export default class RskSignTransactionMethod extends SignTransactionMethod {
     /**
      * @param {Utils} utils
      * @param {Object} formatters

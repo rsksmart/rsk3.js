@@ -1,6 +1,6 @@
 import {AbstractWeb3Module} from 'web3-core';
 import {GetAccountsMethod} from 'web3-core-method';
-import EthGetAccountsMethod from '../../src/methods/ethGetAccountsMethod';
+import RskGetAccountsMethod from '../../src/methods/rskGetAccountsMethod';
 
 // Mocks
 jest.mock('web3-core');
@@ -8,7 +8,7 @@ jest.mock('web3-core');
 /**
  * EthGetAccountsMethod test
  */
-describe('EthGetAccountsMethodTest', () => {
+describe('RskGetAccountsMethodTest', () => {
     let method, moduleInstanceMock, accountsMock;
 
     beforeEach(() => {
@@ -19,7 +19,7 @@ describe('EthGetAccountsMethodTest', () => {
         moduleInstanceMock = {};
         moduleInstanceMock.accounts = accountsMock;
 
-        method = new EthGetAccountsMethod({}, {}, moduleInstanceMock);
+        method = new RskGetAccountsMethod({}, {}, moduleInstanceMock);
     });
 
     it('constructor check', () => {

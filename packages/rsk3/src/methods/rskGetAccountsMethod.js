@@ -1,6 +1,6 @@
 import {GetAccountsMethod} from 'web3-core-method';
 
-export default class EthGetAccountsMethod extends GetAccountsMethod {
+export default class RskGetAccountsMethod extends GetAccountsMethod {
     /**
      * @param {Utils} utils
      * @param {Object} formatters

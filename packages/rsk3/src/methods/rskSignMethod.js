@@ -1,6 +1,6 @@
 import {SignMethod} from 'web3-core-method';
 
-export default class EthSignMethod extends SignMethod {
+export default class RskSignMethod extends SignMethod {
     /**
      * @param {Utils} utils
      * @param {Object} formatters

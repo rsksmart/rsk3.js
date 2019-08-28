@@ -1,14 +1,14 @@
 import {formatters} from 'web3-core-helpers';
 import {SignTransactionMethod} from 'web3-core-method';
-import EthSignTransactionMethod from '../../src/methods/ethSignTransactionMethod';
+import RskSignTransactionMethod from '../../src/methods/rskSignTransactionMethod';
 
 // Mocks
 jest.mock('web3-core-helpers');
 
 /**
- * EthSignTransactionMethod test
+ * RskSignTransactionMethod test
  */
-describe('EthSignTransactionMethodTest', () => {
+describe('RskSignTransactionMethodTest', () => {
     let method, moduleInstanceMock;
 
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe('EthSignTransactionMethodTest', () => {
             })
         };
 
-        method = new EthSignTransactionMethod(null, formatters, moduleInstanceMock);
+        method = new RskSignTransactionMethod(null, formatters, moduleInstanceMock);
     });
 
     it('constructor check', () => {
