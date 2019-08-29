@@ -18,11 +18,23 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "lodash": "^4.17.11"
+    "ethereumjs-tx": "^1.3.7",
+    "lodash": "^4.17.15",
+    "rsk3-abi": "0.0.1",
+    "rsk3-account": "0.0.1",
+    "rsk3-contract": "0.0.1",
+    "rsk3-net": "0.0.1",
+    "rsk3-personal": "0.0.1",
+    "rsk3-providers": "0.0.1",
+    "rsk3-utils": "0.0.1",
+    "rxjs": "^6.4.0",
+    "web3-core": "2.0.0-alpha.1",
+    "web3-core-helpers": "2.0.0-alpha.1",
+    "web3-core-method": "2.0.0-alpha.1",
+    "web3-core-subscriptions": "2.0.0-alpha.1"
   },
   "devDependencies": {},
   "files": [],
-  
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3#readme",
   "main": "src/index.js",
   "bugs": {
