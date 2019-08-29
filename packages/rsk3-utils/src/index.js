@@ -811,8 +811,9 @@ const getBtcPrivateKey = (btcNet, rskAddress) => {
     for (var i = 0; i < 4; i++) {
         result.push(check[i]);
     }
+    const bufferResult = Buffer.from(result);
 
-    return bs58.encode(result);
+    return bs58.encode(bufferResult);
 };
 
 export {
