@@ -17,7 +17,10 @@ import {
     asciiToHex,
     toWei,
     fromWei,
-    toTwosComplement
+    toTwosComplement,
+    privateKeyToRskFormat,
+    getRskAddress,
+    getBtcPrivateKey
 } from '../src';
 import BN from 'bn.js';
 import * as CryptoJS from 'crypto-js';
@@ -610,6 +613,51 @@ describe('UtilsTest', () => {
 
         tests.forEach((test) => {
             expect(toTwosComplement(test.value).replace('0x', '')).toEqual(test.expected);
+        });
+    });
+
+    it('calls privateKeyToRskFormat and returns the expected results', () => {
+        const tests = [
+            {
+                value: 'cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q',
+                expected: '6ee4ce349f44b796c684991e93037abb405e703de288d331fc7c90cec7fafd8f'
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(privateKeyToRskFormat(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls getRskAddress and returns the expected results', () => {
+        const tests = [
+            {
+                value: 'cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q',
+                expected: '17b81c99f190d344e07d9dc9cc09f003745e3c69'
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(getRskAddress(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls getBtcPrivateKey and returns the expected results', () => {
+        const tests = [
+            {
+                rskAddress: '17b81c99f190d344e07d9dc9cc09f003745e3c69',
+                btcNet: 'MAIN_NET',
+                expected: '4vVhgUdF79RiMLaPL173iBwJuEjsKUzKMw8X'
+            },
+            {
+                rskAddress: '17b81c99f190d344e07d9dc9cc09f003745e3c69',
+                btcNet: 'TEST_NET',
+                expected: '8KdhtXts5tz3pZgyDeaaYXSBJVQ6W4wiwSRG'
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(getBtcPrivateKey(test.btcNet, test.rskAddress)).toEqual(test.expected);
         });
     });
 });

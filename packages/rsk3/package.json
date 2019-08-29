@@ -25,7 +25,7 @@
     "rsk3-contract": "0.0.1",
     "rsk3-net": "0.0.1",
     "rsk3-personal": "0.0.1",
-    "rsk3-providers": "0.0.1",
+    "web3-providers": "2.0.0-alpha.1",
     "rsk3-utils": "0.0.1",
     "rxjs": "^6.4.0",
     "web3-core": "2.0.0-alpha.1",

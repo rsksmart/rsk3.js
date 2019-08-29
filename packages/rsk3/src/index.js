@@ -8,7 +8,7 @@ import * as Utils from 'rsk3-utils';
 import RskTransactionSigner from './signers/transactionSigner';
 import MethodFactory from './factories/methodFactory';
 import SubscriptionsFactory from './factories/subscriptionsFactory';
-import {ProviderResolver} from 'rsk3-providers';
+import {ProviderResolver} from 'web3-providers';
 import RskModule from './rsk3.js';
 
 /**
