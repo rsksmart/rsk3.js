@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 const yargs=require('yargs');
-const repl=require('repl');
 const {exec}=require('child_process');
 const {Rsk3}=require('../packages/rsk3');
-const privateKey='c85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4'; // Public Key: 0xcd2a3d9f938e13cd947ec05abc7fe734df8dd826
-const privateKey2='0c06818f82e04c564290b32ab86b25676731fc34e9a546108bf109194c8e3aae'; // Public Add: 0x7986b3DF570230288501EEa3D890bd66948C9B79
+// const privateKey='c85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4'; // Public Key: 0xcd2a3d9f938e13cd947ec05abc7fe734df8dd826
+// const privateKey2='0c06818f82e04c564290b32ab86b25676731fc34e9a546108bf109194c8e3aae'; // Public Add: 0x7986b3DF570230288501EEa3D890bd66948C9B79
 const address1='0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826';
-const address2='0x7986b3DF570230288501EEa3D890bd66948C9B79';
+// const address2='0x7986b3DF570230288501EEa3D890bd66948C9B79';
 let argv=yargs
   .option('compile',{
     boolean: true,
@@ -39,42 +38,61 @@ if (argv.compile) {
   })
 }
 
-if (argv.console) {
-}
+
+let newContractInstance = {};
 
 if (argv.migrate) {
   const Coin=require('./build/contracts/Coin.json');
-  const rsk3=new Rsk3('http://localhost:4444');
+  const rsk3=new Rsk3('http://localhost:4444',undefined,{transactionConfirmationBlocks: 1});
   rsk3.defaultAccount=address1;
-  const coinContract=new rsk3.Contract(Coin.abi,{
-    data: Coin.bytecode,
+  rsk3.getBalance(address1).then((result)=>{
+    console.log(`address:${address}`,`balance:${result}`)
   })
+  const coinContract=new rsk3.Contract(Coin.abi)
+  console.log('deploying.........')
   coinContract.deploy({
-    
+    data: Coin.bytecode
   }).send({
-    from: address1,
-    gas: 1500000,
-    gasPrice: '4'
-  },(error,transactionHash) => {
-    console.log(error,transactionHash);
-    let context =  repl.start('>').context;
-    context.coinContract = coinContract;
-  }).on('error',(error) => {
-    console.log(error)
-  })
-    .on('transactionHash',(transactionHash) => {
-      console.log(transactionHash)
+      from: address1,
+      gas: 1500000,
+      gasPrice: '9'
     })
-    .on('receipt',(receipt) => {
-      console.log(receipt.contractAddress)
-    })
-    .on('confirmation',(confirmationNumber,receipt) => {
-      console.log(confirmationNumber,receipt)
-    })
-    .then((newContractInstance) => {
-      
-      console.log(newContractInstance.options.address)
-    }).catch(error=>{
+    .on('error',(error) => {
       console.log(error)
     })
+    .on('transactionHash',(transactionHash) => {
+      console.log('transactionHash',transactionHash)
+    })
+    .on('receipt',(receipt) => {
+      console.log('receipt',receipt);
+      // set contract address
+      console.log('deployed.......')
+      coinContract.options.address = receipt.contractAddress;
+      // call mint
+      console.log('calling mint().........')
+      coinContract.methods.mint('0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826', 100)
+      .send({from:'0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826'})
+      .on('receipt', (receipt) => {
+        console.log(receipt)
+        console.log('call mint() successfully');
+      })
+      .on('error', console.error);
+
+      // call send
+      console.log('calling send() ..........')
+      coinContract.methods.send('0x7986b3DF570230288501EEa3D890bd66948C9B79', 50)
+      .send({from:'0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826'})
+      .on('receipt', (receipt) => {
+          console.log(receipt)
+          console.log('call send() successfully')
+      })
+      .on('error', console.error);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+if (argv.console) {
+  let context = repl.start('>').context;
 }
