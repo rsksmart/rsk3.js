@@ -36,7 +36,9 @@
   "devDependencies": {},
   "files": [],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3#readme",
-  "main": "src/index.js",
+  "main": "dist/rsk3.cjs.js",
+  "module": "dist/rsk3.esm.js",
+  "browser": "dist/rsk3.umd.js",
   "bugs": {
     "url": "https://github.com/rootstock/rsk3.js/issues"
   }

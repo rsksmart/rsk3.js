@@ -1,7 +1,7 @@
 'use strict';
 
-var BN = require('bn.js');
-var numberToBN = require('number-to-bn');
+import BN from 'bn.js';
+import numberToBN from 'number-to-bn';
 
 var zero = new BN(0);
 var negative1 = new BN(-1);
@@ -181,10 +181,4 @@ function toWei(etherInput, unit) {
     return new BN(wei.toString(10), 10);
 }
 
-module.exports = {
-    unitMap: unitMap,
-    numberToString: numberToString,
-    getValueOfUnit: getValueOfUnit,
-    fromWei: fromWei,
-    toWei: toWei
-};
+export {unitMap, numberToString, getValueOfUnit, fromWei, toWei};
