@@ -3,7 +3,6 @@ const yargs=require('yargs');
 const repl=require('repl');
 const {exec}=require('child_process');
 const {Rsk3}=require('../packages/rsk3');
-const Coin=require('./build/contracts/Coin.json');
 const privateKey='c85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4'; // Public Key: 0xcd2a3d9f938e13cd947ec05abc7fe734df8dd826
 const privateKey2='0c06818f82e04c564290b32ab86b25676731fc34e9a546108bf109194c8e3aae'; // Public Add: 0x7986b3DF570230288501EEa3D890bd66948C9B79
 const address1='0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826';
@@ -44,12 +43,14 @@ if (argv.console) {
 }
 
 if (argv.migrate) {
+  const Coin=require('./build/contracts/Coin.json');
   const rsk3=new Rsk3('http://localhost:4444');
   rsk3.defaultAccount=address1;
-  const coinContract=new rsk3.Contract(Coin.abi,address1);
-  console.log(coinContract)
-  coinContract.deploy({
+  const coinContract=new rsk3.Contract(Coin.abi,{
     data: Coin.bytecode,
+  })
+  coinContract.deploy({
+    
   }).send({
     from: address1,
     gas: 1500000,
