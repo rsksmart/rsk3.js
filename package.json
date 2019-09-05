@@ -8,6 +8,7 @@
   },
   "scripts": {
     "install-loc": "lerna bootstrap --force-local",
+    "install-all": "lerna bootstrap",
     "build": "lerna run build",
     "lint": "eslint --cache --fix .",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
