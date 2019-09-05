@@ -2,8 +2,8 @@ import {Network} from 'web3-net';
 import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {ProviderResolver} from 'web3-providers';
-import MethodFactory from './factories/MethodFactory';
-import PersonalModule from './Personal.js';
+import MethodFactory from './factories/methodFactory';
+import PersonalModule from './personal.js';
 
 /**
  * Returns the Personal object

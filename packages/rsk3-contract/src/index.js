@@ -3,7 +3,7 @@ import {formatters} from 'web3-core-helpers';
 import {AbiCoder} from 'rsk3-abi';
 import ContractModuleFactory from './factories/contractModuleFactory';
 
-export AbstractContract from './AbstractContract';
+export AbstractContract from './abstractContract';
 export ContractModuleFactory from './factories/contractModuleFactory';
 
 /**

@@ -12,6 +12,8 @@
   },
   "license": "LGPL-3.0",
   "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "jest"
   },
   "dependencies": {
@@ -29,7 +31,9 @@
   },
   "files": [],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-contract#readme",
-  "main": "src/index.js",
+  "main": "dist/rsk3-contract.cjs.js",
+  "module": "dist/rsk3-contract.esm.js",
+  "browser": "dist/rsk3-contract.umd.js",
   "bugs": {
     "url": "https://github.com/rootstock/rsk3.js/issues"
   }

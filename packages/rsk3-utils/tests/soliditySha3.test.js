@@ -1,6 +1,6 @@
 import isArray from 'lodash/isArray';
 import BN from 'bn.js';
-import {soliditySha3} from '../src/SoliditySha3';
+import {soliditySha3} from '../src';
 
 /**
  * soliditySha3 test
