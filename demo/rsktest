@@ -46,7 +46,7 @@ if (argv.migrate) {
   const rsk3=new Rsk3('http://localhost:4444',undefined,{transactionConfirmationBlocks: 1});
   rsk3.defaultAccount=address1;
   rsk3.getBalance(address1).then((result)=>{
-    console.log(`address:${address}`,`balance:${result}`)
+    console.log(`address:${address1}`,`balance:${result}`)
   })
   const coinContract=new rsk3.Contract(Coin.abi)
   console.log('deploying.........')
