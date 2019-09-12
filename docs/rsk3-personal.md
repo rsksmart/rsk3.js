@@ -1,32 +1,23 @@
 
-web3.eth.personal
+rsk3.personal
 =================
 
-The `web3-eth-personal` package allows you to interact with the Ethereum
+The `rsk3-personal` package allows you to interact with the Rsk
 node\'s accounts.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Many of these functions send sensitive information, like password. Never
 call these functions over a unsecured Websocket or HTTP provider, as
 your password will be sent in plain text!
-:::
 
-``` {.javascript}
-import Web3 from 'web3';
-import {Personal} from 'web3-eth-personal';
+``` javascript
+import {Personal} from 'rsk3-personal';
 
-// "Web3.givenProvider" will be set if in an Ethereum supported browser.
-const personal = new Personal(Web3.givenProvider || 'ws://some.local-or-remote.node:8546', null, options);
+const personal = new Personal('ws://some.local-or-remote.node:8546', null, options);
 
 
-// or using the web3 umbrella package
-const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546', null, options);
-
-// -> web3.eth.personal
+// -> rsk3.personal
 ```
 
 ------------------------------------------------------------------------
@@ -34,38 +25,32 @@ const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546
 options
 -------
 
-An Web3 module does provide several options for configuring the
+A Rsk3 module does provide several options for configuring the
 transaction confirmation worklfow or for defining default values. These
-are the currently available option properties on a Web3 module:
+are the currently available option properties on a Rsk3 module:
 
-### Module Options {#web3-module-options}
+### Module Options
 
-`defaultAccount <web3-module-defaultaccount>`{.interpreted-text
-role="ref"}
+`defaultAccount`
 
-`defaultBlock <web3-module-defaultblock>`{.interpreted-text role="ref"}
+`defaultBlock`
 
-`defaultGas <web3-module-defaultgas>`{.interpreted-text role="ref"}
+`defaultGas`
 
-`defaultGasPrice <web3-module-defaultaccount>`{.interpreted-text
-role="ref"}
+`defaultGasPrice`
 
-`transactionBlockTimeout <web3-module-transactionblocktimeout>`{.interpreted-text
-role="ref"}
+`transactionBlockTimeout`
 
-`transactionConfirmationBlocks <web3-module-transactionconfirmationblocks>`{.interpreted-text
-role="ref"}
+`transactionConfirmationBlocks`
 
-`transactionPollingTimeout <web3-module-transactionpollingtimeout>`{.interpreted-text
-role="ref"}
+`transactionPollingTimeout`
 
-`transactionSigner <web3-module-transactionSigner>`{.interpreted-text
-role="ref"}
+`transactionSigner`
 
 ### Example
 
-``` {.javascript}
-import Web3 from 'web3';
+``` javascript
+import {Rsk3} from 'rsk3';
 
 const options = {
     defaultAccount: '0x0',
@@ -78,18 +63,16 @@ const options = {
     transactionSigner: new CustomTransactionSigner()
 }
 
-const web3 = new Web3('http://localhost:8545', null, options);
+const rsk3 = new Rsk3('http://localhost:8545', null, options);
 ```
 
 ------------------------------------------------------------------------
 
-defaultBlock {#web3-module-defaultblock}
+defaultBlock
 ------------
 
-``` {.javascript}
-web3.defaultBlock
-web3.eth.defaultBlock
-web3.shh.defaultBlock
+``` javascript
+rsk3.defaultBlock
 ...
 ```
 
@@ -99,16 +82,12 @@ required.
 
 Example:
 
--   `web3.eth.getBalance() <eth-getbalance>`{.interpreted-text
-    role="ref"}
--   `web3.eth.getCode() <eth-code>`{.interpreted-text role="ref"}
--   `web3.eth.getTransactionCount() <eth-gettransactioncount>`{.interpreted-text
-    role="ref"}
--   `web3.eth.getStorageAt() <eth-getstorageat>`{.interpreted-text
-    role="ref"}
--   `web3.eth.call() <eth-call>`{.interpreted-text role="ref"}
--   `new web3.eth.Contract() -> myContract.methods.myMethod().call() <contract-call>`{.interpreted-text
-    role="ref"}
+-   `rsk3.getBalance()`
+-   `rsk3.getCode()`
+-   `rsk3.getTransactionCount()`
+-   `rsk3.getStorageAt()`
+-   `rsk3.call()`
+-   `new rsk3.Contract() -> myContract.methods.myMethod().call()`
 
 ### Returns
 
@@ -125,13 +104,11 @@ Default is `"latest"`
 
 ------------------------------------------------------------------------
 
-defaultAccount {#web3-module-defaultaccount}
+defaultAccount
 --------------
 
-``` {.javascript}
-web3.defaultAccount
-web3.eth.defaultAccount
-web3.shh.defaultAccount
+``` javascript
+rsk3.defaultAccount
 ...
 ```
 
@@ -140,18 +117,16 @@ This default address is used as the default `"from"` property, if no
 
 ### Returns
 
-`String` - 20 Bytes: Any Ethereum address. You need to have the private
+`String` - 20 Bytes: Any Rsk address. You need to have the private
 key for that address in your node or keystore. (Default is `undefined`)
 
 ------------------------------------------------------------------------
 
-defaultGasPrice {#web3-module-defaultgasprice}
+defaultGasPrice
 ---------------
 
-``` {.javascript}
-web3.defaultGasPrice
-web3.eth.defaultGasPrice
-web3.shh.defaultGasPrice
+``` javascript
+rsk3.defaultGasPrice
 ...
 ```
 
@@ -163,13 +138,11 @@ The default gas price which will be used for a request.
 
 ------------------------------------------------------------------------
 
-defaultGas {#web3-module-defaultgas}
+defaultGas
 ----------
 
-``` {.javascript}
-web3.defaultGas
-web3.eth.defaultGas
-web3.shh.defaultGas
+``` javascript
+rsk3.defaultGas
 ...
 ```
 
@@ -181,14 +154,11 @@ The default gas which will be used for a request.
 
 ------------------------------------------------------------------------
 
-::: {#web3-module-transactionblocktimeout}
-transactionBlockTimeout =====================
-:::
+transactionBlockTimeout
+----
 
-``` {.javascript}
-web3.transactionBlockTimeout
-web3.eth.transactionBlockTimeout
-web3.shh.transactionBlockTimeout
+``` javascript
+rsk3.transactionBlockTimeout
 ...
 ```
 
@@ -203,14 +173,11 @@ rejects with a timeout error when the timeout got exceeded.
 
 ------------------------------------------------------------------------
 
-::: {#web3-module-transactionconfirmationblocks}
-transactionConfirmationBlocks =====================
-:::
+transactionConfirmationBlocks
+----
 
-``` {.javascript}
-web3.transactionConfirmationBlocks
-web3.eth.transactionConfirmationBlocks
-web3.shh.transactionConfirmationBlocks
+``` javascript
+rsk3.transactionConfirmationBlocks
 ...
 ```
 
@@ -223,14 +190,11 @@ be handled as confirmed.
 
 ------------------------------------------------------------------------
 
-::: {#web3-module-transactionpollingtimeout}
-transactionPollingTimeout =====================
-:::
+transactionPollingTimeout
+-----
 
-``` {.javascript}
-web3.transactionPollingTimeout
-web3.eth.transactionPollingTimeout
-web3.shh.transactionPollingTimeout
+``` javascript
+rsk3.transactionPollingTimeout
 ...
 ```
 
@@ -244,11 +208,11 @@ until the first confirmation happens.
 
 ------------------------------------------------------------------------
 
-transactionSigner {#web3-module-transactionSigner}
+transactionSigner
 -----------------
 
-``` {.javascript}
-web3.eth.transactionSigner
+``` javascript
+rsk3.transactionSigner
 ...
 ```
 
@@ -258,7 +222,7 @@ sub-modules.
 
 The interface of a `TransactionSigner`:
 
-``` {.javascript}
+``` javascript
 interface TransactionSigner {
     sign(txObject: Transaction): Promise<SignedTransaction>
 }
@@ -281,23 +245,13 @@ interface SignedTransaction {
 setProvider
 -----------
 
-``` {.javascript}
-web3.setProvider(myProvider)
-web3.eth.setProvider(myProvider)
-web3.shh.setProvider(myProvider)
+``` javascript
+rsk3.setProvider(myProvider)
 ...
 ```
 
 Will change the provider for its module.
 
-::: {.note}
-::: {.admonition-title}
-Note
-:::
-
-When called on the umbrella package `web3` it will also set the provider
-for all sub modules `web3.eth`, `web3.shh`, etc.
-:::
 
 ### Parameters
 
@@ -309,39 +263,13 @@ for all sub modules `web3.eth`, `web3.shh`, etc.
 
 `Boolean`
 
-### Example
 
-``` {.javascript}
-import Web3 from 'web3';
-
-const web3 = new Web3('http://localhost:8545');
-
-// or
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-
-// change provider
-web3.setProvider('ws://localhost:8546');
-// or
-web3.setProvider(new Web3.providers.WebsocketProvider('ws://localhost:8546'));
-
-// Using the IPC provider in node.js
-const net = require('net');
-const web3 = new Web3('/Users/myuser/Library/Ethereum/geth.ipc', net); // mac os path
-
-// or
-const web3 = new Web3(new Web3.providers.IpcProvider('/Users/myuser/Library/Ethereum/geth.ipc', net)); // mac os path
-// on windows the path is: '\\\\.\\pipe\\geth.ipc'
-// on linux the path is: '/users/myuser/.ethereum/geth.ipc'
-```
-
-------------------------------------------------------------------------
 
 providers
 ---------
 
-``` {.javascript}
-Web3.providers
-Eth.providers
+``` javascript
+Rsk3.providers
 ...
 ```
 
@@ -358,38 +286,16 @@ Contains the current available providers.
 > -   `Object` - `IpcProvider`: The IPC provider is used node.js dapps
 >     when running a local node. Gives the most secure connection.
 
-### Example
-
-``` {.javascript}
-const Web3 = require('web3');
-// use the given Provider, e.g in Mist, or instantiate a new websocket provider
-const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8546');
-// or
-const web3 = new Web3(Web3.givenProvider || new Web3.providers.WebsocketProvider('ws://localhost:8546'));
-
-// Using the IPC provider in node.js
-const net = require('net');
-
-const web3 = new Web3('/Users/myuser/Library/Ethereum/geth.ipc', net); // mac os path
-// or
-const web3 = new Web3(new Web3.providers.IpcProvider('/Users/myuser/Library/Ethereum/geth.ipc', net)); // mac os path
-// on windows the path is: '\\\\.\\pipe\\geth.ipc'
-// on linux the path is: '/users/myuser/.ethereum/geth.ipc'
-```
-
-------------------------------------------------------------------------
 
 givenProvider
 -------------
 
-``` {.javascript}
-Web3.givenProvider
-web3.eth.givenProvider
-web3.shh.givenProvider
+``` javascript
+rsk3.givenProvider
 ...
 ```
 
-When using web3.js in an Ethereum compatible browser, it will set with
+When using rsk3.js in an Rsk compatible browser, it will set with
 the current native provider by that browser. Will return the given
 provider by the (browser) environment, otherwise `null`.
 
@@ -397,21 +303,13 @@ provider by the (browser) environment, otherwise `null`.
 
 `Object`: The given provider set or `false`.
 
-### Example
-
-``` {.javascript}
-web3.setProvider(Web3.givenProvider || 'ws://localhost:8546');
-```
-
 ------------------------------------------------------------------------
 
 currentProvider
 ---------------
 
-``` {.javascript}
-web3.currentProvider
-web3.eth.currentProvider
-web3.shh.currentProvider
+``` javascript
+rsk3.currentProvider
 ...
 ```
 
@@ -421,23 +319,13 @@ Will return the current provider.
 
 `Object`: The current provider set.
 
-### Example
-
-``` {.javascript}
-if (!web3.currentProvider) {
-    web3.setProvider('http://localhost:8545');
-}
-```
-
 ------------------------------------------------------------------------
 
 BatchRequest
 ------------
 
-``` {.javascript}
-new web3.BatchRequest()
-new web3.eth.BatchRequest()
-new web3.shh.BatchRequest()
+``` javascript
+new rsk3.BatchRequest()
 ...
 ```
 
@@ -454,41 +342,25 @@ none
 > -   `add(request)`: To add a request object to the batch call.
 > -   `execute()`: Will execute the batch request.
 
-### Example
-
-``` {.javascript}
-const contract = new web3.eth.Contract(abi, address);
-
-const batch = new web3.BatchRequest();
-batch.add(web3.eth.getBalance.request('0x0000000000000000000000000000000000000000', 'latest'));
-batch.add(contract.methods.balance(address).call.request({from: '0x0000000000000000000000000000000000000000'}));
-batch.execute().then(...);
-```
 
 ------------------------------------------------------------------------
 
-::: {#personal-newaccount}
-newAccount =========
-:::
-
-``` {.javascript}
-web3.eth.personal.newAccount(password, [callback])
+newAccount
+---------
+``` javascript
+rsk3.personal.newAccount(password, [callback])
 ```
 
-Create a new account on the node that Web3 is connected to with its
+Create a new account on the node that Rsk3 is connected to with its
 provider. The RPC method used is `personal_newAccount`. It differs from
-`web3.eth.accounts.create() <accounts-create>`{.interpreted-text
-role="ref"} where the key pair is created only on client and it\'s up to
+`rsk3.accounts.create()` where the key pair is created only on client and it\'s up to
 the developer to manage it.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Never call this function over a unsecured Websocket or HTTP provider, as
 your password will be send in plain text!
-:::
+
 
 ### Parameters
 
@@ -500,8 +372,8 @@ your password will be send in plain text!
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.newAccount('!@superpassword')
+``` javascript
+rsk3.personal.newAccount('!@superpassword')
 .then(console.log);
 > '0x1234567891011121314151617181920212223456'
 ```
@@ -511,28 +383,23 @@ web3.eth.personal.newAccount('!@superpassword')
 sign
 ----
 
-``` {.javascript}
-web3.eth.personal.sign(dataToSign, address, password [, callback])
+``` javascript
+rsk3.personal.sign(dataToSign, address, password [, callback])
 ```
 
 Signs data using a specific account. This data is before UTF-8 HEX
 decoded and enveloped as follows:
 `"\x19Ethereum Signed Message:\n" + message.length + message`.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
 
 ### Parameters
 
 1.  `String` - Data to sign. If String it will be converted using
-    `web3.utils.utf8ToHex <utils-utf8tohex>`{.interpreted-text
-    role="ref"}.
+    `rsk3.utils.utf8ToHex`
 2.  `String` - Address to sign data with.
 3.  `String` - The password of the account to sign data with.
 4.  `Function` - (optional) Optional callback, returns an error object
@@ -544,13 +411,13 @@ highly unsecure.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.sign("Hello world", "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!")
+``` javascript
+rsk3.personal.sign("Hello world", "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!")
 .then(console.log);
 > "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400"
 
 // the below is the same
-web3.eth.personal.sign(web3.utils.utf8ToHex("Hello world"), "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!")
+rsk3.personal.sign(rsk3.utils.utf8ToHex("Hello world"), "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!")
 .then(console.log);
 > "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400"
 ```
@@ -560,8 +427,8 @@ web3.eth.personal.sign(web3.utils.utf8ToHex("Hello world"), "0x11f4d0A3c12e86B4b
 ecRecover
 ---------
 
-``` {.javascript}
-web3.eth.personal.ecRecover(dataThatWasSigned, signature [, callback])
+``` javascript
+rsk3.personal.ecRecover(dataThatWasSigned, signature [, callback])
 ```
 
 Recovers the account that signed the data.
@@ -569,8 +436,7 @@ Recovers the account that signed the data.
 ### Parameters
 
 1.  `String` - Data that was signed. If String it will be converted
-    using `web3.utils.utf8ToHex <utils-utf8tohex>`{.interpreted-text
-    role="ref"}.
+    using `rsk3.utils.utf8ToHex`
 2.  `String` - The signature.
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
@@ -581,8 +447,8 @@ Recovers the account that signed the data.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.ecRecover("Hello world", "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400").then(console.log);
+``` javascript
+rsk3.personal.ecRecover("Hello world", "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400").then(console.log);
 > "0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe"
 ```
 
@@ -591,26 +457,21 @@ web3.eth.personal.ecRecover("Hello world", "0x30755ed65396facf86c53e6217c52b4dae
 signTransaction
 ---------------
 
-``` {.javascript}
-web3.eth.personal.signTransaction(transaction, password [, callback])
+``` javascript
+rsk3.personal.signTransaction(transaction, password [, callback])
 ```
 
 Signs a transaction. This account needs to be unlocked.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
 
 ### Parameters
 
 1.  `Object` - The transaction data to sign
-    `web3.eth.sendTransaction() <eth-sendtransaction>`{.interpreted-text
-    role="ref"} for more.
+    `rsk3.sendTransaction()` for more.
 2.  `String` - The password of the `from` account, to sign the
     transaction with.
 3.  `Function` - (optional) Optional callback, returns an error object
@@ -620,13 +481,12 @@ highly unsecure.
 
 `Promise<Object>` - The RLP encoded transaction. The `raw` property can
 be used to send the transaction using
-`web3.eth.sendSignedTransaction <eth-sendsignedtransaction>`{.interpreted-text
-role="ref"}.
+`rsk3.sendSignedTransaction`
 
 ### Example
 
-``` {.javascript}
-web3.eth.signTransaction({
+``` javascript
+rsk3.signTransaction({
     from: "0xEB014f8c8B418Db6b45774c326A0E64C78914dC0",
     gasPrice: "20000000000",
     gas: "21000",
@@ -656,20 +516,17 @@ web3.eth.signTransaction({
 sendTransaction
 ---------------
 
-``` {.javascript}
-web3.eth.personal.sendTransaction(transactionOptions, password [, callback])
+``` javascript
+rsk3.personal.sendTransaction(transactionOptions, password [, callback])
 ```
 
 This method sends a transaction over the management API.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
+
 
 ### Parameters
 
@@ -684,8 +541,8 @@ highly unsecure.
 
 ### Example
 
-``` {.javascript}
-web3.eth.sendTransaction({
+``` javascript
+rsk3.sendTransaction({
     from: "0xEB014f8c8B418Db6b45774c326A0E64C78914dC0",
     gasPrice: "20000000000",
     gas: "21000",
@@ -701,20 +558,16 @@ web3.eth.sendTransaction({
 unlockAccount
 -------------
 
-``` {.javascript}
-web3.eth.personal.unlockAccount(address, password, unlockDuraction [, callback])
+``` javascript
+rsk3.personal.unlockAccount(address, password, unlockDuraction [, callback])
 ```
 
 Unlocks the given account.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
 
 ### Parameters
 
@@ -732,8 +585,8 @@ otherwise false.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.unlockAccount("0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!", 600)
+``` javascript
+rsk3.personal.unlockAccount("0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "test password!", 600)
 .then(console.log('Account unlocked!'));
 > "Account unlocked!"
 ```
@@ -743,20 +596,16 @@ web3.eth.personal.unlockAccount("0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "t
 lockAccount
 -----------
 
-``` {.javascript}
-web3.eth.personal.lockAccount(address [, callback])
+``` javascript
+rsk3.personal.lockAccount(address [, callback])
 ```
 
 Locks the given account.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
 
 ### Parameters
 
@@ -770,30 +619,28 @@ highly unsecure.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.lockAccount("0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe")
+``` javascript
+rsk3.personal.lockAccount("0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe")
 .then(console.log('Account locked!'));
 > "Account locked!"
 ```
 
 ------------------------------------------------------------------------
 
-getAccounts {#personal-getaccounts}
+getAccounts
 -----------
 
-``` {.javascript}
-web3.eth.personal.getAccounts([callback])
+``` javascript
+rsk3.personal.getAccounts([callback])
 ```
 
 Returns a list of accounts the node controls by using the provider and
 calling the RPC method `personal_listAccounts`. Using
-`web3.eth.accounts.create() <accounts-create>`{.interpreted-text
-role="ref"} will not add accounts into this list. For that use
-`web3.eth.personal.newAccount() <personal-newaccount>`{.interpreted-text
-role="ref"}.
+`rsk3.accounts.create()` will not add accounts into this list. For that use
+`rsk3.personal.newAccount()`
 
 The results are the same as
-`web3.eth.getAccounts() <eth-getaccounts>`{.interpreted-text role="ref"}
+`rsk3.getAccounts()`
 except that calls the RPC method `eth_accounts`.
 
 ### Returns
@@ -802,8 +649,8 @@ except that calls the RPC method `eth_accounts`.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.getAccounts()
+``` javascript
+rsk3.personal.getAccounts()
 .then(console.log);
 > ["0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe", "0xDCc6960376d6C6dEa93647383FfB245CfCed97Cf"]
 ```
@@ -813,8 +660,8 @@ web3.eth.personal.getAccounts()
 importRawKey
 ------------
 
-``` {.javascript}
-web3.eth.personal.importRawKey(privateKey, password)
+``` javascript
+rsk3.personal.importRawKey(privateKey, password)
 ```
 
 Imports the given private key into the key store, encrypting it with the
@@ -822,14 +669,10 @@ passphrase.
 
 Returns the address of the new account.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Sending your account password over an unsecured HTTP RPC connection is
 highly unsecure.
-:::
 
 ### Parameters
 
@@ -842,8 +685,8 @@ highly unsecure.
 
 ### Example
 
-``` {.javascript}
-web3.eth.personal.importRawKey("cd3376bb711cb332ee3fb2ca04c6a8b9f70c316fcdf7a1f44ef4c7999483295e", "password1234")
+``` javascript
+rsk3.personal.importRawKey("cd3376bb711cb332ee3fb2ca04c6a8b9f70c316fcdf7a1f44ef4c7999483295e", "password1234")
 .then(console.log);
 > "0x8f337bf484b2fc75e4b0436645dcc226ee2ac531"
 ```

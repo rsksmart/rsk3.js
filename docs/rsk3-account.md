@@ -1,42 +1,37 @@
 
 
-web3.eth.accounts
+rsk3.account
 =================
 
-The `web3.eth.accounts` contains functions to generate Ethereum accounts
+The `rsk3.account` contains functions to generate Ethereum accounts
 and sign transactions and data.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 This package got NOT audited until now. Take precautions to clear memory
 properly, store the private keys safely, and test transaction receiving
 and sending functionality properly before using in production!
-:::
 
-``` {.javascript}
-import {Accounts} from 'web3-eth-accounts';
+``` javascript
+import {Accounts} from 'rsk3-accounts';
 
-// Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
+// Passing in the eth or rsk3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
 const accounts = new Accounts('ws://localhost:8546', null, options);
 ```
 
 ------------------------------------------------------------------------
 
-create {#accounts-create}
+create
 ------
 
-``` {.javascript}
-web3.eth.accounts.create([entropy]);
+``` javascript
+rsk3.account.create([entropy]);
 ```
 
 Generates an account object with private key and public key. It\'s
 different from
-`web3.eth.personal.newAccount() <personal-newaccount>`{.interpreted-text
-role="ref"} which creates an account over the network on the node via an
+`rsk3.personal.newAccount()` which creates an account over the network on the node via an
 RPC call.
 
 ### Parameters
@@ -44,28 +39,25 @@ RPC call.
 1.  `entropy` - `String` (optional): A random string to increase
     entropy. If given it should be at least 32 characters. If none is
     given a random string will be generated using
-    `randomhex <randomhex>`{.interpreted-text role="ref"}.
+    `randomhex`.
 
-### Returns {#eth-accounts-create-return}
+### Returns
 
 `Object` - The account object with the following structure:
-
-> -   `address` - `string`: The account address.
-> -   `privateKey` - `string`: The accounts private key. This should
->     never be shared or stored unencrypted in localstorage! Also make
->     sure to `null` the memory after usage.
-> -   `signTransaction(tx [, callback])` - `Function`: The function to
->     sign transactions. See
->     `web3.eth.accounts.signTransaction() <eth-accounts-signtransaction>`{.interpreted-text
->     role="ref"} for more.
-> -   `sign(data)` - `Function`: The function to sign transactions. See
->     `web3.eth.accounts.sign() <eth-accounts-sign>`{.interpreted-text
->     role="ref"} for more.
+ -   `address` - `string`: The account address.
+ -   `privateKey` - `string`: The accounts private key. This should
+     never be shared or stored unencrypted in localstorage! Also make
+     sure to `null` the memory after usage.
+ -   `signTransaction(tx [, callback])` - `Function`: The function to
+     sign transactions. See
+     `rsk3.account.signTransaction()` for more.
+ -   `sign(data)` - `Function`: The function to sign transactions. See
+     `rsk3.account.sign()` for more.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.create();
+``` javascript
+rsk3.account.create();
 > {
     address: "0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01",
     privateKey: "0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709",
@@ -74,7 +66,7 @@ web3.eth.accounts.create();
     encrypt: function(password){...}
 }
 
-web3.eth.accounts.create('2435@#@#@±±±±!!!!678543213456764321§34567543213456785432134567');
+rsk3.account.create('2435@#@#@±±±±!!!!678543213456764321§34567543213456785432134567');
 > {
     address: "0xF2CD2AA0c7926743B1D4310b2BC984a0a453c3d4",
     privateKey: "0xd7325de5c2c1cf0009fac77d3d04a9c004b038883446b065871bc3e831dcd098",
@@ -83,7 +75,7 @@ web3.eth.accounts.create('2435@#@#@±±±±!!!!678543213456764321§3456754321345
     encrypt: function(password){...}
 }
 
-web3.eth.accounts.create(web3.utils.randomHex(32));
+rsk3.account.create(rsk3.utils.randomHex(32));
 > {
     address: "0xe78150FaCD36E8EB00291e251424a0515AA1FF05",
     privateKey: "0xcc505ee6067fba3f6fc2050643379e190e087aeffe5d958ab9f2f3ed3800fa4e",
@@ -98,8 +90,8 @@ web3.eth.accounts.create(web3.utils.randomHex(32));
 privateKeyToAccount
 -------------------
 
-``` {.javascript}
-web3.eth.accounts.privateKeyToAccount(privateKey);
+``` javascript
+rsk3.account.privateKeyToAccount(privateKey);
 ```
 
 Creates an account object from a private key.
@@ -112,13 +104,12 @@ Creates an account object from a private key.
 ### Returns
 
 `Object` - The account object with the
-`structure seen here <eth-accounts-create-return>`{.interpreted-text
-role="ref"}.
+`structure seen here`.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.privateKeyToAccount('0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709');
+``` javascript
+rsk3.account.privateKeyToAccount('0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709');
 > {
     address: '0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01',
     privateKey: '0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709',
@@ -130,11 +121,11 @@ web3.eth.accounts.privateKeyToAccount('0x348ce564d427a3311b6536bbcff9390d69395b0
 
 ------------------------------------------------------------------------
 
-signTransaction {#eth-accounts-signtransaction}
+signTransaction
 ---------------
 
-``` {.javascript}
-web3.eth.accounts.signTransaction(tx, privateKey [, callback]);
+``` javascript
+rsk3.account.signTransaction(tx, privateKey [, callback]);
 ```
 
 Signs an Ethereum transaction with a given private key.
@@ -142,17 +133,14 @@ Signs an Ethereum transaction with a given private key.
 ### Parameters
 
 1.  
-
     `tx` - `Object`: The transaction\'s properties object as follows:
 
     :   -   `nonce` - `String`: (optional) The nonce to use when signing
             this transaction. Default will use
-            `web3.eth.getTransactionCount() <eth-gettransactioncount>`{.interpreted-text
-            role="ref"}.
+            `rsk3.getTransactionCount()`.
         -   `chainId` - `String`: (optional) The chain id to use when
             signing this transaction. Default will use
-            `web3.eth.net.getId() <net-getid>`{.interpreted-text
-            role="ref"}.
+            `rsk3.net.getId()`.
         -   `to` - `String`: (optional) The receiver of the transaction,
             can be empty when deploying a contract.
         -   `data` - `String`: (optional) The call data of the
@@ -161,8 +149,7 @@ Signs an Ethereum transaction with a given private key.
             in wei.
         -   `gasPrice` - `String`: (optional) The gas price set by this
             transaction, if empty, it will use
-            `web3.eth.gasPrice() <eth-gasprice>`{.interpreted-text
-            role="ref"}
+            `rsk3.gasPrice()`
         -   `gas` - `String`: The gas provided by the transaction.
 
 2.  `privateKey` - `String`: The private key to sign with.
@@ -179,15 +166,14 @@ Signs an Ethereum transaction with a given private key.
     -   `v` - `String`: Recovery value + 27
     -   `rawTransaction` - `String`: The RLP encoded transaction, ready
         to be send using
-        `web3.eth.sendSignedTransaction <eth-sendsignedtransaction>`{.interpreted-text
-        role="ref"}.
+        `rsk3.sendSignedTransaction`.
     -   `transactionHash` - `String`: The transaction hash for the RLP
         encoded transaction.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.signTransaction({
+``` javascript
+rsk3.account.signTransaction({
     to: '0xF0109fC8DF283027b6285cc889F5aA624EaC1F55',
     value: '1000000000',
     gas: 2000000
@@ -202,7 +188,7 @@ web3.eth.accounts.signTransaction({
     transactionHash: '0xde8db924885b0803d2edc335f745b2b8750c8848744905684c20b987443a9593'
 }
 
-web3.eth.accounts.signTransaction({
+rsk3.account.signTransaction({
     to: '0xF0109fC8DF283027b6285cc889F5aA624EaC1F55',
     value: '1000000000',
     gas: 2000000,
@@ -226,8 +212,8 @@ web3.eth.accounts.signTransaction({
 recoverTransaction
 ------------------
 
-``` {.javascript}
-web3.eth.accounts.recoverTransaction(rawTransaction);
+``` javascript
+rsk3.account.recoverTransaction(rawTransaction);
 ```
 
 Recovers the Ethereum address which was used to sign the given RLP
@@ -243,8 +229,8 @@ encoded transaction.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.recoverTransaction('0xf86180808401ef364594f0109fc8df283027b6285cc889f5aa624eac1f5580801ca031573280d608f75137e33fc14655f097867d691d5c4c44ebe5ae186070ac3d5ea0524410802cdc025034daefcdfa08e7d2ee3f0b9d9ae184b2001fe0aff07603d9');
+``` javascript
+rsk3.account.recoverTransaction('0xf86180808401ef364594f0109fc8df283027b6285cc889f5aa624eac1f5580801ca031573280d608f75137e33fc14655f097867d691d5c4c44ebe5ae186070ac3d5ea0524410802cdc025034daefcdfa08e7d2ee3f0b9d9ae184b2001fe0aff07603d9');
 > "0xF0109fC8DF283027b6285cc889F5aA624EaC1F55"
 ```
 
@@ -253,13 +239,12 @@ web3.eth.accounts.recoverTransaction('0xf86180808401ef364594f0109fc8df283027b628
 hashMessage
 -----------
 
-``` {.javascript}
-web3.eth.accounts.hashMessage(message);
+``` javascript
+rsk3.account.hashMessage(message);
 ```
 
 Hashes the given message to be passed
-`web3.eth.accounts.recover() <accounts-recover>`{.interpreted-text
-role="ref"} function. The data will be UTF-8 HEX decoded and enveloped
+`rsk3.account.recover()` function. The data will be UTF-8 HEX decoded and enveloped
 as follows:
 `"\x19Ethereum Signed Message:\n" + message.length + message` and hashed
 using keccak256.
@@ -275,22 +260,22 @@ using keccak256.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.hashMessage("Hello World")
+``` javascript
+rsk3.account.hashMessage("Hello World")
 > "0xa1de988600a42c4b4ab089b619297c17d53cffae5d5120d82d8a92d0bb3b78f2"
 
 // the below results in the same hash
-web3.eth.accounts.hashMessage(web3.utils.utf8ToHex("Hello World"))
+rsk3.account.hashMessage(rsk3.utils.utf8ToHex("Hello World"))
 > "0xa1de988600a42c4b4ab089b619297c17d53cffae5d5120d82d8a92d0bb3b78f2"
 ```
 
 ------------------------------------------------------------------------
 
-sign {#eth-accounts-sign}
+sign
 ----
 
-``` {.javascript}
-web3.eth.accounts.sign(data, privateKey);
+``` javascript
+rsk3.account.sign(data, privateKey);
 ```
 
 Signs arbitrary data. This data is before UTF-8 HEX decoded and
@@ -314,8 +299,8 @@ enveloped as follows:
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.sign('Some data', '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318');
+``` javascript
+rsk3.account.sign('Some data', '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318');
 > {
     message: 'Some data',
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
@@ -328,13 +313,13 @@ web3.eth.accounts.sign('Some data', '0x4c0883a69102937d6231471b5dbb6204fe5129617
 
 ------------------------------------------------------------------------
 
-recover {#accounts-recover}
+recover
 -------
 
-``` {.javascript}
-web3.eth.accounts.recover(signatureObject);
-web3.eth.accounts.recover(message, signature [, preFixed]);
-web3.eth.accounts.recover(message, v, r, s [, preFixed]);
+``` javascript
+rsk3.account.recover(signatureObject);
+rsk3.account.recover(message, signature [, preFixed]);
+rsk3.account.recover(message, v, r, s [, preFixed]);
 ```
 
 Recovers the Ethereum address which was used to sign the given data.
@@ -366,8 +351,8 @@ Recovers the Ethereum address which was used to sign the given data.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.recover({
+``` javascript
+rsk3.account.recover({
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1c',
     r: '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd',
@@ -376,11 +361,11 @@ web3.eth.accounts.recover({
 > "0x2c7536E3605D9C16a7a3D7b1898e529396a65c23"
 
 // message, signature
-web3.eth.accounts.recover('Some data', '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c');
+rsk3.account.recover('Some data', '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c');
 > "0x2c7536E3605D9C16a7a3D7b1898e529396a65c23"
 
 // message, v, r, s
-web3.eth.accounts.recover('Some data', '0x1c', '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd', '0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029');
+rsk3.account.recover('Some data', '0x1c', '0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd', '0x6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a029');
 > "0x2c7536E3605D9C16a7a3D7b1898e529396a65c23"
 ```
 
@@ -389,11 +374,11 @@ web3.eth.accounts.recover('Some data', '0x1c', '0xb91467e570a6466aa9e9876cbcd013
 encrypt
 -------
 
-``` {.javascript}
-web3.eth.accounts.encrypt(privateKey, password);
+``` javascript
+rsk3.account.encrypt(privateKey, password);
 ```
 
-Encrypts a private key to the web3 keystore v3 standard.
+Encrypts a private key to the rsk3 keystore v3 standard.
 
 ### Parameters
 
@@ -406,8 +391,8 @@ Encrypts a private key to the web3 keystore v3 standard.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.encrypt('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318', 'test!')
+``` javascript
+rsk3.account.encrypt('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318', 'test!')
 > {
     version: 3,
     id: '04e9bcbb-96fa-497b-94d1-14df4cd20af6',
@@ -434,8 +419,8 @@ web3.eth.accounts.encrypt('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae46
 decrypt
 -------
 
-``` {.javascript}
-web3.eth.accounts.decrypt(keystoreJsonV3, password);
+``` javascript
+rsk3.account.decrypt(keystoreJsonV3, password);
 ```
 
 Decrypts a keystore v3 JSON, and creates the account.
@@ -451,8 +436,8 @@ Decrypts a keystore v3 JSON, and creates the account.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.decrypt({
+``` javascript
+rsk3.account.decrypt({
     version: 3,
     id: '04e9bcbb-96fa-497b-94d1-14df4cd20af6',
     address: '2c7536e3605d9c16a7a3d7b1898e529396a65c23',
@@ -480,25 +465,21 @@ web3.eth.accounts.decrypt({
 }
 ```
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--..
-\_eth\_accounts\_wallet:
-
 wallet
 ------
 
-``` {.javascript}
-web3.eth.accounts.wallet;
+``` javascript
+rsk3.account.wallet;
 ```
 
 Contains an in memory wallet with multiple accounts. These accounts can
 be used when using
-`web3.eth.sendTransaction() <eth-sendtransaction>`{.interpreted-text
-role="ref"}.
+`rsk3.sendTransaction()`.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet;
+``` javascript
+rsk3.account.wallet;
 > Wallet {
     0: {...}, // account by index
     "0xF0109fC8DF283027b6285cc889F5aA624EaC1F55": {...},  // same account by address
@@ -522,8 +503,8 @@ web3.eth.accounts.wallet;
 wallet.create
 -------------
 
-``` {.javascript}
-web3.eth.accounts.wallet.create(numberOfAccounts [, entropy]);
+``` javascript
+rsk3.account.wallet.create(numberOfAccounts [, entropy]);
 ```
 
 Generates one or more accounts in the wallet. If wallets already exist
@@ -543,8 +524,8 @@ they will not be overridden.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.create(2, '54674321§3456764321§345674321§3453647544±±±§±±±!!!43534534534534');
+``` javascript
+rsk3.account.wallet.create(2, '54674321§3456764321§345674321§3453647544±±±§±±±!!!43534534534534');
 > Wallet {
     0: {...},
     "0xF0109fC8DF283027b6285cc889F5aA624EaC1F55": {...},
@@ -558,8 +539,8 @@ web3.eth.accounts.wallet.create(2, '54674321§3456764321§345674321§3453647544�
 wallet.add
 ----------
 
-``` {.javascript}
-web3.eth.accounts.wallet.add(account);
+``` javascript
+rsk3.account.wallet.add(account);
 ```
 
 Adds an account using a private key or account object to the wallet.
@@ -568,8 +549,7 @@ Adds an account using a private key or account object to the wallet.
 
 1.  `account` - `String|Object`: A private key or account object created
     with
-    `web3.eth.accounts.create() <accounts-create>`{.interpreted-text
-    role="ref"}.
+    `rsk3.account.create()`.
 
 ### Returns
 
@@ -577,8 +557,8 @@ Adds an account using a private key or account object to the wallet.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.add('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318');
+``` javascript
+rsk3.account.wallet.add('0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318');
 > {
     index: 0,
     address: '0x2c7536E3605D9C16a7a3D7b1898e529396a65c23',
@@ -588,7 +568,7 @@ web3.eth.accounts.wallet.add('0x4c0883a69102937d6231471b5dbb6204fe5129617082792a
     encrypt: function(password){...}
 }
 
-web3.eth.accounts.wallet.add({
+rsk3.account.wallet.add({
     privateKey: '0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709',
     address: '0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01'
 });
@@ -607,8 +587,8 @@ web3.eth.accounts.wallet.add({
 wallet.remove
 -------------
 
-``` {.javascript}
-web3.eth.accounts.wallet.remove(account);
+``` javascript
+rsk3.account.wallet.remove(account);
 ```
 
 Removes an account from the wallet.
@@ -625,8 +605,8 @@ found.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet;
+``` javascript
+rsk3.account.wallet;
 > Wallet {
     0: {...},
     "0xF0109fC8DF283027b6285cc889F5aA624EaC1F55": {...}
@@ -635,10 +615,10 @@ web3.eth.accounts.wallet;
     ...
 }
 
-web3.eth.accounts.wallet.remove('0xF0109fC8DF283027b6285cc889F5aA624EaC1F55');
+rsk3.account.wallet.remove('0xF0109fC8DF283027b6285cc889F5aA624EaC1F55');
 > true
 
-web3.eth.accounts.wallet.remove(3);
+rsk3.account.wallet.remove(3);
 > false
 ```
 
@@ -647,8 +627,8 @@ web3.eth.accounts.wallet.remove(3);
 wallet.clear
 ------------
 
-``` {.javascript}
-web3.eth.accounts.wallet.clear();
+``` javascript
+rsk3.account.wallet.clear();
 ```
 
 Securely empties the wallet and removes all its accounts.
@@ -663,8 +643,8 @@ none
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.clear();
+``` javascript
+rsk3.account.wallet.clear();
 > Wallet {
     add: function(){},
     remove: function(){},
@@ -681,8 +661,8 @@ web3.eth.accounts.wallet.clear();
 wallet.encrypt
 --------------
 
-``` {.javascript}
-web3.eth.accounts.wallet.encrypt(password);
+``` javascript
+rsk3.account.wallet.encrypt(password);
 ```
 
 Encrypts all wallet accounts to an array of encrypted keystore v3
@@ -699,8 +679,8 @@ objects.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.encrypt('test');
+``` javascript
+rsk3.account.wallet.encrypt('test');
 > [ { version: 3,
     id: 'dcf8ab05-a314-4e37-b972-bf9b86f91372',
     address: '06f702337909c06c82b09b7a22f0a2f0855d1f68',
@@ -729,8 +709,8 @@ web3.eth.accounts.wallet.encrypt('test');
 wallet.decrypt
 --------------
 
-``` {.javascript}
-web3.eth.accounts.wallet.decrypt(keystoreArray, password);
+``` javascript
+rsk3.account.wallet.decrypt(keystoreArray, password);
 ```
 
 Decrypts keystore v3 objects.
@@ -748,8 +728,8 @@ Decrypts keystore v3 objects.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.decrypt([
+``` javascript
+rsk3.account.wallet.decrypt([
   { version: 3,
   id: '83191a81-aaca-451f-b63d-0c5f3b849289',
   address: '06f702337909c06c82b09b7a22f0a2f0855d1f68',
@@ -795,25 +775,21 @@ web3.eth.accounts.wallet.decrypt([
 wallet.save
 -----------
 
-``` {.javascript}
-web3.eth.accounts.wallet.save(password [, keyName]);
+``` javascript
+rsk3.account.wallet.save(password [, keyName]);
 ```
 
 Stores the wallet encrypted and as string in local storage.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Browser only.
-:::
 
 ### Parameters
 
 1.  `password` - `String`: The password to encrypt the wallet.
 2.  `keyName` - `String`: (optional) The key used for the local storage
-    position, defaults to `"web3js_wallet"`.
+    position, defaults to `"rsk3js_wallet"`.
 
 ### Returns
 
@@ -821,8 +797,8 @@ Browser only.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.save('test#!$');
+``` javascript
+rsk3.account.wallet.save('test#!$');
 > true
 ```
 
@@ -831,25 +807,21 @@ web3.eth.accounts.wallet.save('test#!$');
 wallet.load
 -----------
 
-``` {.javascript}
-web3.eth.accounts.wallet.load(password [, keyName]);
+``` javascript
+rsk3.account.wallet.load(password [, keyName]);
 ```
 
 Loads a wallet from local storage and decrypts it.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 Browser only.
-:::
 
 ### Parameters
 
 1.  `password` - `String`: The password to decrypt the wallet.
 2.  `keyName` - `String`: (optional) The key used for the localstorage
-    position, defaults to `"web3js_wallet"`.
+    position, defaults to `"rsk3js_wallet"`.
 
 ### Returns
 
@@ -857,8 +829,8 @@ Browser only.
 
 ### Example
 
-``` {.javascript}
-web3.eth.accounts.wallet.load('test#!$', 'myWalletKey');
+``` javascript
+rsk3.account.wallet.load('test#!$', 'myWalletKey');
 > Wallet {
     0: {...},
     1: {...},

@@ -3,7 +3,7 @@
 rsk3
 ========
 
-The `rsk3` package allows you to interact with an Ethereum
+The `rsk3` allows you to interact with a Rsk
 blockchain itself and the deployed smart contracts.
 
 ``` javascript
@@ -18,7 +18,7 @@ const rsk3 = new Rsk3('ws://some.local-or-remote.node:8546', null, options);
 Note on checksum addresses
 --------------------------
 
-All Ethereum addresses returned by functions of this package are
+All Rsk addresses returned by functions of this package are
 returned as checksum addresses. This means some letters are uppercase
 and some are lowercase. Based on that it will calculate a checksum for
 the address and prove its correctness. Incorrect checksum addresses will
@@ -38,7 +38,7 @@ subscribe
 ---------
 
 For `rsk3.subscribe` see the
-`Subscribe reference documentation < rsk3-subscribe>`
+`Subscribe reference documentation`
 
 ------------------------------------------------------------------------
 
@@ -46,23 +46,16 @@ Contract
 --------
 
 For `rsk3.Contract` see the
-`Contract reference documentation < rsk3-contract>`
+`Contract reference documentation`
 
 ------------------------------------------------------------------------
 
-Iban
-----
-
-For `rsk3.Iban` see the
-`Iban reference documentation < rsk3-iban>`
-
-------------------------------------------------------------------------
 
 personal
 --------
 
 For `rsk3.personal` see the
-`personal reference documentation < rsk3-personal>`
+`personal reference documentation`
 
 ------------------------------------------------------------------------
 
@@ -70,23 +63,16 @@ accounts
 --------
 
 For `rsk3.accounts` see the
-`accounts reference documentation < rsk3-accounts>`
+`accounts reference documentation`
 
 ------------------------------------------------------------------------
 
-ens
----
-
-For `rsk3.ens` see the
-`Ens reference documentation < rsk3-ens>`
-
-------------------------------------------------------------------------
 
 abi
 ---
 
 For `rsk3.abi` see the
-`ABI reference documentation < rsk3-abi>`
+`ABI reference documentation`
 
 ------------------------------------------------------------------------
 
@@ -94,7 +80,7 @@ net
 ---
 
 For `rsk3.net` see the
-`net reference documentation <rsk3-net>`
+`net reference documentation`
 
 ------------------------------------------------------------------------
 
@@ -107,21 +93,21 @@ are the currently available option properties on a Rsk3 module:
 
 ### Module Options 
 
-`defaultAccount <rsk3-module-defaultaccount>`
+`defaultAccount`
 
-`defaultBlock <rsk3-module-defaultblock>`
+`defaultBlock`
 
-`defaultGas <rsk3-module-defaultgas>`
+`defaultGas`
 
-`defaultGasPrice <rsk3-module-defaultaccount>`
+`defaultGasPrice`
 
-`transactionBlockTimeout <rsk3-module-transactionblocktimeout>`
+`transactionBlockTimeout`
 
-`transactionConfirmationBlocks <rsk3-module-transactionconfirmationblocks>`
+`transactionConfirmationBlocks`
 
-`transactionPollingTimeout <rsk3-module-transactionpollingtimeout>`
+`transactionPollingTimeout`
 
-`transactionSigner <rsk3-module-transactionSigner>`
+`transactionSigner`
 
 ### Example
 
@@ -158,12 +144,12 @@ required.
 
 Example:
 
--   `rsk3.getBalance() < rsk3-getbalance>`
--   `rsk3.getCode() < rsk3-code>`
--   `rsk3.getTransactionCount() < rsk3-gettransactioncount>`
--   `rsk3.getStorageAt() < rsk3-getstorageat>`
--   `rsk3.call() < rsk3-call>`
--   `new rsk3.Contract() -> myContract.methods.myMethod().call() <contract-call>`
+-   `rsk3.getBalance()`
+-   `rsk3.getCode()`
+-   `rsk3.getTransactionCount()`
+-   `rsk3.getStorageAt()`
+-   `rsk3.call()`
+-   `new rsk3.Contract() -> myContract.methods.myMethod().call()`
 
 ### Returns
 
@@ -193,7 +179,7 @@ This default address is used as the default `"from"` property, if no
 
 ### Returns
 
-`String` - 20 Bytes: Any Ethereum address. You need to have the private
+`String` - 20 Bytes: Any Rsk address. You need to have the private
 key for that address in your node or keystore. (Default is `undefined`)
 
 ------------------------------------------------------------------------
@@ -624,10 +610,10 @@ last few blocks median gas price. GasPrice is the wei per unit of gas,.
 ### Returns
 
 `Promise<string>` - Number string of the current gas price in
-`wei <what-is-wei>`.
+`wei`.
 
 See the
-`A note on dealing with big numbers in JavaScript <utils-bn>`
+`A note on dealing with big numbers in JavaScript`
 
 ### Example
 
@@ -649,7 +635,7 @@ Will return a list of the unlocked accounts in the Rsk3 wallet or it
 will return the accounts from the currently connected node.
 
 This means you can add accounts with
-`rsk3.accounts.create() <accounts-create>`
+`rsk3.accounts.create()`
  and you will get them returned here.
 
 ### Returns
@@ -701,17 +687,17 @@ Get the balance of an address at a given block.
 1.  `String` - The address to get the balance of.
 2.  `Number|String` - (optional) If you pass this parameter it will not
     use the default block set with
-    `rsk3.defaultBlock < rsk3-defaultblock>`
+    `rsk3.defaultBlock`
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
 ### Returns
 
 `Promise<string>` - The current balance for the given address in
-`wei <what-is-wei>`.
+`wei`.
 
 See the
-`A note on dealing with big numbers in JavaScript <big-numbers-in-javascript>`
+`A note on dealing with big numbers in JavaScript`
 
 ### Example
 
@@ -737,7 +723,7 @@ Get the storage at a specific position of an address.
 2.  `Number` - The index position of the storage.
 3.  `Number|String` - (optional) If you pass this parameter it will not
     use the default block set with
-    `rsk3.defaultBlock < rsk3-defaultblock>`
+    `rsk3.defaultBlock`
 4.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
@@ -768,7 +754,7 @@ Get the code at a specific address.
 1.  `String` - The address to get the code from.
 2.  `Number|String` - (optional) If you pass this parameter it will not
     use the default block set with
-    `rsk3.defaultBlock < rsk3-defaultblock>`
+    `rsk3.defaultBlock`
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
@@ -798,7 +784,7 @@ Returns a block matching the block number or block hash.
 
 1.  `String|Number` - The block number or block hash. Or the string
     `"genesis"`, `"latest"` or `"pending"` as in the
-    `default block parameter < rsk3-defaultblock>`
+    `default block parameter`
 2.  `Boolean` - (optional, default `false`) If `true`, the returned
     block will contain all transactions as objects, if `false` it will
     only contains the transaction hashes.
@@ -889,7 +875,7 @@ Returns the number of transaction in a given block.
 
 1.  `String|Number` - The block number or hash. Or the string
     `"genesis"`, `"latest"` or `"pending"` as in the
-    `default block parameter < rsk3-defaultblock>`
+    `default block parameter`
 2.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
@@ -919,7 +905,7 @@ Returns a blocks uncle by a given uncle index position.
 
 1.  `String|Number` - The block number or hash. Or the string
     `"genesis"`, `"latest"` or `"pending"` as in the
-    `default block parameter < rsk3-defaultblock>`
+    `default block parameter`
 2.  `Number` - The index position of the uncle.
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
@@ -927,7 +913,7 @@ Returns a blocks uncle by a given uncle index position.
 ### Returns
 
 `Promise<object>` - The returned uncle. For a return value see
-`rsk3.getBlock() < rsk3-getblock>`.
+`rsk3.getBlock()`.
 
 An uncle doesn\'t contain individual transactions.
 
@@ -972,9 +958,9 @@ Returns a transaction matching the given transaction hash.
 > -   `to` - `String`: Address of the receiver. `null` when its a
 >     contract creation transaction.
 > -   `value` - `String`: Value transferred in
->     `wei <what-is-wei>`.
+>     `wei`.
 > -   `gasPrice` - `String`: The wei per unit of gas provided by the
->     sender in `wei <what-is-wei>`.
+>     sender in `wei`.
 > -   `gas` - `Number`: Gas provided by the sender.
 > -   `input` - `String`: The data sent along with the transaction.
 
@@ -1030,9 +1016,9 @@ Returns a list of pending transactions.
 > -   `to` - `String`: Address of the receiver. `null` when its a
 >     contract creation transaction.
 > -   `value` - `String`: Value transferred in
->     `wei <what-is-wei>`.
+>     `wei`.
 > -   `gasPrice` - `String`: The wei per unit of gas provided by the
->     sender in `wei <what-is-wei>`.
+>     sender in `wei`.
 > -   `gas` - `Number`: Gas provided by the sender.
 > -   `input` - `String`: The data sent along with the transaction.
 
@@ -1092,7 +1078,7 @@ transactions index position.
 
 1.  `String` - A block number or hash. Or the string `"genesis"`,
     `"latest"` or `"pending"` as in the
-    `default block parameter < rsk3-defaultblock>`
+    `default block parameter`
 2.  `Number` - The transactions index position.
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
@@ -1100,7 +1086,7 @@ transactions index position.
 ### Returns
 
 `Promise<object>` - A transaction object, see
-`rsk3.getTransaction < rsk3-gettransaction-return>`
+`rsk3.getTransaction`
 
 ### Example
 
@@ -1192,7 +1178,7 @@ Get the numbers of transactions sent from this address.
 1.  `String` - The address to get the numbers of transactions from.
 2.  `Number|String` - (optional) If you pass this parameter it will not
     use the default block set with
-    `rsk3.defaultBlock < rsk3-defaultblock>`
+    `rsk3.defaultBlock`
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
@@ -1225,22 +1211,22 @@ Sends a transaction to the network.
 
 :   -   `from` - `String|Number`: The address for the sending account.
         Uses the
-        `rsk3.defaultAccount < rsk3-defaultaccount>` property, if not specified. Or an address or index
+        `rsk3.defaultAccount` property, if not specified. Or an address or index
         of a local wallet in
-        `rsk3.accounts.wallet <rsk3_accounts_wallet>`
+        `rsk3.accounts.wallet`
     -   `to` - `String`: (optional) The destination address of the
         message, left undefined for a contract-creation transaction.
     -   `value` - `Number|String|BN|BigNumber`: (optional) The value
         transferred for the transaction in
-        `wei <what-is-wei>`, also the
+        `wei`, also the
         endowment if it\'s a contract-creation transaction.
     -   `gas` - `Number`: (optional, default: To-Be-Determined) The
         amount of gas to use for the transaction (unused gas is
         refunded).
     -   `gasPrice` - `Number|String|BN|BigNumber`: (optional) The price
         of gas for this transaction in
-        `wei <what-is-wei>`, defaults to
-        `rsk3.gasPrice < rsk3-gasprice>`
+        `wei`, defaults to
+        `rsk3.gasPrice`
     -   `data` - `String`: (optional) Either a [ABI byte
         string](http://solidity.readthedocs.io/en/latest/abi-spec.html)
         containing the data of the function call on a contract, or in
@@ -1255,9 +1241,9 @@ Sends a transaction to the network.
 
 
 The `from` property can also be an address or index from the
-`rsk3.accounts.wallet <rsk3_accounts_wallet>` It will then sign locally using the private key of that
+`rsk3.accounts.wallet` It will then sign locally using the private key of that
 account, and send the transaction via
-`rsk3.sendSignedTransaction() < rsk3-sendsignedtransaction>`
+`rsk3.sendSignedTransaction()`
 
 ### Returns 
 
@@ -1265,7 +1251,7 @@ The **callback** will return the 32 bytes transaction hash.
 
 `PromiEvent`: A
 `promise combined event emitter <promiEvent>` Will be resolved when the transaction
-`receipt < rsk3-gettransactionreceipt-return>` is available. Additionally the following events are
+`receipt` is available. Additionally the following events are
 available:
 
 -   `"transactionHash"` returns `String`: Is fired right after the
@@ -1275,7 +1261,7 @@ available:
 -   `"confirmation"` returns `Number`, `Object`: Is fired for every
     confirmation up to the 12th confirmation. Receives the confirmation
     number as the first and the
-    `receipt < rsk3-gettransactionreceipt-return>` as the second argument. Fired from confirmation 0 on,
+    `receipt` as the second argument. Fired from confirmation 0 on,
     which is the block where its minded.
 -   `"error"` returns `Error`: Is fired if an error occurs during
     sending. If a out of gas error, the second parameter is the receipt.
@@ -1332,7 +1318,7 @@ rsk3.sendSignedTransaction(signedTransactionData [, callback])
 ```
 
 Sends an already signed transaction, generated for example using
-`rsk3.accounts.signTransaction < rsk3-accounts-signtransaction>`
+`rsk3.accounts.signTransaction`
 
 ### Parameters
 
@@ -1344,10 +1330,10 @@ Sends an already signed transaction, generated for example using
 
 `PromiEvent`: A
 `promise combined event emitter <promiEvent>` Will be resolved when the transaction
-`receipt < rsk3-gettransactionreceipt-return>` is available.
+`receipt` is available.
 
 Please see the return values for
-`rsk3.sendTransaction < rsk3-sendtransaction-return>` for details.
+`rsk3.sendTransaction` for details.
 
 ### Example
 
@@ -1398,16 +1384,16 @@ Signs data using a specific account. This account needs to be unlocked.
 ### Parameters
 
 1.  `String` - Data to sign. If String it will be converted using
-    `rsk3.utils.utf8ToHex <utils-utf8tohex>`
+    `rsk3.utils.utf8ToHex`
 2.  `String|Number` - Address to sign data with. Or an address or index
     of a local wallet in
-    `rsk3.accounts.wallet <rsk3_accounts_wallet>`
+    `rsk3.accounts.wallet`
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
 
 The 2. `address` parameter can also be an address or index from the
-`rsk3.accounts.wallet <rsk3_accounts_wallet>` It will then sign locally using the private key of this
+`rsk3.accounts.wallet` It will then sign locally using the private key of this
 account.
 
 
@@ -1444,7 +1430,7 @@ signed locally.
 ### Parameters
 
 1.  `Object` - The transaction data to sign
-    `rsk3.sendTransaction() < rsk3-sendtransaction>` for more.
+    `rsk3.sendTransaction()` for more.
 2.  `string` - The address of the account.
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
@@ -1453,7 +1439,7 @@ signed locally.
 
 `Promise<object>` - The RLP encoded transaction. The `raw` property can
 be used to send the transaction using
-`rsk3.sendSignedTransaction < rsk3-sendsignedtransaction>`
+`rsk3.sendSignedTransaction`
 
 ### Example
 
@@ -1498,11 +1484,11 @@ VM of the node, but never mined into the blockchain.
 ### Parameters
 
 1.  `Object` - A transaction object see
-    `rsk3.sendTransaction < rsk3-sendtransaction-return>`, with the difference that for calls the `from` property
+    `rsk3.sendTransaction`, with the difference that for calls the `from` property
     is optional as well.
 2.  `Number|String` - (optional) If you pass this parameter it will not
     use the default block set with
-    `rsk3.defaultBlock < rsk3-defaultblock>`
+    `rsk3.defaultBlock`
 3.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
 
@@ -1536,7 +1522,7 @@ used.
 ### Parameters
 
 1.  `Object` - A transaction object see
-    `rsk3.sendTransaction < rsk3-sendtransaction-return>`, with the difference that for calls the `from` property
+    `rsk3.sendTransaction`, with the difference that for calls the `from` property
     is optional as well.
 2.  `Function` - (optional) Optional callback, returns an error object
     as first parameter and the result as second.
@@ -1796,7 +1782,7 @@ including the Merkle-proof as described in
 1.  `String` 20 Bytes: The Address of the account or contract.
 2.  `Array` 32 Bytes: Array of storage-keys which should be proofed and
     included. See
-    `rsk3.getStorageAt < rsk3-getStorageAt>`
+    `rsk3.getStorageAt`
 3.  `Number | String | "latest" | "earliest"`: Integer block number, or
     the string \"latest\" or \"earliest\".
 4.  `Function` - (optional) Optional callback, returns an error object
@@ -1807,7 +1793,7 @@ including the Merkle-proof as described in
 `Promise<Object>` - A account object.
 
 > `balance` - The balance of the account. See
-> `rsk3.getBalance < rsk3-getBalance>`.
+> `rsk3.getBalance`.
 > `codeHash` - hash of the code of the account. For a simple Account
 > without code it will return
 > \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\"

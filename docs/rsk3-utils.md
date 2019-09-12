@@ -1,18 +1,18 @@
 
 
-web3.utils
+rsk3.utils
 ==========
 
-This package provides utility functions for Ethereum dapps and other
-web3.js packages.
+This package provides utility functions for Rsk3 dapps and other
+rsk3.js packages.
 
 ------------------------------------------------------------------------
 
 randomHex
 ---------
 
-``` {.javascript}
-web3.utils.randomHex(size)
+``` javascript
+rsk3.utils.randomHex(size)
 ```
 
 The [randomHex](https://github.com/frozeman/randomHex) library to
@@ -31,45 +31,42 @@ byte size.
 
 ### Example
 
-``` {.javascript}
-web3.utils.randomHex(32)
+``` javascript
+rsk3.utils.randomHex(32)
 > "0xa5b9d60f32436310afebcfda832817a68921beb782fabf7915cc0460b443116a"
 
-web3.utils.randomHex(4)
+rsk3.utils.randomHex(4)
 > "0x6892ffc6"
 
-web3.utils.randomHex(2)
+rsk3.utils.randomHex(2)
 > "0x99d6"
 
-web3.utils.randomHex(1)
+rsk3.utils.randomHex(1)
 > "0x9a"
 
-web3.utils.randomHex(0)
+rsk3.utils.randomHex(0)
 > "0x"
 ```
 
 ------------------------------------------------------------------------
 
-BN {#utils-bn}
+BN 
 --
 
-``` {.javascript}
-web3.utils.BN(mixed)
+``` javascript
+rsk3.utils.BN(mixed)
 ```
 
 The [BN.js](https://github.com/indutny/bn.js/) library for calculating
 with big numbers in JavaScript. See the [BN.js
 documentation](https://github.com/indutny/bn.js/) for details.
 
-::: {.note}
-::: {.admonition-title}
+
 Note
-:::
 
 For safe conversion of many types, incl
 [BigNumber.js](http://mikemcl.github.io/bignumber.js/) use
-`utils.toBN <utils-tobn>`{.interpreted-text role="ref"}
-:::
+`utils.toBN`
 
 ### Parameters
 
@@ -82,8 +79,8 @@ For safe conversion of many types, incl
 
 ### Example
 
-``` {.javascript}
-const BN = web3.utils.BN;
+``` javascript
+const BN = rsk3.utils.BN;
 
 new BN(1234).toString();
 > "1234"
@@ -100,8 +97,8 @@ new BN('0xea').toString();
 isBN
 ----
 
-``` {.javascript}
-web3.utils.isBN(bn)
+``` javascript
+rsk3.utils.isBN(bn)
 ```
 
 Checks if a given value is a [BN.js](https://github.com/indutny/bn.js/)
@@ -118,10 +115,10 @@ instance.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 const number = new BN(10);
 
-web3.utils.isBN(number);
+rsk3.utils.isBN(number);
 > true
 ```
 
@@ -130,8 +127,8 @@ web3.utils.isBN(number);
 isBigNumber
 -----------
 
-``` {.javascript}
-web3.utils.isBigNumber(bignumber)
+``` javascript
+rsk3.utils.isBigNumber(bignumber)
 ```
 
 Checks if a given value is a
@@ -148,10 +145,10 @@ Checks if a given value is a
 
 ### Example
 
-``` {.javascript}
+``` javascript
 const number = new BigNumber(10);
 
-web3.utils.isBigNumber(number);
+rsk3.utils.isBigNumber(number);
 > true
 ```
 
@@ -160,21 +157,17 @@ web3.utils.isBigNumber(number);
 keccak256
 ---------
 
-``` {.javascript}
-web3.utils.keccak256(string)
-web3.utils.sha3(string) // ALIAS
+``` javascript
+rsk3.utils.keccak256(string)
+rsk3.utils.sha3(string) // ALIAS
 ```
 
 Will calculate the keccak256 of the input.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 To mimic the keccak256 behaviour of solidity use
-`soliditySha3 <utils-soliditysha3>`{.interpreted-text role="ref"}
-:::
+`soliditySha3`
 
 ### Parameters
 
@@ -186,30 +179,30 @@ To mimic the keccak256 behaviour of solidity use
 
 ### Example
 
-``` {.javascript}
-web3.utils.keccak256('234'); // taken as string
+``` javascript
+rsk3.utils.keccak256('234'); // taken as string
 > "0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79"
 
-web3.utils.keccak256(new BN('234'));
+rsk3.utils.keccak256(new BN('234'));
 > "0xbc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a"
 
-web3.utils.keccak256(234);
+rsk3.utils.keccak256(234);
 > null // can't calculate the hash of a number
 
-web3.utils.keccak256(0xea); // same as above, just the HEX representation of the number
+rsk3.utils.keccak256(0xea); // same as above, just the HEX representation of the number
 > null
 
-web3.utils.keccak256('0xea'); // will be converted to a byte array first, and then hashed
+rsk3.utils.keccak256('0xea'); // will be converted to a byte array first, and then hashed
 > "0x2f20677459120677484f7104c76deb6846a2c071f9b3152c103bb12cd54d1a4a"
 ```
 
 ------------------------------------------------------------------------
 
-soliditySha3 {#utils-soliditysha3}
+soliditySha3
 ------------
 
-``` {.javascript}
-web3.utils.soliditySha3(param1 [, param2, ...])
+``` javascript
+rsk3.utils.soliditySha3(param1 [, param2, ...])
 ```
 
 Will calculate the sha3 of given input parameters in the same way
@@ -238,48 +231,48 @@ packed before being hashed.
 
 ### Example
 
-``` {.javascript}
-web3.utils.soliditySha3('234564535', '0xfff23243', true, -10);
+``` javascript
+rsk3.utils.soliditySha3('234564535', '0xfff23243', true, -10);
 // auto detects:        uint256,      bytes,     bool,   int256
 > "0x3e27a893dc40ef8a7f0841d96639de2f58a132be5ae466d40087a2cfa83b7179"
 
 
-web3.utils.soliditySha3('Hello!%'); // auto detects: string
+rsk3.utils.soliditySha3('Hello!%'); // auto detects: string
 > "0x661136a4267dba9ccdf6bfddb7c00e714de936674c4bdb065a531cf1cb15c7fc"
 
 
-web3.utils.soliditySha3('234'); // auto detects: uint256
+rsk3.utils.soliditySha3('234'); // auto detects: uint256
 > "0x61c831beab28d67d1bb40b5ae1a11e2757fa842f031a2d0bc94a7867bc5d26c2"
 
-web3.utils.soliditySha3(0xea); // same as above
+rsk3.utils.soliditySha3(0xea); // same as above
 > "0x61c831beab28d67d1bb40b5ae1a11e2757fa842f031a2d0bc94a7867bc5d26c2"
 
-web3.utils.soliditySha3(new BN('234')); // same as above
+rsk3.utils.soliditySha3(new BN('234')); // same as above
 > "0x61c831beab28d67d1bb40b5ae1a11e2757fa842f031a2d0bc94a7867bc5d26c2"
 
-web3.utils.soliditySha3({type: 'uint256', value: '234'})); // same as above
+rsk3.utils.soliditySha3({type: 'uint256', value: '234'})); // same as above
 > "0x61c831beab28d67d1bb40b5ae1a11e2757fa842f031a2d0bc94a7867bc5d26c2"
 
-web3.utils.soliditySha3({t: 'uint', v: new BN('234')})); // same as above
+rsk3.utils.soliditySha3({t: 'uint', v: new BN('234')})); // same as above
 > "0x61c831beab28d67d1bb40b5ae1a11e2757fa842f031a2d0bc94a7867bc5d26c2"
 
 
-web3.utils.soliditySha3('0x407D73d8a49eeb85D32Cf465507dd71d507100c1');
+rsk3.utils.soliditySha3('0x407D73d8a49eeb85D32Cf465507dd71d507100c1');
 > "0x4e8ebbefa452077428f93c9520d3edd60594ff452a29ac7d2ccc11d47f3ab95b"
 
-web3.utils.soliditySha3({t: 'bytes', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
+rsk3.utils.soliditySha3({t: 'bytes', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
 > "0x4e8ebbefa452077428f93c9520d3edd60594ff452a29ac7d2ccc11d47f3ab95b" // same result as above
 
 
-web3.utils.soliditySha3({t: 'address', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
+rsk3.utils.soliditySha3({t: 'address', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
 > "0x4e8ebbefa452077428f93c9520d3edd60594ff452a29ac7d2ccc11d47f3ab95b" // same as above, but will do a checksum check, if its multi case
 
 
-web3.utils.soliditySha3({t: 'bytes32', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
+rsk3.utils.soliditySha3({t: 'bytes32', v: '0x407D73d8a49eeb85D32Cf465507dd71d507100c1'});
 > "0x3c69a194aaf415ba5d6afca734660d0a3d45acdc05d54cd1ca89a8988e7625b4" // different result as above
 
 
-web3.utils.soliditySha3({t: 'string', v: 'Hello!%'}, {t: 'int8', v:-23}, {t: 'address', v: '0x85F43D8a49eeB85d32Cf465507DD71d507100C1d'});
+rsk3.utils.soliditySha3({t: 'string', v: 'Hello!%'}, {t: 'int8', v:-23}, {t: 'address', v: '0x85F43D8a49eeB85d32Cf465507DD71d507100C1d'});
 > "0xa13b31627c1ed7aaded5aecec71baf02fe123797fffd45e662eac8e06fbe4955"
 ```
 
@@ -288,8 +281,8 @@ web3.utils.soliditySha3({t: 'string', v: 'Hello!%'}, {t: 'int8', v:-23}, {t: 'ad
 isHex
 -----
 
-``` {.javascript}
-web3.utils.isHex(hex)
+``` javascript
+rsk3.utils.isHex(hex)
 ```
 
 Checks if a given string is a HEX string.
@@ -304,23 +297,23 @@ Checks if a given string is a HEX string.
 
 ### Example
 
-``` {.javascript}
-web3.utils.isHex('0xc1912');
+``` javascript
+rsk3.utils.isHex('0xc1912');
 > true
 
-web3.utils.isHex(0xc1912);
+rsk3.utils.isHex(0xc1912);
 > true
 
-web3.utils.isHex('c1912');
+rsk3.utils.isHex('c1912');
 > true
 
-web3.utils.isHex(345);
+rsk3.utils.isHex(345);
 > true // this is tricky, as 345 can be a a HEX representation or a number, be careful when not having a 0x in front!
 
-web3.utils.isHex('0xZ1912');
+rsk3.utils.isHex('0xZ1912');
 > false
 
-web3.utils.isHex('Hello');
+rsk3.utils.isHex('Hello');
 > false
 ```
 
@@ -329,12 +322,12 @@ web3.utils.isHex('Hello');
 isHexStrict
 -----------
 
-``` {.javascript}
-web3.utils.isHexStrict(hex)
+``` javascript
+rsk3.utils.isHexStrict(hex)
 ```
 
 Checks if a given string is a HEX string. Difference to
-`web3.utils.isHex()` is that it expects HEX to be prefixed with `0x`.
+`rsk3.utils.isHex()` is that it expects HEX to be prefixed with `0x`.
 
 ### Parameters
 
@@ -346,23 +339,23 @@ Checks if a given string is a HEX string. Difference to
 
 ### Example
 
-``` {.javascript}
-web3.utils.isHexStrict('0xc1912');
+``` javascript
+rsk3.utils.isHexStrict('0xc1912');
 > true
 
-web3.utils.isHexStrict(0xc1912);
+rsk3.utils.isHexStrict(0xc1912);
 > false
 
-web3.utils.isHexStrict('c1912');
+rsk3.utils.isHexStrict('c1912');
 > false
 
-web3.utils.isHexStrict(345);
+rsk3.utils.isHexStrict(345);
 > false // this is tricky, as 345 can be a a HEX representation or a number, be careful when not having a 0x in front!
 
-web3.utils.isHexStrict('0xZ1912');
+rsk3.utils.isHexStrict('0xZ1912');
 > false
 
-web3.utils.isHex('Hello');
+rsk3.utils.isHex('Hello');
 > false
 ```
 
@@ -371,11 +364,11 @@ web3.utils.isHex('Hello');
 isAddress
 ---------
 
-``` {.javascript}
-web3.utils.isAddress(address,  [, chainId])
+``` javascript
+rsk3.utils.isAddress(address,  [, chainId])
 ```
 
-Checks if a given string is a valid Ethereum address. It will also check
+Checks if a given string is a valid Rsk3 address. It will also check
 the checksum, if the address has upper and lowercase letters.
 
 ### Parameters
@@ -392,23 +385,23 @@ the checksum, if the address has upper and lowercase letters.
 
 ### Example
 
-``` {.javascript}
-web3.utils.isAddress('0xc1912fee45d61c87cc5ea59dae31190fffff232d');
+``` javascript
+rsk3.utils.isAddress('0xc1912fee45d61c87cc5ea59dae31190fffff232d');
 > true
 
-web3.utils.isAddress('c1912fee45d61c87cc5ea59dae31190fffff232d');
+rsk3.utils.isAddress('c1912fee45d61c87cc5ea59dae31190fffff232d');
 > true
 
-web3.utils.isAddress('0XC1912FEE45D61C87CC5EA59DAE31190FFFFF232D');
+rsk3.utils.isAddress('0XC1912FEE45D61C87CC5EA59DAE31190FFFFF232D');
 > true // as all is uppercase, no checksum will be checked
 
-web3.utils.isAddress('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
+rsk3.utils.isAddress('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
 > true
 
-web3.utils.isAddress('0xC1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
+rsk3.utils.isAddress('0xC1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
 > false // wrong checksum
 
-web3.utils.isAddress('0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD', 30);
+rsk3.utils.isAddress('0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD', 30);
 > true
 ```
 
@@ -417,11 +410,11 @@ web3.utils.isAddress('0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD', 30);
 toChecksumAddress
 -----------------
 
-``` {.javascript}
-web3.utils.toChecksumAddress(address[, chainId])
+``` javascript
+rsk3.utils.toChecksumAddress(address[, chainId])
 ```
 
-Will convert an upper or lowercase Ethereum address to a checksum
+Will convert an upper or lowercase Rsk3 address to a checksum
 address.
 
 ### Parameters
@@ -438,14 +431,14 @@ address.
 
 ### Example
 
-``` {.javascript}
-web3.utils.toChecksumAddress('0xc1912fee45d61c87cc5ea59dae31190fffff232d');
+``` javascript
+rsk3.utils.toChecksumAddress('0xc1912fee45d61c87cc5ea59dae31190fffff232d');
 > "0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d"
 
-web3.utils.toChecksumAddress('0XC1912FEE45D61C87CC5EA59DAE31190FFFFF232D');
+rsk3.utils.toChecksumAddress('0XC1912FEE45D61C87CC5EA59DAE31190FFFFF232D');
 > "0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d" // same as above
 
-web3.utils.toChecksumAddress('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', 30);
+rsk3.utils.toChecksumAddress('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', 30);
 > "0x5aaEB6053f3e94c9b9a09f33669435E7ef1bEAeD"
 ```
 
@@ -454,11 +447,10 @@ web3.utils.toChecksumAddress('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', 30);
 stripHexPrefix
 --------------
 
-> ``` {.javascript
-> web3.utils.stripHexPrefix(address)}
-> ```
->
-> Removes the prefix `0x` from a given hex if it exists.
+``` javascript
+rsk3.utils.stripHexPrefix(address)}
+```
+Removes the prefix `0x` from a given hex if it exists.
 
 ### Parameters
 
@@ -470,8 +462,8 @@ stripHexPrefix
 
 ### Example
 
-> ``` {.javascript
-> web3.utils.stripHexPrefix('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
+> ``` javascript
+> rsk3.utils.stripHexPrefix('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
 > > \"c1912fEE45d61C87Cc5EA59DaE31190FFFFf232d\"}
 > ```
 
@@ -480,8 +472,8 @@ stripHexPrefix
 checkAddressChecksum
 --------------------
 
-``` {.javascript}
-web3.utils.checkAddressChecksum(address [, chainId])
+``` javascript
+rsk3.utils.checkAddressChecksum(address [, chainId])
 ```
 
 Checks the checksum of a given address. Will also return false on
@@ -502,11 +494,11 @@ its not a checksum address, or the checksum is invalid.
 
 ### Example
 
-``` {.javascript}
-web3.utils.checkAddressChecksum('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
+``` javascript
+rsk3.utils.checkAddressChecksum('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
 > true
 
-web3.utils.checkAddressChecksum('0x5aAeb6053F3e94c9b9A09F33669435E7EF1BEaEd', 31);
+rsk3.utils.checkAddressChecksum('0x5aAeb6053F3e94c9b9A09F33669435E7EF1BEaEd', 31);
 > true
 ```
 
@@ -515,8 +507,8 @@ web3.utils.checkAddressChecksum('0x5aAeb6053F3e94c9b9A09F33669435E7EF1BEaEd', 31
 toHex
 -----
 
-``` {.javascript}
-web3.utils.toHex(mixed)
+``` javascript
+rsk3.utils.toHex(mixed)
 ```
 
 Will auto convert any given value to HEX. Number strings will
@@ -533,30 +525,30 @@ strings.
 
 ### Example
 
-``` {.javascript}
-web3.utils.toHex('234');
+``` javascript
+rsk3.utils.toHex('234');
 > "0xea"
 
-web3.utils.toHex(234);
+rsk3.utils.toHex(234);
 > "0xea"
 
-web3.utils.toHex(new BN('234'));
+rsk3.utils.toHex(new BN('234'));
 > "0xea"
 
-web3.utils.toHex(new BigNumber('234'));
+rsk3.utils.toHex(new BigNumber('234'));
 > "0xea"
 
-web3.utils.toHex('I have 100€');
+rsk3.utils.toHex('I have 100€');
 > "0x49206861766520313030e282ac"
 ```
 
 ------------------------------------------------------------------------
 
-toBN {#utils-tobn}
+toBN
 ----
 
-``` {.javascript}
-web3.utils.toBN(number)
+``` javascript
+rsk3.utils.toBN(number)
 ```
 
 Will safely convert any given value (including
@@ -564,14 +556,10 @@ Will safely convert any given value (including
 [BN.js](https://github.com/indutny/bn.js/) instance, for handling big
 numbers in JavaScript.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 For just the [BN.js](https://github.com/indutny/bn.js/) class use
-`utils.BN <utils-bn>`{.interpreted-text role="ref"}
-:::
+`utils.BN`
 
 ### Parameters
 
@@ -583,14 +571,14 @@ For just the [BN.js](https://github.com/indutny/bn.js/) class use
 
 ### Example
 
-``` {.javascript}
-web3.utils.toBN(1234).toString();
+``` javascript
+rsk3.utils.toBN(1234).toString();
 > "1234"
 
-web3.utils.toBN('1234').add(web3.utils.toBN('1')).toString();
+rsk3.utils.toBN('1234').add(rsk3.utils.toBN('1')).toString();
 > "1235"
 
-web3.utils.toBN('0xea').toString();
+rsk3.utils.toBN('0xea').toString();
 > "234"
 ```
 
@@ -599,8 +587,8 @@ web3.utils.toBN('0xea').toString();
 hexToNumberString
 -----------------
 
-``` {.javascript}
-web3.utils.hexToNumberString(hex)
+``` javascript
+rsk3.utils.hexToNumberString(hex)
 ```
 
 Returns the number representation of a given HEX value as a string.
@@ -615,8 +603,8 @@ Returns the number representation of a given HEX value as a string.
 
 ### Example
 
-``` {.javascript}
-web3.utils.hexToNumberString('0xea');
+``` javascript
+rsk3.utils.hexToNumberString('0xea');
 > "234"
 ```
 
@@ -625,21 +613,17 @@ web3.utils.hexToNumberString('0xea');
 hexToNumber
 -----------
 
-``` {.javascript}
-web3.utils.hexToNumber(hex)
-web3.utils.toDecimal(hex) // ALIAS, deprecated
+``` javascript
+rsk3.utils.hexToNumber(hex)
+rsk3.utils.toDecimal(hex) // ALIAS, deprecated
 ```
 
 Returns the number representation of a given HEX value.
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 This is not useful for big numbers, rather use
-`utils.toBN <utils-tobn>`{.interpreted-text role="ref"} instead.
-:::
+`utils.toBN`
 
 ### Parameters
 
@@ -651,8 +635,8 @@ This is not useful for big numbers, rather use
 
 ### Example
 
-``` {.javascript}
-web3.utils.hexToNumber('0xea');
+``` javascript
+rsk3.utils.hexToNumber('0xea');
 > 234
 ```
 
@@ -661,9 +645,9 @@ web3.utils.hexToNumber('0xea');
 numberToHex
 -----------
 
-``` {.javascript}
-web3.utils.numberToHex(number)
-web3.utils.fromDecimal(number) // ALIAS, deprecated
+``` javascript
+rsk3.utils.numberToHex(number)
+rsk3.utils.fromDecimal(number) // ALIAS, deprecated
 ```
 
 Returns the HEX representation of a given number value.
@@ -679,8 +663,8 @@ Returns the HEX representation of a given number value.
 
 ### Example
 
-``` {.javascript}
-web3.utils.numberToHex('234');
+``` javascript
+rsk3.utils.numberToHex('234');
 > '0xea'
 ```
 
@@ -689,10 +673,10 @@ web3.utils.numberToHex('234');
 hexToUtf8
 ---------
 
-``` {.javascript}
-web3.utils.hexToUtf8(hex)
-web3.utils.hexToString(hex) // ALIAS
-web3.utils.toUtf8(hex) // ALIAS, deprecated
+``` javascript
+rsk3.utils.hexToUtf8(hex)
+rsk3.utils.hexToString(hex) // ALIAS
+rsk3.utils.toUtf8(hex) // ALIAS, deprecated
 ```
 
 Returns the UTF-8 string representation of a given HEX value.
@@ -707,8 +691,8 @@ Returns the UTF-8 string representation of a given HEX value.
 
 ### Example
 
-``` {.javascript}
-web3.utils.hexToUtf8('0x49206861766520313030e282ac');
+``` javascript
+rsk3.utils.hexToUtf8('0x49206861766520313030e282ac');
 > "I have 100€"
 ```
 
@@ -717,9 +701,9 @@ web3.utils.hexToUtf8('0x49206861766520313030e282ac');
 hexToAscii
 ----------
 
-``` {.javascript}
-web3.utils.hexToAscii(hex)
-web3.utils.toAscii(hex) // ALIAS, deprecated
+``` javascript
+rsk3.utils.hexToAscii(hex)
+rsk3.utils.toAscii(hex) // ALIAS, deprecated
 ```
 
 Returns the ASCII string representation of a given HEX value.
@@ -734,20 +718,20 @@ Returns the ASCII string representation of a given HEX value.
 
 ### Example
 
-``` {.javascript}
-web3.utils.hexToAscii('0x4920686176652031303021');
+``` javascript
+rsk3.utils.hexToAscii('0x4920686176652031303021');
 > "I have 100!"
 ```
 
 ------------------------------------------------------------------------
 
-utf8ToHex {#utils-utf8tohex}
+utf8ToHex
 ---------
 
-``` {.javascript}
-web3.utils.utf8ToHex(string)
-web3.utils.stringToHex(string) // ALIAS
-web3.utils.fromUtf8(string) // ALIAS, deprecated
+``` javascript
+rsk3.utils.utf8ToHex(string)
+rsk3.utils.stringToHex(string) // ALIAS
+rsk3.utils.fromUtf8(string) // ALIAS, deprecated
 ```
 
 Returns the HEX representation of a given UTF-8 string.
@@ -762,8 +746,8 @@ Returns the HEX representation of a given UTF-8 string.
 
 ### Example
 
-``` {.javascript}
-web3.utils.utf8ToHex('I have 100€');
+``` javascript
+rsk3.utils.utf8ToHex('I have 100€');
 > "0x49206861766520313030e282ac"
 ```
 
@@ -772,9 +756,9 @@ web3.utils.utf8ToHex('I have 100€');
 asciiToHex
 ----------
 
-``` {.javascript}
-web3.utils.asciiToHex(string)
-web3.utils.fromAscii(string) // ALIAS, deprecated
+``` javascript
+rsk3.utils.asciiToHex(string)
+rsk3.utils.fromAscii(string) // ALIAS, deprecated
 ```
 
 Returns the HEX representation of a given ASCII string. If you would
@@ -793,15 +777,15 @@ value then please pass the correct length as the second parameter.
 
 ### Example
 
-``` {.javascript}
-web3.utils.asciiToHex('I have 100!');
+``` javascript
+rsk3.utils.asciiToHex('I have 100!');
 > "0x4920686176652031303021000000000000000000000000000000000000000000"
 
 // transforming to a bytes4 value:
-web3.utils.asciiToHex('yes', 4);
+rsk3.utils.asciiToHex('yes', 4);
 
 // transforming to a bytes8 value:
-web3.utils.asciiToHex('yes', 8);
+rsk3.utils.asciiToHex('yes', 8);
 
 //etc.
 ```
@@ -811,8 +795,8 @@ web3.utils.asciiToHex('yes', 8);
 hexToBytes
 ----------
 
-``` {.javascript}
-web3.utils.hexToBytes(hex)
+``` javascript
+rsk3.utils.hexToBytes(hex)
 ```
 
 Returns a byte array from the given HEX string.
@@ -827,11 +811,11 @@ Returns a byte array from the given HEX string.
 
 ### Example
 
-``` {.javascript}
-web3.utils.hexToBytes('0x000000ea');
+``` javascript
+rsk3.utils.hexToBytes('0x000000ea');
 > [ 0, 0, 0, 234 ]
 
-web3.utils.hexToBytes(0x000000ea);
+rsk3.utils.hexToBytes(0x000000ea);
 > [ 234 ]
 ```
 
@@ -840,8 +824,8 @@ web3.utils.hexToBytes(0x000000ea);
 bytesToHex
 ----------
 
-``` {.javascript}
-web3.utils.bytesToHex(byteArray)
+``` javascript
+rsk3.utils.bytesToHex(byteArray)
 ```
 
 Returns a HEX string from a byte array.
@@ -856,8 +840,8 @@ Returns a HEX string from a byte array.
 
 ### Example
 
-``` {.javascript}
-web3.utils.bytesToHex([ 72, 101, 108, 108, 111, 33, 36 ]);
+``` javascript
+rsk3.utils.bytesToHex([ 72, 101, 108, 108, 111, 33, 36 ]);
 > "0x48656c6c6f2125"
 ```
 
@@ -866,18 +850,15 @@ web3.utils.bytesToHex([ 72, 101, 108, 108, 111, 33, 36 ]);
 toWei
 -----
 
-``` {.javascript}
-web3.utils.toWei(number [, unit])
+``` javascript
+rsk3.utils.toWei(number [, unit])
 ```
 
 Converts any [ether value](http://ethdocs.org/en/latest/ether.html)
 value into
 [wei](http://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na).
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 \"wei\" are the smallest ethere unit, and you should always make
 calculations in wei and convert only for display reasons.
@@ -925,17 +906,17 @@ a [BN.js](https://github.com/indutny/bn.js/) instance.
 
 ### Example
 
-``` {.javascript}
-web3.utils.toWei('1', 'ether');
+``` javascript
+rsk3.utils.toWei('1', 'ether');
 > "1000000000000000000"
 
-web3.utils.toWei('1', 'finney');
+rsk3.utils.toWei('1', 'finney');
 > "1000000000000000"
 
-web3.utils.toWei('1', 'szabo');
+rsk3.utils.toWei('1', 'szabo');
 > "1000000000000"
 
-web3.utils.toWei('1', 'shannon');
+rsk3.utils.toWei('1', 'shannon');
 > "1000000000"
 ```
 
@@ -944,18 +925,15 @@ web3.utils.toWei('1', 'shannon');
 fromWei
 -------
 
-``` {.javascript}
-web3.utils.fromWei(number [, unit])
+``` javascript
+rsk3.utils.fromWei(number [, unit])
 ```
 
 Converts any
 [wei](http://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na)
 value into a [ether value](http://ethdocs.org/en/latest/ether.html).
 
-::: {.note}
-::: {.admonition-title}
 Note
-:::
 
 \"wei\" are the smallest ethere unit, and you should always make
 calculations in wei and convert only for display reasons.
@@ -1002,17 +980,17 @@ calculations in wei and convert only for display reasons.
 
 ### Example
 
-``` {.javascript}
-web3.utils.fromWei('1', 'ether');
+``` javascript
+rsk3.utils.fromWei('1', 'ether');
 > "0.000000000000000001"
 
-web3.utils.fromWei('1', 'finney');
+rsk3.utils.fromWei('1', 'finney');
 > "0.000000000000001"
 
-web3.utils.fromWei('1', 'szabo');
+rsk3.utils.fromWei('1', 'szabo');
 > "0.000000000001"
 
-web3.utils.fromWei('1', 'shannon');
+rsk3.utils.fromWei('1', 'shannon');
 > "0.000000001"
 ```
 
@@ -1021,8 +999,8 @@ web3.utils.fromWei('1', 'shannon');
 unitMap
 -------
 
-``` {.javascript}
-web3.utils.unitMap
+``` javascript
+rsk3.utils.unitMap
 ```
 
 Shows all possible [ether
@@ -1065,8 +1043,8 @@ value](http://ethdocs.org/en/latest/ether.html) and their amount in
 
 ### Example
 
-``` {.javascript}
-web3.utils.unitMap
+``` javascript
+rsk3.utils.unitMap
 > {
     noether: '0',
     wei:        '1',
@@ -1103,9 +1081,9 @@ web3.utils.unitMap
 padLeft
 -------
 
-``` {.javascript}
-web3.utils.padLeft(string, characterAmount [, sign])
-web3.utils.leftPad(string, characterAmount [, sign]) // ALIAS
+``` javascript
+rsk3.utils.padLeft(string, characterAmount [, sign])
+rsk3.utils.leftPad(string, characterAmount [, sign]) // ALIAS
 ```
 
 Adds a padding on the left of a string, Useful for adding paddings to
@@ -1125,14 +1103,14 @@ HEX strings.
 
 ### Example
 
-``` {.javascript}
-web3.utils.padLeft('0x3456ff', 20);
+``` javascript
+rsk3.utils.padLeft('0x3456ff', 20);
 > "0x000000000000003456ff"
 
-web3.utils.padLeft(0x3456ff, 20);
+rsk3.utils.padLeft(0x3456ff, 20);
 > "0x000000000000003456ff"
 
-web3.utils.padLeft('Hello', 20, 'x');
+rsk3.utils.padLeft('Hello', 20, 'x');
 > "xxxxxxxxxxxxxxxHello"
 ```
 
@@ -1141,9 +1119,9 @@ web3.utils.padLeft('Hello', 20, 'x');
 padRight
 --------
 
-``` {.javascript}
-web3.utils.padRight(string, characterAmount [, sign])
-web3.utils.rightPad(string, characterAmount [, sign]) // ALIAS
+``` javascript
+rsk3.utils.padRight(string, characterAmount [, sign])
+rsk3.utils.rightPad(string, characterAmount [, sign]) // ALIAS
 ```
 
 Adds a padding on the right of a string, Useful for adding paddings to
@@ -1163,14 +1141,14 @@ HEX strings.
 
 ### Example
 
-``` {.javascript}
-web3.utils.padRight('0x3456ff', 20);
+``` javascript
+rsk3.utils.padRight('0x3456ff', 20);
 > "0x3456ff00000000000000"
 
-web3.utils.padRight(0x3456ff, 20);
+rsk3.utils.padRight(0x3456ff, 20);
 > "0x3456ff00000000000000"
 
-web3.utils.padRight('Hello', 20, 'x');
+rsk3.utils.padRight('Hello', 20, 'x');
 > "Helloxxxxxxxxxxxxxxx"
 ```
 
@@ -1179,8 +1157,8 @@ web3.utils.padRight('Hello', 20, 'x');
 toTwosComplement
 ----------------
 
-``` {.javascript}
-web3.utils.toTwosComplement(number)
+``` javascript
+rsk3.utils.toTwosComplement(number)
 ```
 
 Converts a negative numer into a two\'s complement.
@@ -1195,20 +1173,20 @@ Converts a negative numer into a two\'s complement.
 
 ### Example
 
-``` {.javascript}
-web3.utils.toTwosComplement('-1');
+``` javascript
+rsk3.utils.toTwosComplement('-1');
 > "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 
-web3.utils.toTwosComplement(-1);
+rsk3.utils.toTwosComplement(-1);
 > "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 
-web3.utils.toTwosComplement('0x1');
+rsk3.utils.toTwosComplement('0x1');
 > "0x0000000000000000000000000000000000000000000000000000000000000001"
 
-web3.utils.toTwosComplement(-15);
+rsk3.utils.toTwosComplement(-15);
 > "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff1"
 
-web3.utils.toTwosComplement('-0x1');
+rsk3.utils.toTwosComplement('-0x1');
 > "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 ```
 
@@ -1217,8 +1195,8 @@ web3.utils.toTwosComplement('-0x1');
 getSignatureParameters
 ----------------------
 
-``` {.javascript}
-web3.utils.getSignatureParameters(string)
+``` javascript
+rsk3.utils.getSignatureParameters(string)
 ```
 
 Gets the r, s and v values of an ECDSA signature
@@ -1233,7 +1211,7 @@ Gets the r, s and v values of an ECDSA signature
 
 ### Example
 
-``` {.javascript}
-web3.utils.getSignatureParameters('0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf7922c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc1b');
+``` javascript
+rsk3.utils.getSignatureParameters('0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf7922c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc1b');
 > "{ r: '0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf792', s: '0x2c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc', v: 27 }"
 ```

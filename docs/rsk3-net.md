@@ -1,13 +1,12 @@
-web3.eth.net
+rsk3.net
 ============
 
 Functions to receive details about the current connected network.
 
 -----
 
-``` {.javascript}
-web3.eth.net.getId([callback])
-web3.shh.net.getId([callback])
+``` javascript
+rsk3.net.getId([callback])
 ```
 
 Gets the current network ID.
@@ -22,8 +21,8 @@ none
 
 ### Example
 
-``` {.javascript}
-web3.eth.net.getId().then(console.log);
+``` javascript
+rsk3.net.getId().then(console.log);
 > 1
 ```
 
@@ -32,9 +31,8 @@ web3.eth.net.getId().then(console.log);
 isListening
 -----------
 
-``` {.javascript}
-web3.eth.net.isListening([callback])
-web3.shh.net.isListening([callback])
+``` javascript
+rsk3.net.isListening([callback])
 ```
 
 Checks if the node is listening for peers.
@@ -49,8 +47,8 @@ none
 
 ### Example
 
-``` {.javascript}
-web3.eth.net.isListening().then(console.log);
+``` javascript
+rsk3.net.isListening().then(console.log);
 > true
 ```
 
@@ -59,9 +57,8 @@ web3.eth.net.isListening().then(console.log);
 getPeerCount
 ------------
 
-``` {.javascript}
-web3.eth.net.getPeerCount([callback])
-web3.shh.net.getPeerCount([callback])
+``` javascript
+rsk3.net.getPeerCount([callback])
 ```
 
 Get the number of peers connected to.
@@ -76,8 +73,8 @@ none
 
 ### Example
 
-``` {.javascript}
-web3.eth.net.getPeerCount().then(console.log);
+``` javascript
+rsk3.net.getPeerCount().then(console.log);
 > 25
 ```
 
@@ -86,14 +83,14 @@ web3.eth.net.getPeerCount().then(console.log);
 getNetworkType
 --------------
 
-``` {.javascript}
-web3.eth.net.getNetworkType([callback])
+``` javascript
+rsk3.net.getNetworkType([callback])
 ```
 
 Guesses the chain the node is connected by comparing the genesis hashes.
 
 It\'s recommended to use the
-`web3.eth.getChainId <eth-chainId>`method
+`rsk3.getChainId`method
 to detect the currently connected chain.
 
 ### Returns
@@ -109,7 +106,7 @@ to detect the currently connected chain.
 
 ### Example
 
-``` {.javascript}
-web3.eth.net.getNetworkType().then(console.log);
+``` javascript
+rsk3.net.getNetworkType().then(console.log);
 > "main"
 ```

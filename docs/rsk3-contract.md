@@ -1,12 +1,12 @@
 
 
-web3.eth.Contract
+rsk3.Contract
 =================
 
-The `web3.eth.Contract` object makes it easy to interact with smart
+The `rsk3.Contract` object makes it easy to interact with smart
 contracts on the Ethereum blockchain. When you create a new contract
 object you give it the json interface of the respective smart contract
-and web3 will auto convert all calls into low level ABI calls over RPC
+and rsk3 will auto convert all calls into low level ABI calls over RPC
 for you.
 
 This allows you to interact with smart contracts as if they were
@@ -14,9 +14,9 @@ JavaScript objects.
 
 To use it standalone:
 
-``` {.javascript
-import {Contract} from 'web3-eth-contract';
-import {Accounts} from 'web3-eth-accounts;}
+``` javascript
+import {Contract} from 'rsk3-contract';
+import {Accounts} from 'rsk3-account;}
 const contract = new Contract(
     'ws://localhost:8546',
     new Accounts('ws://localhost:8546', options),
@@ -32,20 +32,15 @@ contract.methods.somFunc().send({from: ....}).on('receipt', () => {
 
 ------------------------------------------------------------------------
 
-web3.eth.Contract
+rsk3.Contract
 -----------------
 
-::: {.index}
-JSON interface
-:::
-
-``` {.javascript}
-new web3.eth.Contract(jsonInterface, address, options)
+``` javascript
+new rsk3.Contract(jsonInterface, address, options)
 ```
 
 Creates a new contract instance with all its methods and events defined
-in its `json interface <glossary-json-interface>`{.interpreted-text
-role="ref"} object.
+in its `json interface` object.
 
 ### Parameters
 
@@ -55,31 +50,20 @@ role="ref"} object.
     transactions and call requests and can also be added later using
     `myContract.options.address = '0x1234..'.`
 3.  
-
     `options` - `Object` (optional): The options of the contract. Some are used as fallbacks for calls and transactions:
-
-    :   -   `data` - `String`: The byte code of the contract. Used when
+-   `data` - `String`: The byte code of the contract. Used when
             the contract gets
-            `deployed <contract-deploy>`{.interpreted-text role="ref"}.
-        -   `address` - `String`: The address where the contract is
-            deployed. See `address <contract-address>`{.interpreted-text
-            role="ref"}.
-        -   `defaultAccount <web3-module-defaultaccount>`{.interpreted-text
-            role="ref"}
-        -   `defaultBlock <web3-module-defaultblock>`{.interpreted-text
-            role="ref"}
-        -   `defaultGas <web3-module-defaultgas>`{.interpreted-text
-            role="ref"}
-        -   `defaultGasPrice <web3-module-defaultaccount>`{.interpreted-text
-            role="ref"}
-        -   `transactionBlockTimeout <web3-module-transactionblocktimeout>`{.interpreted-text
-            role="ref"}
-        -   `transactionConfirmationBlocks <web3-module-transactionconfirmationblocks>`{.interpreted-text
-            role="ref"}
-        -   `transactionPollingTimeout <web3-module-transactionpollingtimeout>`{.interpreted-text
-            role="ref"}
-        -   `transactionSigner <web3-module-transactionSigner>`{.interpreted-text
-            role="ref"}
+            `deployed`
+-   `address` - `String`: The address where the contract is
+            deployed. See `address`
+-   `defaultAccount `
+-   `defaultBlock`
+-   `defaultGas`
+-   `defaultGasPrice`
+-   `transactionBlockTimeout`
+-   `transactionConfirmationBlocks`
+-   `transactionPollingTimeout`
+-   `transactionSigner`
 
 ### Returns
 
@@ -87,8 +71,8 @@ role="ref"} object.
 
 ### Example
 
-``` {.javascript}
-const myContract = new web3.eth.Contract([...], '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe', {
+``` javascript
+const myContract = new rsk3.Contract([...], '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe', {
     defaultAccount: '0x1234567890123456789012345678901234567891', // default from address
     defaultGasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
 });
@@ -96,9 +80,8 @@ const myContract = new web3.eth.Contract([...], '0xde0B295669a9FD93d5F28D9Ec85E4
 
 ------------------------------------------------------------------------
 
-= Properties = =========
 
-options {#contract-options}
+options
 -------
 
 The contract options object has the following properties:
@@ -109,26 +92,25 @@ The contract options object has the following properties:
 
 ------------------------------------------------------------------------
 
-address {#contract-address}
+address
 -------
 
-``` {.javascript}
+``` javascript
 myContract.address
 ```
 
 The address used for this contract instance. All transactions generated
-by web3.js from this contract will contain this address as the \"to\".
+by rsk3.js from this contract will contain this address as the \"to\".
 
 The address will be stored in lowercase.
 
-\-\-\-\-\-\--Property \-\-\-\-\-\--
 
 `address` - `String|null`: The address for this contract, or `null` if
 it\'s not yet set.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.address;
 > '0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae'
 
@@ -138,29 +120,23 @@ myContract.address = '0x1234FFDD...';
 
 ------------------------------------------------------------------------
 
-::: {#contract-json-interface}
-jsonInterface =========
-:::
 
-``` {.javascript}
+``` javascript
 myContract.jsonInterface
 ```
 
-The `json interface <glossary-json-interface>`{.interpreted-text
-role="ref"} object derived from the
+The `json interface` object derived from the
 [ABI](https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI) of
 this contract.
 
-\-\-\-\-\-\--Property \-\-\-\-\-\--
-
 `jsonInterface` - `AbiModel`: The
-`json interface <glossary-json-interface>`{.interpreted-text role="ref"}
+`json interface`
 for this contract. Re-setting this will regenerate the methods and
 events of the contract instance.
 
 ### AbiModel
 
-``` {.javascript}
+``` javascript
 interface AbiModel {
     getMethod(name: string): AbiItemModel | false;
     getMethods(): AbiItemModel[];
@@ -206,7 +182,7 @@ interface AbiOutput {
 clone
 -----
 
-``` {.javascript}
+``` javascript
 myContract.clone()
 ```
 
@@ -222,7 +198,7 @@ none
 
 ### Example
 
-``` {.javascript}
+``` javascript
 const contract1 = new eth.Contract(abi, address, {gasPrice: '12345678', defaultAccount: fromAddress});
 
 const contract2 = contract1.clone();
@@ -234,16 +210,11 @@ contract2.address = address2;
 
 ------------------------------------------------------------------------
 
-::: {#contract-deploy}
-::: {.index}
-contract deploy
-:::
-:::
 
 deploy
 ------
 
-``` {.javascript}
+``` javascript
 myContract.deploy(options)
 ```
 
@@ -267,20 +238,18 @@ instance.
 
 -   `Array` - arguments: The arguments passed to the method before. They
     can be changed.
--   `Function` - `send <contract-send>`{.interpreted-text role="ref"}:
+-   `Function` - `send`:
     Will deploy the contract. The promise will resolve with the new
     contract instance, instead of the receipt!
--   `Function` - `estimateGas <contract-estimateGas>`{.interpreted-text
-    role="ref"}: Will estimate the gas used for deploying.
--   `Function` - `encodeABI <contract-encodeABI>`{.interpreted-text
-    role="ref"}: Encodes the ABI of the deployment, which is contract
+-   `Function` - `estimateGas`: Will estimate the gas used for deploying.
+-   `Function` - `encodeABI`: Encodes the ABI of the deployment, which is contract
     data + constructor parameters
 
 > For details to the methods see the documentation below.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.deploy({
     data: '0x12345...',
     arguments: [123, 'My String']
@@ -341,15 +310,14 @@ myContract.deploy({
 methods
 -------
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod([param1[, param2[, ...]]])
 ```
 
 Creates a transaction object for that method, which then can be
-`called <contract-call>`{.interpreted-text role="ref"},
-`send <contract-send>`{.interpreted-text role="ref"},
-`` estimated  <contract-estimateGas>`or :ref:`ABI encoded <contract-encodeABI> ``{.interpreted-text
-role="ref"}.
+`called`,
+`send`,
+` estimated`or `ABI encoded`.
 
 The methods of this smart contract are available through:
 
@@ -364,8 +332,7 @@ from the JavaScript contract object.
 ### Parameters
 
 Parameters of any method depend on the smart contracts methods, defined
-in the `JSON interface <glossary-json-interface>`{.interpreted-text
-role="ref"}.
+in the `JSON interface`
 
 ### Returns
 
@@ -373,18 +340,16 @@ role="ref"}.
 
 -   `Array` - arguments: The arguments passed to the method before. They
     can be changed.
--   `Function` - `call <contract-call>`{.interpreted-text role="ref"}:
+-   `Function` - `call`:
     Will call the \"constant\" method and execute its smart contract
     method in the EVM without sending a transaction (Can\'t alter the
     smart contract state).
--   `Function` - `send <contract-send>`{.interpreted-text role="ref"}:
+-   `Function` - `send`:
     Will send a transaction to the smart contract and execute its method
     (Can alter the smart contract state).
--   `Function` - `estimateGas <contract-estimateGas>`{.interpreted-text
-    role="ref"}: Will estimate the gas used when the method would be
+-   `Function` - `estimateGas`: Will estimate the gas used when the method would be
     executed on chain.
--   `Function` - `encodeABI <contract-encodeABI>`{.interpreted-text
-    role="ref"}: Encodes the ABI for this method. This can be send using
+-   `Function` - `encodeABI`: Encodes the ABI for this method. This can be send using
     a transaction, call the method or passing into another smart
     contracts method as argument.
 
@@ -392,7 +357,7 @@ role="ref"}.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 // calling a method
 
 myContract.methods.myMethod(123).call({from: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'}, (error, result) => {
@@ -422,10 +387,10 @@ myContract.methods.myMethod(123).send({from: '0xde0B295669a9FD93d5F28D9Ec85E40f4
 
 ------------------------------------------------------------------------
 
-methods.myMethod.call {#contract-call}
+methods.myMethod.call
 ---------------------
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod([param1[, param2[, ...]]]).call(transactionObject, blockNumber, callback])
 ```
 
@@ -455,7 +420,7 @@ values they are returned as an object with properties and indices:
 
 ### Example
 
-``` {.javascript}
+``` javascript
 // using the callback
 myContract.methods.myMethod(123).call({from: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'}, (error, result) => {
     ...
@@ -477,8 +442,8 @@ contract MyContract {
     }
 }
 
-// web3.js
-const MyContract = new web3.eth.Contract(abi, address);
+// rsk3.js
+const MyContract = new rsk3.Contract(abi, address);
 MyContract.methods.myFunction().call()
 .then(console.log);
 > Result {
@@ -498,8 +463,8 @@ contract MyContract {
     }
 }
 
-// web3.js
-const MyContract = new web3.eth.Contract(abi, address);
+// rsk3.js
+const MyContract = new rsk3.Contract(abi, address);
 MyContract.methods.myFunction().call()
 .then(console.log);
 > "Hello!%"
@@ -507,10 +472,10 @@ MyContract.methods.myFunction().call()
 
 ------------------------------------------------------------------------
 
-methods.myMethod.send {#contract-send}
+methods.myMethod.send
 ---------------------
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod([param1[, param2[, ...]]]).send(options[, callback])
 ```
 
@@ -541,8 +506,7 @@ Note this can alter the smart contract state.
 The **callback** will return the 32 bytes transaction hash.
 
 `PromiEvent`: A
-`promise combined event emitter <promiEvent>`{.interpreted-text
-role="ref"}. Will be resolved when the transaction *receipt* is
+`promise combined event emitter <promiEvent>`. Will be resolved when the transaction *receipt* is
 available, OR if this `send()` is called from a `someContract.deploy()`,
 then the promise will resolve with the *new contract instance*.
 Additionally the following events are available:
@@ -553,8 +517,7 @@ Additionally the following events are available:
     *receipt* is available. Receipts from contracts will have no `logs`
     property, but instead an `events` property with event names as keys
     and events as properties. See
-    `getPastEvents return values <contract-events-return>`{.interpreted-text
-    role="ref"} for details about the returned event object.
+    `getPastEvents return values` for details about the returned event object.
 -   `"confirmation"` returns `Number`, `Object`: is fired for every
     confirmation up to the 24th confirmation. Receives the confirmation
     number as the first and the receipt as the second argument. Fired
@@ -565,7 +528,7 @@ Additionally the following events are available:
 
 ### Example
 
-``` {.javascript}
+``` javascript
 // using the callback
 myContract.methods.myMethod(123).send({from: '0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'}, (error, transactionHash) => {
     ...
@@ -629,10 +592,10 @@ myContract.methods.myMethod(123).send({from: '0xde0B295669a9FD93d5F28D9Ec85E40f4
 
 ------------------------------------------------------------------------
 
-methods.myMethod.estimateGas {#contract-estimateGas}
+methods.myMethod.estimateGas
 ----------------------------
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod([param1[, param2[, ...]]]).estimateGas(options[, callback])
 ```
 
@@ -666,7 +629,7 @@ the smart contract can be different at that time.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 // using the callback
 myContract.methods.myMethod(123).estimateGas({gas: 5000000}, function(error, gasAmount){
     if(gasAmount == 5000000)
@@ -685,10 +648,10 @@ myContract.methods.myMethod(123).estimateGas({from: '0xde0B295669a9FD93d5F28D9Ec
 
 ------------------------------------------------------------------------
 
-methods.myMethod.encodeABI {#contract-encodeABI}
+methods.myMethod.encodeABI
 --------------------------
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod([param1[, param2[, ...]]]).encodeABI()
 ```
 
@@ -706,7 +669,7 @@ none
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.methods.myMethod(123).encodeABI();
 > '0x58cf5f1000000000000000000000000000000000000000000000000000000000000007B'
 ```
@@ -720,7 +683,7 @@ myContract.methods.myMethod(123).encodeABI();
 once
 ----
 
-``` {.javascript}
+``` javascript
 myContract.once(event[, options], callback)
 ```
 
@@ -746,8 +709,7 @@ event or error. Will only fire for a single event.
 3.  `callback` - `Function`: This callback will be fired for the first
     *event* as the second argument, or an error as the first argument.
     See
-    `getPastEvents return values <contract-events-return>`{.interpreted-text
-    role="ref"} for details about the event structure.
+    `getPastEvents return values` for details about the event structure.
 
 ### Returns
 
@@ -755,7 +717,7 @@ event or error. Will only fire for a single event.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.once('MyEvent', {
     filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0x123456789...'}, // Using an array means OR: e.g. 20 or 23
     fromBlock: 0
@@ -785,10 +747,10 @@ myContract.once('MyEvent', {
 
 ------------------------------------------------------------------------
 
-events {#contract-events}
+events
 ------
 
-``` {.javascript}
+``` javascript
 myContract.events.MyEvent([options][, callback])
 ```
 
@@ -814,7 +776,7 @@ Subscribe to an event
     each *event* as the second argument, or an error as the first
     argument.
 
-### Returns {#contract-events-return}
+### Returns
 
 `EventEmitter`: The event emitter has the following events:
 
@@ -851,7 +813,7 @@ The structure of the returned event `Object` looks as follows:
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.events.MyEvent({
     filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0x123456789...'}, // Using an array means OR: e.g. 20 or 23
     fromBlock: 0
@@ -891,11 +853,11 @@ myContract.events.MyEvent({
 events.allEvents
 ----------------
 
-``` {.javascript}
+``` javascript
 myContract.events.allEvents([options][, callback])
 ```
 
-Same as `events <contract-events>`{.interpreted-text role="ref"} but
+Same as `events` but
 receives all events from this smart contract. Optionally the filter
 property can filter those events.
 
@@ -904,7 +866,7 @@ property can filter those events.
 getPastEvents
 -------------
 
-``` {.javascript}
+``` javascript
 myContract.getPastEvents(event[, options][, callback])
 ```
 
@@ -940,12 +902,11 @@ Gets past events for this contract.
 matching the given event name and filter.
 
 For the structure of a returned event `Object` see
-`getPastEvents return values <contract-events-return>`{.interpreted-text
-role="ref"}.
+`getPastEvents return values`.
 
 ### Example
 
-``` {.javascript}
+``` javascript
 myContract.getPastEvents('MyEvent', {
     filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0x123456789...'}, // Using an array means OR: e.g. 20 or 23
     fromBlock: 0,
