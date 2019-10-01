@@ -33,7 +33,7 @@ export function TransactionSigner() {
  * @returns {Rsk3}
  * @constructor
  */
-export function Rsk3(provider, net = null, options = {}) {
+export default function Rsk3(provider, net = null, options = {}) {
     if (!options.transactionSigner || options.transactionSigner.type === 'TransactionSigner') {
         options.transactionSigner = new TransactionSigner();
     }
