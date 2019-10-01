@@ -1,6 +1,6 @@
 {
   "name": "rsk3",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "RSK JavaScript Wallet API repository",
   "engines": {
     "node": ">=8.11.3"
