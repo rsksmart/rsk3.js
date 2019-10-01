@@ -2,10 +2,13 @@
   "name": "rsk3",
   "version": "0.0.1",
   "description": "RSK JavaScript Wallet API repository",
-  "main": "lib/index.js",
   "engines": {
     "node": ">=8.11.3"
   },
+  "main": "./packages/rsk3/src/index.js",
+  "directories": {
+    "doc": "./doc"
+},
   "scripts": {
     "install-loc": "lerna bootstrap --force-local",
     "install-all": "lerna bootstrap",
@@ -83,6 +86,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "dependencies": {}
+  }
 }
