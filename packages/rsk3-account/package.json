@@ -1,7 +1,7 @@
 {
   "name": "rsk3-account",
   "namespace": "RSK",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -23,16 +23,15 @@
     "lodash": "^4.17.11",
     "pbkdf2": "^3.0.17",
     "randombytes": "^2.1.0",
+    "rsk3-utils": "0.0.8",
     "scryptsy": "2.1.0",
     "semver": "6.2.0",
     "uuid": "3.3.2",
     "web3-core": "2.0.0-alpha.1",
     "web3-core-helpers": "2.0.0-alpha.1",
     "web3-core-method": "2.0.0-alpha.1",
-    "web3-providers": "2.0.0-alpha.1",
-    "rsk3-utils": "^0.0.1"
+    "web3-providers": "2.0.0-alpha.1"
   },
-  "devDependencies": {},
   "files": [],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-account#readme",
   "main": "dist/rsk3-account.cjs.js",

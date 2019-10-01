@@ -1,7 +1,7 @@
 {
   "name": "rsk3-net",
   "namespace": "RSK",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -19,13 +19,12 @@
   "dependencies": {
     "@babel/runtime": "^7.3.1",
     "lodash": "^4.17.11",
+    "rsk3-utils": "0.0.8",
     "web3-core": "2.0.0-alpha.1",
     "web3-core-helpers": "2.0.0-alpha.1",
     "web3-core-method": "2.0.0-alpha.1",
-    "web3-providers": "2.0.0-alpha.1",
-    "rsk3-utils": "^0.0.1"
+    "web3-providers": "2.0.0-alpha.1"
   },
-  "devDependencies": {},
   "files": [],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-net#readme",
   "main": "dist/rsk3-net.cjs.js",
