@@ -32,7 +32,10 @@
     "web3-core-method": "2.0.0-alpha.1",
     "web3-providers": "2.0.0-alpha.1"
   },
-  "files": [],
+  "files": [
+    "dist",
+    "src"
+  ],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-account#readme",
   "main": "dist/rsk3-account.cjs.js",
   "module": "dist/rsk3-account.esm.js",
