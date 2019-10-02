@@ -34,8 +34,7 @@
     "crypto-js": "^3.1.9-1"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-utils#readme",
   "main": "dist/rsk3-utils.cjs.js",

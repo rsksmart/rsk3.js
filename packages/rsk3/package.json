@@ -12,8 +12,7 @@
   },
   "license": "LGPL-3.0",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "main": "dist/rsk3.cjs.js",
   "module": "dist/rsk3.esm.js",
