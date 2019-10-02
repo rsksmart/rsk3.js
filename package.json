@@ -10,10 +10,10 @@
     "doc": "./doc"
 },
   "scripts": {
-    "install-loc": "lerna bootstrap --force-local",
-    "install-all": "lerna bootstrap",
+    "bootstrap-local": "lerna bootstrap --force-local",
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "lint": "eslint --cache --fix .",
+    "lint": "eslint --cache --fix ./packages/",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
     "test": "lerna run test",
     "test:coverage": "lerna run test -- --coverage && npm run istanbulCombine",
