@@ -1,5 +1,5 @@
 {
-  "name": "rsk3",
+  "name": "rsk3.js",
   "version": "0.0.8",
   "description": "RSK JavaScript Wallet API repository",
   "engines": {
