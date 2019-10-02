@@ -27,6 +27,9 @@
     "definitelytyped-header-parser": "^1.0.1",
     "dtslint": "0.4.2"
   },
+  "files":[
+    "dist"
+  ],
   "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3-personal#readme",
   "main": "dist/rsk3-personal.cjs.js",
   "module": "dist/rsk3-personal.esm.js",
