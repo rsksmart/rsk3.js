@@ -44,7 +44,6 @@ let newContractInstance = {};
 if (argv.migrate) {
   const Coin=require('./build/contracts/Coin.json');
   const rsk3=new Rsk3('http://localhost:4444',undefined,{transactionConfirmationBlocks: 1});
-  console.log(rsk3);
   
   rsk3.defaultAccount=address1;
   rsk3.getBalance(address1).then((result)=>{
