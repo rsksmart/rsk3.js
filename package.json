@@ -8,7 +8,7 @@
   "main": "./packages/rsk3/src/index.js",
   "directories": {
     "doc": "./doc"
-},
+  },
   "scripts": {
     "bootstrap-local": "lerna bootstrap --force-local",
     "bootstrap": "lerna bootstrap",
