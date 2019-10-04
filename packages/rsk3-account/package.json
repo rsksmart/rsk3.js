@@ -1,7 +1,7 @@
 {
   "name": "rsk3-account",
   "namespace": "RSK",
-  "version": "0.0.8",
+  "version": "0.0.11",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "lodash": "^4.17.11",
     "pbkdf2": "^3.0.17",
     "randombytes": "^2.1.0",
-    "rsk3-utils": "0.0.8",
+    "rsk3-utils": "0.0.11",
     "scryptsy": "2.1.0",
     "semver": "6.2.0",
     "uuid": "3.3.2",
