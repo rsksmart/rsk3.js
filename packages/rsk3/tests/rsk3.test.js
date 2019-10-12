@@ -6,10 +6,9 @@ import {Accounts} from 'rsk3-account';
 import {Personal} from 'rsk3-personal';
 import {Network} from 'rsk3-net';
 import {ContractModuleFactory} from 'rsk3-contract';
-import MethodFactory from '../src/factories/methodFactory';
 import TransactionSigner from '../src/signers/transactionSigner';
 import SubscriptionsFactory from '../src/factories/subscriptionsFactory';
-import Rsk3 from '../src/rsk3';
+import Rsk3 from '../src';
 
 // Mocks
 jest.mock('web3-core');
@@ -31,7 +30,6 @@ jest.mock('../src/factories/subscriptionsFactory');
 describe('rsk3Test', () => {
     let rsk3,
         providerMock,
-        methodFactoryMock,
         contractModuleFactoryMock,
         networkMock,
         accountsMock,
@@ -43,58 +41,44 @@ describe('rsk3Test', () => {
     beforeEach(() => {
         providerMock = {send: jest.fn(), clearSubscriptions: jest.fn()};
 
-        new MethodFactory();
-        methodFactoryMock = MethodFactory.mock.instances[0];
+        networkMock = Network;
 
-        new ContractModuleFactory();
-        contractModuleFactoryMock = ContractModuleFactory.mock.instances[0];
+        accountsMock = Accounts;
 
-        new Network();
-        networkMock = Network.mock.instances[0];
+        personalMock = Personal;
 
-        new Accounts();
-        accountsMock = Accounts.mock.instances[0];
+        abiCoderMock = AbiCoder;
 
-        new Personal();
-        personalMock = Personal.mock.instances[0];
+        // Clear history of mockInstaces;
+        SubscriptionsFactory.mockClear();
+        TransactionSigner.mockClear();
 
-        new AbiCoder();
-        abiCoderMock = AbiCoder.mock.instances[0];
-
+        rsk3 = new Rsk3('https://public-node.testnet.rsk.co', null, {});
+        // Inject mock instance
         new SubscriptionsFactory();
         subscriptionsFactoryMock = SubscriptionsFactory.mock.instances[0];
-
+        rsk3.subscriptionsFactory = subscriptionsFactoryMock;
         new TransactionSigner();
         transactionSignerMock = TransactionSigner.mock.instances[0];
-
-        rsk3 = new Rsk3(
-            providerMock,
-            methodFactoryMock,
-            networkMock,
-            accountsMock,
-            personalMock,
-            abiCoderMock,
-            Utils,
-            formatters,
-            subscriptionsFactoryMock,
-            contractModuleFactoryMock,
-            {transactionSigner: transactionSignerMock},
-            {}
-        );
+        rsk3._transactionSigner = transactionSignerMock;
+        new ContractModuleFactory();
+        contractModuleFactoryMock = ContractModuleFactory.mock.instances[0];
+        rsk3.contractModuleFactory = contractModuleFactoryMock;
     });
 
     it('constructor check', () => {
-        expect(rsk3.contractModuleFactory).toEqual(contractModuleFactoryMock);
+        expect(rsk3.contractModuleFactory.constructor).toEqual(ContractModuleFactory);
 
-        expect(rsk3.net).toEqual(networkMock);
+        expect(rsk3.net.constructor).toEqual(networkMock);
 
-        expect(rsk3.accounts).toEqual(accountsMock);
+        expect(rsk3.accounts.constructor).toEqual(accountsMock);
 
-        expect(rsk3.personal).toEqual(personalMock);
+        expect(rsk3.personal.constructor).toEqual(personalMock);
 
-        expect(rsk3.abi).toEqual(abiCoderMock);
+        expect(rsk3.abi.constructor).toEqual(abiCoderMock);
 
-        expect(rsk3.utils).toEqual(Utils);
+        // Static property of Rsk3;
+        expect(Rsk3.utils).toEqual(Utils);
 
         expect(rsk3.formatters).toEqual(formatters);
 
@@ -112,9 +96,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.defaultGasPrice).toEqual(10);
 
-        expect(networkMock.defaultGasPrice).toEqual(10);
+        expect(rsk3.net.defaultGasPrice).toEqual(10);
 
-        expect(personalMock.defaultGasPrice).toEqual(10);
+        expect(rsk3.personal.defaultGasPrice).toEqual(10);
     });
 
     it('sets the defaultGas property', () => {
@@ -125,9 +109,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.defaultGas).toEqual(10);
 
-        expect(networkMock.defaultGas).toEqual(10);
+        expect(rsk3.net.defaultGas).toEqual(10);
 
-        expect(personalMock.defaultGas).toEqual(10);
+        expect(rsk3.personal.defaultGas).toEqual(10);
     });
 
     it('sets the transactionBlockTimeout property', () => {
@@ -138,9 +122,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.transactionBlockTimeout).toEqual(10);
 
-        expect(networkMock.transactionBlockTimeout).toEqual(10);
+        expect(rsk3.net.transactionBlockTimeout).toEqual(10);
 
-        expect(personalMock.transactionBlockTimeout).toEqual(10);
+        expect(rsk3.personal.transactionBlockTimeout).toEqual(10);
     });
 
     it('sets the transactionConfirmationBlocks property', () => {
@@ -151,9 +135,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.transactionConfirmationBlocks).toEqual(10);
 
-        expect(networkMock.transactionConfirmationBlocks).toEqual(10);
+        expect(rsk3.net.transactionConfirmationBlocks).toEqual(10);
 
-        expect(personalMock.transactionConfirmationBlocks).toEqual(10);
+        expect(rsk3.personal.transactionConfirmationBlocks).toEqual(10);
     });
 
     it('sets the transactionPollingTimeout property', () => {
@@ -164,9 +148,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.transactionPollingTimeout).toEqual(10);
 
-        expect(networkMock.transactionPollingTimeout).toEqual(10);
+        expect(rsk3.net.transactionPollingTimeout).toEqual(10);
 
-        expect(personalMock.transactionPollingTimeout).toEqual(10);
+        expect(rsk3.personal.transactionPollingTimeout).toEqual(10);
     });
 
     it('sets the defaultAccount property', () => {
@@ -180,9 +164,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.defaultAccount).toEqual('0x1');
 
-        expect(networkMock.defaultAccount).toEqual('0x1');
+        expect(rsk3.net.defaultAccount).toEqual('0x1');
 
-        expect(personalMock.defaultAccount).toEqual('0x1');
+        expect(rsk3.personal.defaultAccount).toEqual('0x1');
 
         expect(Utils.toChecksumAddress).toHaveBeenCalledWith('0x1');
     });
@@ -195,9 +179,9 @@ describe('rsk3Test', () => {
 
         expect(rsk3.defaultBlock).toEqual(10);
 
-        expect(networkMock.defaultBlock).toEqual(10);
+        expect(rsk3.net.defaultBlock).toEqual(10);
 
-        expect(personalMock.defaultBlock).toEqual(10);
+        expect(rsk3.personal.defaultBlock).toEqual(10);
     });
 
     it('calls subscribe wih "logs" as type', () => {
@@ -215,8 +199,6 @@ describe('rsk3Test', () => {
         expect(rsk3.subscribe('logs', {}, callback)).toBeInstanceOf(LogSubscription);
 
         expect(subscriptionsFactoryMock.getSubscription).toHaveBeenCalledWith(rsk3, 'logs', {});
-
-        expect(logSubscriptionMock.subscribe).toHaveBeenCalledWith(callback);
     });
 
     it('calls subscribe wih "newBlockHeaders" as type', () => {
@@ -234,8 +216,6 @@ describe('rsk3Test', () => {
         expect(rsk3.subscribe('newBlockHeaders', {}, callback)).toBeInstanceOf(AbstractSubscription);
 
         expect(subscriptionsFactoryMock.getSubscription).toHaveBeenCalledWith(rsk3, 'newBlockHeaders', {});
-
-        expect(abstractSubscriptionMock.subscribe).toHaveBeenCalledWith(callback);
     });
 
     it('calls subscribe wih "pendingTransactions" as type', () => {
@@ -253,8 +233,6 @@ describe('rsk3Test', () => {
         expect(rsk3.subscribe('pendingTransactions', {}, callback)).toBeInstanceOf(AbstractSubscription);
 
         expect(subscriptionsFactoryMock.getSubscription).toHaveBeenCalledWith(rsk3, 'pendingTransactions', {});
-
-        expect(abstractSubscriptionMock.subscribe).toHaveBeenCalledWith(callback);
     });
 
     it('calls subscribe wih "syncing" as type', () => {
@@ -272,8 +250,6 @@ describe('rsk3Test', () => {
         expect(rsk3.subscribe('syncing', {}, callback)).toBeInstanceOf(AbstractSubscription);
 
         expect(subscriptionsFactoryMock.getSubscription).toHaveBeenCalledWith(rsk3, 'syncing', {});
-
-        expect(abstractSubscriptionMock.subscribe).toHaveBeenCalledWith(callback);
     });
 
     it('calls the Contract factory method with options from the constructor', () => {
