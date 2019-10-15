@@ -26,7 +26,7 @@ export default class Rsk3 extends AbstractWeb3Module {
         this.net = new Network(resolvedProvider, null, options);
         this.accounts = new Accounts(resolvedProvider, null, options);
         this.personal = new Personal(resolvedProvider, null, this.accounts, options);
-        this.abi = new AbiCoder();
+        this.abiCoder = new AbiCoder();
         // TODO: RNS here
         this.formatters = formatters;
         this.subscriptionsFactory = new SubscriptionsFactory(Utils, formatters);

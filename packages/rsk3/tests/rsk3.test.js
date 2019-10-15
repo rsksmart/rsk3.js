@@ -75,7 +75,7 @@ describe('rsk3Test', () => {
 
         expect(rsk3.personal.constructor).toEqual(personalMock);
 
-        expect(rsk3.abi.constructor).toEqual(abiCoderMock);
+        expect(rsk3.abiCoder.constructor).toEqual(abiCoderMock);
 
         // Static property of Rsk3;
         expect(Rsk3.utils).toEqual(Utils);
