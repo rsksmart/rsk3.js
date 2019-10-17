@@ -65,5 +65,3 @@ typings/
 
 # Demo
 demo/build
-
-packages/**/dist
