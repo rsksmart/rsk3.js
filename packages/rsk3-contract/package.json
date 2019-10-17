@@ -1,7 +1,7 @@
 {
   "name": "rsk3-contract",
   "namespace": "RSK",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -20,9 +20,9 @@
     "@babel/runtime": "^7.3.1",
     "@types/bn.js": "^4.11.4",
     "lodash": "^4.17.11",
-    "rsk3-abi": "0.1.0",
-    "rsk3-account": "0.1.0",
-    "rsk3-utils": "0.1.0",
+    "rsk3-abi": "0.1.1",
+    "rsk3-account": "0.1.1",
+    "rsk3-utils": "0.1.1",
     "web3-core": "2.0.0-alpha.1",
     "web3-core-helpers": "2.0.0-alpha.1",
     "web3-core-method": "2.0.0-alpha.1",
