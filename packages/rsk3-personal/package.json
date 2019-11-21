@@ -1,6 +1,6 @@
 {
   "name": "rsk3-personal",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "rsk3 module to interact with the Ethereum blockchain accounts stored in the node.",
   "engines": {
     "node": ">=8.0.0"
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "rsk3-account": "0.1.1",
-    "rsk3-utils": "0.1.1",
+    "rsk3-account": "0.1.2",
+    "rsk3-utils": "0.1.2",
     "web3-core": "2.0.0-alpha.1",
     "web3-core-helpers": "2.0.0-alpha.1",
     "web3-core-method": "2.0.0-alpha.1",
