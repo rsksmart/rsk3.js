@@ -84,7 +84,7 @@ await new Promise((resolve, reject) => {
 
 ## Commands
 
-- npm install # install all dependencies for npm run bootstrap
+- npm run bootstrap # install all dependencies for npm run bootstrap
 - npm run lint # Examine formatting of source code using eslint
 - npm run test # runs all tests 
 - npm run clean # removes all the node_modules folders in all modules
