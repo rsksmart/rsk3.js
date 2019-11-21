@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rsk3-utils'), require('web3-core-helpers'), require('@babel/runtime/helpers/classCallCheck'), require('@babel/runtime/helpers/possibleConstructorReturn'), require('@babel/runtime/helpers/getPrototypeOf'), require('@babel/runtime/helpers/inherits'), require('web3-core-method'), require('@babel/runtime/regenerator'), require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/helpers/createClass'), require('@babel/runtime/helpers/assertThisInitialized'), require('lodash/isFunction'), require('lodash/isObject'), require('eth-lib/lib/hash'), require('eth-lib/lib/rlp'), require('eth-lib/lib/bytes'), require('eth-lib/lib/account'), require('web3-core'), require('scryptsy'), require('lodash/isString'), require('uuid'), require('randombytes'), require('pbkdf2'), require('browserify-cipher')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'rsk3-utils', 'web3-core-helpers', '@babel/runtime/helpers/classCallCheck', '@babel/runtime/helpers/possibleConstructorReturn', '@babel/runtime/helpers/getPrototypeOf', '@babel/runtime/helpers/inherits', 'web3-core-method', '@babel/runtime/regenerator', '@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/helpers/createClass', '@babel/runtime/helpers/assertThisInitialized', 'lodash/isFunction', 'lodash/isObject', 'eth-lib/lib/hash', 'eth-lib/lib/rlp', 'eth-lib/lib/bytes', 'eth-lib/lib/account', 'web3-core', 'scryptsy', 'lodash/isString', 'uuid', 'randombytes', 'pbkdf2', 'browserify-cipher'], factory) :
-    (global = global || self, factory(global.Rsk3Account = {}, global.Utils, global.web3CoreHelpers, global._classCallCheck, global._possibleConstructorReturn, global._getPrototypeOf, global._inherits, global.web3CoreMethod, global._regeneratorRuntime, global._asyncToGenerator, global._createClass, global._assertThisInitialized, global.isFunction, global.isObject, global.Hash, global.RLP, global.Bytes, global.EthLibAccount, global.web3Core, global.scryptsy, global.isString, global.uuid, global.randomBytes, global.pbkdf2, global.browserifyCipher));
-}(this, function (exports, Utils, web3CoreHelpers, _classCallCheck, _possibleConstructorReturn, _getPrototypeOf, _inherits, web3CoreMethod, _regeneratorRuntime, _asyncToGenerator, _createClass, _assertThisInitialized, isFunction, isObject, Hash, RLP, Bytes, EthLibAccount, web3Core, scryptsy, isString, uuid, randomBytes, pbkdf2, browserifyCipher) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rsk3-utils'), require('web3-core-helpers'), require('@babel/runtime/helpers/classCallCheck'), require('@babel/runtime/helpers/possibleConstructorReturn'), require('@babel/runtime/helpers/getPrototypeOf'), require('@babel/runtime/helpers/inherits'), require('web3-core-method'), require('@babel/runtime/regenerator'), require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/helpers/createClass'), require('@babel/runtime/helpers/assertThisInitialized'), require('lodash/isFunction'), require('lodash/isObject'), require('eth-lib/lib/hash'), require('eth-lib/lib/rlp'), require('eth-lib/lib/bytes'), require('eth-lib/lib/account'), require('web3-core'), require('scrypt-shim'), require('lodash/isString'), require('uuid'), require('randombytes'), require('pbkdf2'), require('browserify-cipher')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'rsk3-utils', 'web3-core-helpers', '@babel/runtime/helpers/classCallCheck', '@babel/runtime/helpers/possibleConstructorReturn', '@babel/runtime/helpers/getPrototypeOf', '@babel/runtime/helpers/inherits', 'web3-core-method', '@babel/runtime/regenerator', '@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/helpers/createClass', '@babel/runtime/helpers/assertThisInitialized', 'lodash/isFunction', 'lodash/isObject', 'eth-lib/lib/hash', 'eth-lib/lib/rlp', 'eth-lib/lib/bytes', 'eth-lib/lib/account', 'web3-core', 'scrypt-shim', 'lodash/isString', 'uuid', 'randombytes', 'pbkdf2', 'browserify-cipher'], factory) :
+    (global = global || self, factory(global.Rsk3Account = {}, global.Utils, global.web3CoreHelpers, global._classCallCheck, global._possibleConstructorReturn, global._getPrototypeOf, global._inherits, global.web3CoreMethod, global._regeneratorRuntime, global._asyncToGenerator, global._createClass, global._assertThisInitialized, global.isFunction, global.isObject, global.Hash, global.RLP, global.Bytes, global.EthLibAccount, global.web3Core, global.scrypt, global.isString, global.uuid, global.randomBytes, global.pbkdf2, global.browserifyCipher));
+}(this, function (exports, Utils, web3CoreHelpers, _classCallCheck, _possibleConstructorReturn, _getPrototypeOf, _inherits, web3CoreMethod, _regeneratorRuntime, _asyncToGenerator, _createClass, _assertThisInitialized, isFunction, isObject, Hash, RLP, Bytes, EthLibAccount, web3Core, scrypt, isString, uuid, randomBytes, pbkdf2, browserifyCipher) { 'use strict';
 
     _classCallCheck = _classCallCheck && _classCallCheck.hasOwnProperty('default') ? _classCallCheck['default'] : _classCallCheck;
     _possibleConstructorReturn = _possibleConstructorReturn && _possibleConstructorReturn.hasOwnProperty('default') ? _possibleConstructorReturn['default'] : _possibleConstructorReturn;
@@ -17,7 +17,7 @@
     Hash = Hash && Hash.hasOwnProperty('default') ? Hash['default'] : Hash;
     RLP = RLP && RLP.hasOwnProperty('default') ? RLP['default'] : RLP;
     Bytes = Bytes && Bytes.hasOwnProperty('default') ? Bytes['default'] : Bytes;
-    scryptsy = scryptsy && scryptsy.hasOwnProperty('default') ? scryptsy['default'] : scryptsy;
+    scrypt = scrypt && scrypt.hasOwnProperty('default') ? scrypt['default'] : scrypt;
     isString = isString && isString.hasOwnProperty('default') ? isString['default'] : isString;
     uuid = uuid && uuid.hasOwnProperty('default') ? uuid['default'] : uuid;
     randomBytes = randomBytes && randomBytes.hasOwnProperty('default') ? randomBytes['default'] : randomBytes;
@@ -38,78 +38,6 @@
       }
       return MethodFactory;
     }(web3CoreMethod.AbstractMethodFactory);
-
-    var scrypt;
-    var isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
-    if (isNode) {
-      var NODE_MIN_VER_WITH_BUILTIN_SCRYPT = '10.5.0';
-      var NODE_MIN_VER_INCOMPAT_SCRYPT_PKG = '12.0.0';
-      var semver = require('semver');
-      var useNodeBuiltin = isNode && semver.Range('>=' + NODE_MIN_VER_WITH_BUILTIN_SCRYPT).test(process.version);
-      var tryScryptPackage = function () {
-        var scryptPackage;
-        return function () {
-          if (scryptPackage !== undefined) {
-            return scryptPackage;
-          }
-          try {
-            scryptPackage = require('scrypt');
-          } catch (error) {
-            if (/was compiled against a different/.test(error.message)) {
-              throw error;
-            }
-            scryptPackage = null;
-          }
-          return scryptPackage;
-        };
-      }();
-      var canImprove = function canImprove(nodeVer) {
-        return "can improve rsk3's peformance when running Node.js versions older than ".concat(nodeVer, " by installing the (deprecated) scrypt package in your project");
-      };
-      if (useNodeBuiltin) {
-        var crypto = require('crypto');
-        var fallbackCount = 0;
-        scrypt = function scrypt(key, salt, N, r, p, dkLength) {
-          try {
-            return crypto.scryptSync(key, salt, dkLength, {
-              N: N,
-              r: r,
-              p: p
-            });
-          } catch (error) {
-            if (/scrypt:memory limit exceeded/.test(error.message)) {
-              var scryptPackage = tryScryptPackage();
-              if (scryptPackage) {
-                return scryptPackage.hashSync(key, {
-                  N: N,
-                  r: r,
-                  p: p
-                }, dkLength, salt);
-              }
-              fallbackCount += 1;
-              console.warn("\x1B[33m%s\x1B[0m", "Memory limit exceeded for Node's built-in crypto.scrypt, falling back to scryptsy (times: ".concat(fallbackCount, "), if this happens frequently you ").concat(canImprove(NODE_MIN_VER_INCOMPAT_SCRYPT_PKG)));
-              return scryptsy(key, salt, N, r, p, dkLength);
-            }
-            throw error;
-          }
-        };
-      } else {
-        var scryptPackage = tryScryptPackage();
-        if (scryptPackage) {
-          scrypt = function scrypt(key, salt, N, r, p, dkLength) {
-            return scryptPackage.hashSync(key, {
-              N: N,
-              r: r,
-              p: p
-            }, dkLength, salt);
-          };
-        } else {
-          console.warn("\x1B[33m%s\x1B[0m", "You ".concat(canImprove(NODE_MIN_VER_WITH_BUILTIN_SCRYPT)));
-        }
-      }
-    }
-    scrypt = scrypt || scryptsy;
-    var scrypt$1 = scrypt;
 
     var Account =
     function () {
@@ -173,7 +101,7 @@
             kdfparams.n = options.n || 8192;
             kdfparams.r = options.r || 8;
             kdfparams.p = options.p || 1;
-            derivedKey = scrypt$1(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
+            derivedKey = scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
           } else {
             throw new Error('Unsupported kdf');
           }
@@ -235,7 +163,7 @@
           var kdfparams;
           if (json.crypto.kdf === 'scrypt') {
             kdfparams = json.crypto.kdfparams;
-            derivedKey = scrypt$1(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
+            derivedKey = scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
           } else if (json.crypto.kdf === 'pbkdf2') {
             kdfparams = json.crypto.kdfparams;
             if (kdfparams.prf !== 'hmac-sha256') {

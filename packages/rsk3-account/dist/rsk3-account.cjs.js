@@ -22,7 +22,7 @@ var RLP = _interopDefault(require('eth-lib/lib/rlp'));
 var Bytes = _interopDefault(require('eth-lib/lib/bytes'));
 var EthLibAccount = require('eth-lib/lib/account');
 var web3Core = require('web3-core');
-var scryptsy = _interopDefault(require('scryptsy'));
+var scrypt = _interopDefault(require('scrypt-shim'));
 var isString = _interopDefault(require('lodash/isString'));
 var uuid = _interopDefault(require('uuid'));
 var randomBytes = _interopDefault(require('randombytes'));
@@ -45,78 +45,6 @@ function (_AbstractMethodFactor) {
   }
   return MethodFactory;
 }(web3CoreMethod.AbstractMethodFactory);
-
-var scrypt;
-var isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
-if (isNode) {
-  var NODE_MIN_VER_WITH_BUILTIN_SCRYPT = '10.5.0';
-  var NODE_MIN_VER_INCOMPAT_SCRYPT_PKG = '12.0.0';
-  var semver = require('semver');
-  var useNodeBuiltin = isNode && semver.Range('>=' + NODE_MIN_VER_WITH_BUILTIN_SCRYPT).test(process.version);
-  var tryScryptPackage = function () {
-    var scryptPackage;
-    return function () {
-      if (scryptPackage !== undefined) {
-        return scryptPackage;
-      }
-      try {
-        scryptPackage = require('scrypt');
-      } catch (error) {
-        if (/was compiled against a different/.test(error.message)) {
-          throw error;
-        }
-        scryptPackage = null;
-      }
-      return scryptPackage;
-    };
-  }();
-  var canImprove = function canImprove(nodeVer) {
-    return "can improve rsk3's peformance when running Node.js versions older than ".concat(nodeVer, " by installing the (deprecated) scrypt package in your project");
-  };
-  if (useNodeBuiltin) {
-    var crypto = require('crypto');
-    var fallbackCount = 0;
-    scrypt = function scrypt(key, salt, N, r, p, dkLength) {
-      try {
-        return crypto.scryptSync(key, salt, dkLength, {
-          N: N,
-          r: r,
-          p: p
-        });
-      } catch (error) {
-        if (/scrypt:memory limit exceeded/.test(error.message)) {
-          var scryptPackage = tryScryptPackage();
-          if (scryptPackage) {
-            return scryptPackage.hashSync(key, {
-              N: N,
-              r: r,
-              p: p
-            }, dkLength, salt);
-          }
-          fallbackCount += 1;
-          console.warn("\x1B[33m%s\x1B[0m", "Memory limit exceeded for Node's built-in crypto.scrypt, falling back to scryptsy (times: ".concat(fallbackCount, "), if this happens frequently you ").concat(canImprove(NODE_MIN_VER_INCOMPAT_SCRYPT_PKG)));
-          return scryptsy(key, salt, N, r, p, dkLength);
-        }
-        throw error;
-      }
-    };
-  } else {
-    var scryptPackage = tryScryptPackage();
-    if (scryptPackage) {
-      scrypt = function scrypt(key, salt, N, r, p, dkLength) {
-        return scryptPackage.hashSync(key, {
-          N: N,
-          r: r,
-          p: p
-        }, dkLength, salt);
-      };
-    } else {
-      console.warn("\x1B[33m%s\x1B[0m", "You ".concat(canImprove(NODE_MIN_VER_WITH_BUILTIN_SCRYPT)));
-    }
-  }
-}
-scrypt = scrypt || scryptsy;
-var scrypt$1 = scrypt;
 
 var Account =
 function () {
@@ -180,7 +108,7 @@ function () {
         kdfparams.n = options.n || 8192;
         kdfparams.r = options.r || 8;
         kdfparams.p = options.p || 1;
-        derivedKey = scrypt$1(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
+        derivedKey = scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
       } else {
         throw new Error('Unsupported kdf');
       }
@@ -242,7 +170,7 @@ function () {
       var kdfparams;
       if (json.crypto.kdf === 'scrypt') {
         kdfparams = json.crypto.kdfparams;
-        derivedKey = scrypt$1(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
+        derivedKey = scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen);
       } else if (json.crypto.kdf === 'pbkdf2') {
         kdfparams = json.crypto.kdfparams;
         if (kdfparams.prf !== 'hmac-sha256') {

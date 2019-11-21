@@ -1,4 +1,4 @@
-import scrypt from '../crypto/scrypt';
+import scrypt from 'scrypt-shim';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 import * as EthLibAccount from 'eth-lib/lib/account';
