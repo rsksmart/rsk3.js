@@ -17,7 +17,8 @@
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
     "test": "npm run build && lerna run test",
     "test:coverage": "lerna run test -- --coverage && npm run istanbulCombine",
-    "istanbulCombine": "istanbul-combine -d coverage -r lcov -r html ./packages/**/coverage-final.json"
+    "istanbulCombine": "istanbul-combine -d coverage -r lcov -r html ./packages/**/coverage-final.json",
+    "clean": "lerna clean"
   },
   "repository": {
     "type": "git",
