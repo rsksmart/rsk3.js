@@ -758,8 +758,8 @@ const getSignatureParameters = (signature) => {
  */
 const keyBtcToRskInBytes = (btcPrivateKey) => {
     var decodedKey = bs58.decode(btcPrivateKey);
-    var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
-    return privKeyBytes;
+    var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
+    return keyInBytes;
 };
 
 /**
@@ -767,8 +767,8 @@ const keyBtcToRskInBytes = (btcPrivateKey) => {
  * @param {string} btcPrivateKey
  */
 const privateKeyToRskFormat = (btcPrivateKey) => {
-    const privKeyBytes = keyBtcToRskInBytes(btcPrivateKey);
-    const privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+    const keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
+    const privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
     return privKeyInRskFormat;
 };
 
@@ -783,22 +783,22 @@ const getRskAddress = (btcPrivateKey) => {
 };
 
 /**
- * Generate BTC private key based on Bitcoin network (mainnet, testnet) and RSK wallet public address
- * @param {string} btcNet MAIN_NET or TEST_NET
- * @param {string} rskAddress RSK wallet public address
+ * Convert a RSK private key to BTC private key based on Bitcoin network type (mainnet, testnet)
+ * @param {string} btcNetworkType MAIN_NET or TEST_NET
+ * @param {string} rskPrivateKey RSK wallet private key
  */
-const getBtcPrivateKey = (btcNet, rskAddress) => {
-    const addressArray = convertHex.hexToBytes(rskAddress);
+const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
+    const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
     const partialResult = [];
     const result = [];
 
-    if (btcNet === 'MAIN_NET') {
+    if (btcNetworkType === 'MAIN_NET') {
         partialResult.push(0x80);
     } else {
         partialResult.push(0xef);
     }
 
-    for (const element of addressArray) {
+    for (const element of keyByteArray) {
         partialResult.push(element);
     }
 
@@ -816,6 +816,7 @@ const getBtcPrivateKey = (btcNet, rskAddress) => {
 
     return bs58.encode(bufferResult);
 };
+
 const _elementaryName = (name) => {
     if (name.startsWith('int[')) {
         return `int256${name.slice(3)}`;
