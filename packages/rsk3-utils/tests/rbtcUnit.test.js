@@ -1,31 +1,31 @@
 import {toWei, fromWei, numberToString, getValueOfUnit} from '../src/rbtcUnit.js';
-import BigNumber from 'bn.js';
+import BN from 'bn.js';
 
 describe('toWei', function() {
     it('calls toWei and returns the expected results', () => {
-        expect(toWei('1', 'wei')).toEqual(new BigNumber('1'));
+        expect(toWei('1', 'wei')).toEqual(new BN('1'));
 
-        expect(toWei('1', 'kwei')).toEqual(new BigNumber('1000'));
+        expect(toWei('1', 'kwei')).toEqual(new BN('1000'));
 
-        expect(toWei('1', 'Kwei')).toEqual(new BigNumber('1000'));
+        expect(toWei('1', 'Kwei')).toEqual(new BN('1000'));
 
-        expect(toWei('1', 'mwei')).toEqual(new BigNumber('1000000'));
+        expect(toWei('1', 'mwei')).toEqual(new BN('1000000'));
 
-        expect(toWei('1', 'Mwei')).toEqual(new BigNumber('1000000'));
+        expect(toWei('1', 'Mwei')).toEqual(new BN('1000000'));
 
-        expect(toWei('1', 'gwei')).toEqual(new BigNumber('1000000000'));
+        expect(toWei('1', 'gwei')).toEqual(new BN('1000000000'));
 
-        expect(toWei('1', 'Gwei')).toEqual(new BigNumber('1000000000'));
+        expect(toWei('1', 'Gwei')).toEqual(new BN('1000000000'));
 
-        expect(toWei('1', 'ether')).toEqual(new BigNumber('1000000000000000000'));
+        expect(toWei('1', 'ether')).toEqual(new BN('1000000000000000000'));
 
-        expect(toWei('1', 'kether')).toEqual(new BigNumber('1000000000000000000000'));
+        expect(toWei('1', 'kether')).toEqual(new BN('1000000000000000000000'));
 
-        expect(toWei('1', 'mether')).toEqual(new BigNumber('1000000000000000000000000'));
+        expect(toWei('1', 'mether')).toEqual(new BN('1000000000000000000000000'));
 
-        expect(toWei('1', 'gether')).toEqual(new BigNumber('1000000000000000000000000000'));
+        expect(toWei('1', 'gether')).toEqual(new BN('1000000000000000000000000000'));
 
-        expect(toWei('1', 'tether')).toEqual(new BigNumber('1000000000000000000000000000000'));
+        expect(toWei('1', 'tether')).toEqual(new BN('1000000000000000000000000000000'));
 
         expect(() => {
             toWei(0.01, 'wei');
@@ -83,10 +83,10 @@ describe('toWei', function() {
                 {value: 55, expected: '55'},
                 {value: 1, expected: '1'},
                 {value: -1, expected: '-1'},
-                {value: new BigNumber(10000), expected: '10000'},
-                {value: new BigNumber(1), expected: '1'},
-                {value: new BigNumber(-1), expected: '-1'},
-                {value: new BigNumber(0), expected: '0'}
+                {value: new BN(10000), expected: '10000'},
+                {value: new BN(1), expected: '1'},
+                {value: new BN(-1), expected: '-1'},
+                {value: new BN(0), expected: '0'}
             ];
             tests.forEach((test) => {
                 expect(numberToString(test.value)).toEqual(test.expected);
@@ -107,7 +107,7 @@ describe('toWei', function() {
                 {value: 'tether', expected: '1000000000000000000000000000000'}
             ];
             tests.forEach((test) => {
-                expect(getValueOfUnit(test.value)).toEqual(new BigNumber(test.expected, 10));
+                expect(getValueOfUnit(test.value)).toEqual(new BN(test.expected, 10));
             });
         });
     });

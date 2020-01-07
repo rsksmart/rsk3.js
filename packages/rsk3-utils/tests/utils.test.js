@@ -1,7 +1,6 @@
 import {
     isBN,
     hexToNumber,
-    isBigNumber,
     keccak256,
     isAddress,
     toChecksumAddress,
@@ -65,23 +64,6 @@ describe('UtilsTest', () => {
 
         tests.forEach((test) => {
             expect(isBN(test.value)).toEqual(test.is);
-        });
-    });
-
-    it('calls isBigNumber and returns the expected results', () => {
-        const tests = [
-            {value: new BN(3), expected: true},
-            {value: 7, expected: false},
-            {value: '4325', expected: false},
-            {value: {}, expected: false},
-            {value: ['string'], expected: false},
-            {value: [4], expected: false},
-            {value: null, expected: false},
-            {value: undefined, expected: false}
-        ];
-
-        tests.forEach((test) => {
-            expect(isBigNumber(test.value)).toEqual(test.expected);
         });
     });
 

@@ -124,36 +124,6 @@ rsk3.utils.isBN(number);
 
 ------------------------------------------------------------------------
 
-isBigNumber
------------
-
-``` javascript
-rsk3.utils.isBigNumber(bignumber)
-```
-
-Checks if a given value is a
-[BigNumber.js](http://mikemcl.github.io/bignumber.js/) instance.
-
-### Parameters
-
-1.  `BigNumber` - `Object`: A
-    [BigNumber.js](http://mikemcl.github.io/bignumber.js/) instance.
-
-### Returns
-
-`Boolean`
-
-### Example
-
-``` javascript
-const number = new BigNumber(10);
-
-rsk3.utils.isBigNumber(number);
-> true
-```
-
-------------------------------------------------------------------------
-
 keccak256
 ---------
 
@@ -517,7 +487,7 @@ strings.
 
 ### Parameters
 
-1.  `value` - `String|Number|BN|BigNumber`: The input to convert to HEX.
+1.  `value` - `String|Number|BN`: The input to convert to HEX.
 
 ### Returns
 
@@ -533,9 +503,6 @@ rsk3.utils.toHex(234);
 > "0xea"
 
 rsk3.utils.toHex(new BN('234'));
-> "0xea"
-
-rsk3.utils.toHex(new BigNumber('234'));
 > "0xea"
 
 rsk3.utils.toHex('I have 100€');
@@ -654,7 +621,7 @@ Returns the HEX representation of a given number value.
 
 ### Parameters
 
-1.  `number` - `String|Number|BN|BigNumber`: A number as string or
+1.  `number` - `String|Number|BN`: A number as string or
     number.
 
 ### Returns
@@ -1165,7 +1132,7 @@ Converts a negative numer into a two\'s complement.
 
 ### Parameters
 
-1.  `number` - `Number|String|BigNumber`: The number to convert.
+1.  `number` - `Number|String`: The number to convert.
 
 ### Returns
 

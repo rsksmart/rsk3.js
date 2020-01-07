@@ -3,7 +3,6 @@ import numberToBN from 'number-to-bn';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import isNull from 'lodash/isNull';
-import isUndefined from 'lodash/isUndefined';
 import isBoolean from 'lodash/isBoolean';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
@@ -119,22 +118,6 @@ const _flattenTypes = (includeTuple, puts) => {
  */
 const isBN = (object) => {
     return BN.isBN(object);
-};
-
-/**
- * Returns true if object is BigNumber, otherwise false
- *
- * @method isBigNumber
- *
- * @param {Object} object
- *
- * @returns {Boolean}
- */
-const isBigNumber = (object) => {
-    if (isNull(object) || isUndefined(object)) {
-        return false;
-    }
-    return object && object.constructor && object.constructor.name === 'BN';
 };
 
 /**
@@ -320,7 +303,7 @@ const toHex = (value, returnType) => {
         return returnType ? 'bool' : value ? '0x01' : '0x00';
     }
 
-    if (isObject(value) && !isBigNumber(value) && !isBN(value)) {
+    if (isObject(value) && !isBN(value)) {
         return returnType ? 'string' : utf8ToHex(JSON.stringify(value));
     }
 
@@ -654,7 +637,7 @@ const getUnitValue = (unit) => {
  *
  * @method fromWei
  *
- * @param {String|BN} number can be a BigNumber, number string or a HEX of a decimal
+ * @param {String|BN} number can be a BN, number string or a HEX of a decimal
  * @param {String} unit the unit to convert to, default ether
  *
  * @returns {String} Returns a string
@@ -875,8 +858,6 @@ const _parseNumber = (argument) => {
         }
     } else if (type === 'number') {
         return new BN(argument);
-    } else if (isBigNumber(argument)) {
-        return new BN(argument.toString(10));
     } else if (isBN(argument)) {
         return argument;
     } else {
@@ -1039,7 +1020,6 @@ export {
     BN,
     toBN,
     isBN,
-    isBigNumber,
     keccak256,
     keccak256 as sha3,
     soliditySha3,

@@ -26,7 +26,7 @@ var unitMap = {
  *
  * @method getValueOfUnit
  * @param {String} unit the unit to convert to, default ether
- * @returns {BigNumber} value of the unit (in Wei)
+ * @returns {BN} value of the unit (in Wei)
  * @throws error if the unit is not correct:w
  */
 function getValueOfUnit(unitInput) {
@@ -128,7 +128,7 @@ function fromWei(weiInput, unit, optionsInput) {
  * @method toWei
  * @param {String} etherInput the value of unit in ether
  * @param {String} unit the unit want to convert to
- * @returns {BigNumber} value of the unit (in wei)
+ * @returns {BN} value of the unit (in wei)
  * @throws error if the converting value is invalid
  */
 function toWei(etherInput, unit) {

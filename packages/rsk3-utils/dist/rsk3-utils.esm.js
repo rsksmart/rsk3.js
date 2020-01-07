@@ -2,7 +2,6 @@ import numberToBN from 'number-to-bn';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import isNull from 'lodash/isNull';
-import isUndefined from 'lodash/isUndefined';
 import isBoolean from 'lodash/isBoolean';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
@@ -172,12 +171,6 @@ const _flattenTypes = (includeTuple, puts) => {
 const isBN = object => {
   return BN.isBN(object);
 };
-const isBigNumber = object => {
-  if (isNull(object) || isUndefined(object)) {
-    return false;
-  }
-  return object && object.constructor && object.constructor.name === 'BN';
-};
 const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470';
 const keccak256 = value => {
   if (isHexStrict(value) && /^0x/i.test(value.toString())) {
@@ -247,7 +240,7 @@ const toHex = (value, returnType) => {
   if (isBoolean(value)) {
     return returnType ? 'bool' : value ? '0x01' : '0x00';
   }
-  if (isObject(value) && !isBigNumber(value) && !isBN(value)) {
+  if (isObject(value) && !isBN(value)) {
     return returnType ? 'string' : utf8ToHex(JSON.stringify(value));
   }
   if (isString(value)) {
@@ -412,12 +405,12 @@ const getSignatureParameters = signature => {
 };
 const keyBtcToRskInBytes = btcPrivateKey => {
   var decodedKey = bs58.decode(btcPrivateKey);
-  var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
-  return privKeyBytes;
+  var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
+  return keyInBytes;
 };
 const privateKeyToRskFormat = btcPrivateKey => {
-  const privKeyBytes = keyBtcToRskInBytes(btcPrivateKey);
-  const privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+  const keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
+  const privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
   return privKeyInRskFormat;
 };
 const getRskAddress = btcPrivateKey => {
@@ -425,16 +418,16 @@ const getRskAddress = btcPrivateKey => {
   const addressInRskFormat = myWallet.getAddress();
   return addressInRskFormat.toString('hex');
 };
-const getBtcPrivateKey = (btcNet, rskAddress) => {
-  const addressArray = convertHex.hexToBytes(rskAddress);
+const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
+  const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
   const partialResult = [];
   const result = [];
-  if (btcNet === 'MAIN_NET') {
+  if (btcNetworkType === 'MAIN_NET') {
     partialResult.push(0x80);
   } else {
     partialResult.push(0xef);
   }
-  for (const element of addressArray) {
+  for (const element of keyByteArray) {
     partialResult.push(element);
   }
   partialResult.push(0x01);
@@ -493,8 +486,6 @@ const _parseNumber = argument => {
     }
   } else if (type === 'number') {
     return new BN(argument);
-  } else if (isBigNumber(argument)) {
-    return new BN(argument.toString(10));
   } else if (isBN(argument)) {
     return argument;
   } else {
@@ -609,4 +600,4 @@ const soliditySha3 = function () {
   return keccak256(`0x${hexArguments.join('')}`);
 };
 
-export { asciiToHex, bytesToHex, checkAddressChecksum, asciiToHex as fromAscii, numberToHex as fromDecimal, utf8ToHex as fromUtf8, fromWei$1 as fromWei, getBtcPrivateKey, getRskAddress, getSignatureParameters, hexToAscii, hexToBytes, hexToNumber, hexToNumberString, hexToUtf8 as hexToString, hexToUtf8, isAddress, isBN, isBigNumber, isHex, isHexStrict, jsonInterfaceMethodToString, keccak256, padLeft as leftPad, numberToHex, padLeft, padRight, privateKeyToRskFormat, randomHex, padRight as rightPad, keccak256 as sha3, soliditySha3, utf8ToHex as stringToHex, stripHexPrefix, hexToAscii as toAscii, toBN, toChecksumAddress, hexToNumber as toDecimal, toHex, toTwosComplement, hexToUtf8 as toUtf8, toWei$1 as toWei, unitMap$1 as unitMap, utf8ToHex };
+export { asciiToHex, bytesToHex, checkAddressChecksum, asciiToHex as fromAscii, numberToHex as fromDecimal, utf8ToHex as fromUtf8, fromWei$1 as fromWei, getBtcPrivateKey, getRskAddress, getSignatureParameters, hexToAscii, hexToBytes, hexToNumber, hexToNumberString, hexToUtf8 as hexToString, hexToUtf8, isAddress, isBN, isHex, isHexStrict, jsonInterfaceMethodToString, keccak256, padLeft as leftPad, numberToHex, padLeft, padRight, privateKeyToRskFormat, randomHex, padRight as rightPad, keccak256 as sha3, soliditySha3, utf8ToHex as stringToHex, stripHexPrefix, hexToAscii as toAscii, toBN, toChecksumAddress, hexToNumber as toDecimal, toHex, toTwosComplement, hexToUtf8 as toUtf8, toWei$1 as toWei, unitMap$1 as unitMap, utf8ToHex };

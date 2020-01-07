@@ -1,15 +1,14 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/typeof'), require('number-to-bn'), require('lodash/isString'), require('lodash/isNumber'), require('lodash/isNull'), require('lodash/isUndefined'), require('lodash/isBoolean'), require('lodash/isArray'), require('lodash/isObject'), require('utf8'), require('randombytes'), require('bn.js'), require('eth-lib/lib/hash'), require('lodash/map'), require('lodash/has'), require('bs58'), require('ethereumjs-wallet'), require('convert-hex'), require('js-sha256')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/typeof', 'number-to-bn', 'lodash/isString', 'lodash/isNumber', 'lodash/isNull', 'lodash/isUndefined', 'lodash/isBoolean', 'lodash/isArray', 'lodash/isObject', 'utf8', 'randombytes', 'bn.js', 'eth-lib/lib/hash', 'lodash/map', 'lodash/has', 'bs58', 'ethereumjs-wallet', 'convert-hex', 'js-sha256'], factory) :
-    (global = global || self, factory(global.Rsk3Utils = {}, global._typeof, global.numberToBN, global.isString, global.isNumber, global.isNull, global.isUndefined, global.isBoolean, global.isArray, global.isObject, global.utf8, global.randombytes, global.BN, global.Hash, global.map, global.has, global.bs58, global.wallet, global.convertHex, global.sha256));
-}(this, function (exports, _typeof, numberToBN, isString, isNumber, isNull, isUndefined, isBoolean, isArray, isObject, utf8, randombytes, BN, Hash, map, has, bs58, wallet, convertHex, sha256) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/typeof'), require('number-to-bn'), require('lodash/isString'), require('lodash/isNumber'), require('lodash/isNull'), require('lodash/isBoolean'), require('lodash/isArray'), require('lodash/isObject'), require('utf8'), require('randombytes'), require('bn.js'), require('eth-lib/lib/hash'), require('lodash/map'), require('lodash/has'), require('bs58'), require('ethereumjs-wallet'), require('convert-hex'), require('js-sha256')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/typeof', 'number-to-bn', 'lodash/isString', 'lodash/isNumber', 'lodash/isNull', 'lodash/isBoolean', 'lodash/isArray', 'lodash/isObject', 'utf8', 'randombytes', 'bn.js', 'eth-lib/lib/hash', 'lodash/map', 'lodash/has', 'bs58', 'ethereumjs-wallet', 'convert-hex', 'js-sha256'], factory) :
+    (global = global || self, factory(global.Rsk3Utils = {}, global._typeof, global.numberToBN, global.isString, global.isNumber, global.isNull, global.isBoolean, global.isArray, global.isObject, global.utf8, global.randombytes, global.BN, global.Hash, global.map, global.has, global.bs58, global.wallet, global.convertHex, global.sha256));
+}(this, function (exports, _typeof, numberToBN, isString, isNumber, isNull, isBoolean, isArray, isObject, utf8, randombytes, BN, Hash, map, has, bs58, wallet, convertHex, sha256) { 'use strict';
 
     _typeof = _typeof && _typeof.hasOwnProperty('default') ? _typeof['default'] : _typeof;
     numberToBN = numberToBN && numberToBN.hasOwnProperty('default') ? numberToBN['default'] : numberToBN;
     isString = isString && isString.hasOwnProperty('default') ? isString['default'] : isString;
     isNumber = isNumber && isNumber.hasOwnProperty('default') ? isNumber['default'] : isNumber;
     isNull = isNull && isNull.hasOwnProperty('default') ? isNull['default'] : isNull;
-    isUndefined = isUndefined && isUndefined.hasOwnProperty('default') ? isUndefined['default'] : isUndefined;
     isBoolean = isBoolean && isBoolean.hasOwnProperty('default') ? isBoolean['default'] : isBoolean;
     isArray = isArray && isArray.hasOwnProperty('default') ? isArray['default'] : isArray;
     isObject = isObject && isObject.hasOwnProperty('default') ? isObject['default'] : isObject;
@@ -168,12 +167,6 @@
     var isBN = function isBN(object) {
       return BN.isBN(object);
     };
-    var isBigNumber = function isBigNumber(object) {
-      if (isNull(object) || isUndefined(object)) {
-        return false;
-      }
-      return object && object.constructor && object.constructor.name === 'BN';
-    };
     var KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470';
     var keccak256 = function keccak256(value) {
       if (isHexStrict(value) && /^0x/i.test(value.toString())) {
@@ -248,7 +241,7 @@
       if (isBoolean(value)) {
         return returnType ? 'bool' : value ? '0x01' : '0x00';
       }
-      if (isObject(value) && !isBigNumber(value) && !isBN(value)) {
+      if (isObject(value) && !isBN(value)) {
         return returnType ? 'string' : utf8ToHex(JSON.stringify(value));
       }
       if (isString(value)) {
@@ -433,12 +426,12 @@
     };
     var keyBtcToRskInBytes = function keyBtcToRskInBytes(btcPrivateKey) {
       var decodedKey = bs58.decode(btcPrivateKey);
-      var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
-      return privKeyBytes;
+      var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
+      return keyInBytes;
     };
     var privateKeyToRskFormat = function privateKeyToRskFormat(btcPrivateKey) {
-      var privKeyBytes = keyBtcToRskInBytes(btcPrivateKey);
-      var privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+      var keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
+      var privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
       return privKeyInRskFormat;
     };
     var getRskAddress = function getRskAddress(btcPrivateKey) {
@@ -446,11 +439,11 @@
       var addressInRskFormat = myWallet.getAddress();
       return addressInRskFormat.toString('hex');
     };
-    var getBtcPrivateKey = function getBtcPrivateKey(btcNet, rskAddress) {
-      var addressArray = convertHex.hexToBytes(rskAddress);
+    var getBtcPrivateKey = function getBtcPrivateKey(btcNetworkType, rskPrivateKey) {
+      var keyByteArray = convertHex.hexToBytes(rskPrivateKey);
       var partialResult = [];
       var result = [];
-      if (btcNet === 'MAIN_NET') {
+      if (btcNetworkType === 'MAIN_NET') {
         partialResult.push(0x80);
       } else {
         partialResult.push(0xef);
@@ -459,7 +452,7 @@
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
       try {
-        for (var _iterator2 = addressArray[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        for (var _iterator2 = keyByteArray[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var element = _step2.value;
           partialResult.push(element);
         }
@@ -534,8 +527,6 @@
         }
       } else if (type === 'number') {
         return new BN(argument);
-      } else if (isBigNumber(argument)) {
-        return new BN(argument.toString(10));
       } else if (isBN(argument)) {
         return argument;
       } else {
@@ -669,7 +660,6 @@
     exports.hexToUtf8 = hexToUtf8;
     exports.isAddress = isAddress;
     exports.isBN = isBN;
-    exports.isBigNumber = isBigNumber;
     exports.isHex = isHex;
     exports.isHexStrict = isHexStrict;
     exports.jsonInterfaceMethodToString = jsonInterfaceMethodToString;
