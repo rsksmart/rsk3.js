@@ -766,9 +766,10 @@ const getRskAddress = (btcPrivateKey) => {
 };
 
 /**
- * Convert a RSK private key to BTC private key based on Bitcoin network type (mainnet, testnet)
+ * Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
  * @param {string} btcNetworkType MAIN_NET or TEST_NET
  * @param {string} rskPrivateKey RSK wallet private key
+ * @returns {string} BTC private key (WIF format)
  */
 const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
     const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
