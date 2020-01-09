@@ -10,9 +10,14 @@ import * as Utils from 'rsk3-utils';
 import RskTransactionSigner from './signers/transactionSigner';
 import MethodFactory from './factories/methodFactory';
 import SubscriptionsFactory from './factories/subscriptionsFactory';
+import _ from 'lodash';
 
 export default class Rsk3 extends AbstractWeb3Module {
     constructor(provider, net, options = {}) {
+        // check node connections
+        if (_.isString(provider) && (provider.includes('http:') || provider.includes('ws:'))) {
+            console.warn('SECURITY WARNING: connection to RSK node is not secure');
+        }
         super(provider, options, new MethodFactory(Utils, formatters), net);
 
         if (!options.transactionSigner || options.transactionSigner.type === 'TransactionSigner') {
