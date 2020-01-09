@@ -8,7 +8,7 @@
     "url": "git+https://github.com/rootstock/rsk3.js.git"
   },
   "engines": {
-    "node": ">=8.11.3"
+    "node": ">=8.6.0"
   },
   "license": "LGPL-3.0",
   "scripts": {

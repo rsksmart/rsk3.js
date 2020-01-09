@@ -40,7 +40,7 @@
     "web3-providers": "2.0.0-alpha.1"
   },
   "engines": {
-    "node": ">=8.11.3"
+    "node": ">=8.6.0"
   },
   "namespace": "RSK"
 }
