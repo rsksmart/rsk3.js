@@ -772,6 +772,10 @@ const getRskAddress = (btcPrivateKey) => {
  * @returns {string} BTC private key (WIF format)
  */
 const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
+    if (!isString(rskPrivateKey) || rskPrivateKey.length !== 64) {
+        throw new Error('RSK private key input needs to be a 64-letter hex string');
+    }
+
     const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
     const partialResult = [];
     const result = [];
