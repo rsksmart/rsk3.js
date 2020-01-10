@@ -1,4 +1,5 @@
 import isString from 'lodash/isString';
+import isUndefined from 'lodash/isUndefined';
 import Account from './account';
 
 export default class Wallet {
@@ -73,6 +74,10 @@ export default class Wallet {
     add(account) {
         if (isString(account)) {
             account = Account.fromPrivateKey(account, this.accountsModule);
+        }
+
+        if (isUndefined(account)) {
+            throw new Error('account is undefined');
         }
 
         if (!this.accounts[account.address]) {

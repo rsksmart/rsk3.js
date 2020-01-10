@@ -1,6 +1,7 @@
 import scrypt from 'scrypt-shim';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
+import isUndefined from 'lodash/isUndefined';
 import * as EthLibAccount from 'eth-lib/lib/account';
 import uuid from 'uuid';
 import Hash from 'eth-lib/lib/hash';
@@ -103,6 +104,10 @@ export default class Account {
      * @returns {Account}
      */
     static fromPrivateKey(privateKey, accounts = {}) {
+        if (!isString(privateKey)) {
+            throw new Error('privateKey should be string type');
+        }
+
         if (!privateKey.startsWith('0x')) {
             privateKey = '0x' + privateKey;
         }
@@ -217,10 +222,18 @@ export default class Account {
             throw new Error('No password given.');
         }
 
+        if (!isObject(v3Keystore) && !isString(v3Keystore)) {
+            throw new Error('v3Keystore should be object or string type');
+        }
+
         const json = isObject(v3Keystore) ? v3Keystore : JSON.parse(nonStrict ? v3Keystore.toLowerCase() : v3Keystore);
 
         if (json.version !== 3) {
             throw new Error('Not a valid V3 wallet');
+        }
+
+        if (isUndefined(json.crypto)) {
+            throw new Error('json.crypto is undefined');
         }
 
         let derivedKey;

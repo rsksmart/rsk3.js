@@ -1,4 +1,5 @@
 import EthereumTx from 'ethereumjs-tx';
+import isString from 'lodash/isString';
 
 export default class TransactionSigner {
     /**
@@ -34,6 +35,10 @@ export default class TransactionSigner {
     async sign(transaction, privateKey) {
         if (!privateKey) {
             throw new Error('No privateKey given to the TransactionSigner.');
+        }
+
+        if (!isString(privateKey)) {
+            throw new Error('privateKey should be string type');
         }
 
         if (privateKey.startsWith('0x')) {

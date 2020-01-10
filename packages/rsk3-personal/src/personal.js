@@ -1,4 +1,6 @@
 import {AbstractWeb3Module} from 'web3-core';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
 
 export default class Personal extends AbstractWeb3Module {
     /**
@@ -66,6 +68,10 @@ export default class Personal extends AbstractWeb3Module {
      * @param {Number} value
      */
     set defaultGas(value) {
+        if (!isNumber(value)) {
+            throw new Error('value should be number type');
+        }
+
         super.defaultGas = value;
         this.net.defaultGas = value;
     }
@@ -89,6 +95,10 @@ export default class Personal extends AbstractWeb3Module {
      * @param {Number} value
      */
     set transactionBlockTimeout(value) {
+        if (!isNumber(value)) {
+            throw new Error('value should be number type');
+        }
+
         super.transactionBlockTimeout = value;
         this.net.transactionBlockTimeout = value;
     }
@@ -112,6 +122,10 @@ export default class Personal extends AbstractWeb3Module {
      * @param {Number} value
      */
     set transactionConfirmationBlocks(value) {
+        if (!isNumber(value)) {
+            throw new Error('value should be number type');
+        }
+
         super.transactionConfirmationBlocks = value;
         this.net.transactionConfirmationBlocks = value;
     }
@@ -135,6 +149,10 @@ export default class Personal extends AbstractWeb3Module {
      * @param {Number} value
      */
     set transactionPollingTimeout(value) {
+        if (!isNumber(value)) {
+            throw new Error('value should be number type');
+        }
+
         super.transactionPollingTimeout = value;
         this.net.transactionPollingTimeout = value;
     }
@@ -158,6 +176,10 @@ export default class Personal extends AbstractWeb3Module {
      * @param {String} value
      */
     set defaultAccount(value) {
+        if (!isString(value)) {
+            throw new Error('value should be string type');
+        }
+
         super.defaultAccount = value;
         this.net.defaultAccount = value;
     }
