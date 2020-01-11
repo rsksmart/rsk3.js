@@ -12,7 +12,7 @@ import {
     UnlockAccountMethod
 } from 'web3-core-method';
 
-import MethodFactory from '../src/factories/MethodFactory';
+import MethodFactory from '../src/factories/methodFactory';
 
 // Mocks
 jest.mock('rsk3-utils');

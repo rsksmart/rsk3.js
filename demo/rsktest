@@ -93,7 +93,3 @@ if (argv.migrate) {
       console.log(error)
     })
 }
-
-if (argv.console) {
-  let context = repl.start('>').context;
-}

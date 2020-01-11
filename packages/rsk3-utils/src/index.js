@@ -740,6 +740,10 @@ const getSignatureParameters = (signature) => {
  * @param {string} bitcoinPrivateKey
  */
 const keyBtcToRskInBytes = (btcPrivateKey) => {
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
     var decodedKey = bs58.decode(btcPrivateKey);
     var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
     return keyInBytes;
@@ -750,6 +754,10 @@ const keyBtcToRskInBytes = (btcPrivateKey) => {
  * @param {string} btcPrivateKey
  */
 const privateKeyToRskFormat = (btcPrivateKey) => {
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
     const keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
     const privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
     return privKeyInRskFormat;
@@ -760,17 +768,29 @@ const privateKeyToRskFormat = (btcPrivateKey) => {
  * @param {string} btcPrivateKey
  */
 const getRskAddress = (btcPrivateKey) => {
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
     const myWallet = wallet.fromPrivateKey(Buffer.from(keyBtcToRskInBytes(btcPrivateKey)));
     const addressInRskFormat = myWallet.getAddress();
     return addressInRskFormat.toString('hex');
 };
 
 /**
- * Convert a RSK private key to BTC private key based on Bitcoin network type (mainnet, testnet)
+ * Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
  * @param {string} btcNetworkType MAIN_NET or TEST_NET
  * @param {string} rskPrivateKey RSK wallet private key
+ * @returns {string} BTC private key (WIF format)
  */
 const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
+    if (btcNetworkType !== 'MAIN_NET' && btcNetworkType !== 'TEST_NET') {
+        throw new Error('btcNetworkType should be MAIN_NET or TEST_NET');
+    }
+    if (!isString(rskPrivateKey) || rskPrivateKey.length !== 64) {
+        throw new Error('RSK private key input needs to be a 64-letter hex string');
+    }
+
     const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
     const partialResult = [];
     const result = [];

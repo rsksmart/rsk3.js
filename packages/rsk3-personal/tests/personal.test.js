@@ -2,8 +2,8 @@ import * as Utils from 'rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {Network} from 'web3-net';
 import {AbstractWeb3Module} from 'web3-core';
-import MethodFactory from '../src/factories/MethodFactory';
-import Personal from '../src/Personal';
+import MethodFactory from '../src/factories/methodFactory';
+import Personal from '../src/personal';
 
 // Mocks
 jest.mock('rsk3-utils');

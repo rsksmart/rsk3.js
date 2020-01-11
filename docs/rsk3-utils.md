@@ -1182,3 +1182,58 @@ Gets the r, s and v values of an ECDSA signature
 rsk3.utils.getSignatureParameters('0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf7922c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc1b');
 > "{ r: '0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf792', s: '0x2c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc', v: 27 }"
 ```
+
+------------------------------------------------------------------------
+
+privateKeyToRskFormat
+----------------------
+**Note caution** this method use private key
+
+``` javascript
+rsk3.utils.privateKeyToRskFormat(btcPrivateKey)
+```
+
+Convert a BTC private key into RSK private key format
+
+### Parameters
+
+1.  `btcPrivateKey` - `String`: An BTC private key (WIF format).
+
+### Returns
+
+`String`: An RSK private key (ECDSA format).
+
+### Example
+
+``` javascript
+rsk3.utils.privateKeyToRskFormat('cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q');
+> "6ee4ce349f44b796c684991e93037abb405e703de288d331fc7c90cec7fafd8f"
+```
+
+------------------------------------------------------------------------
+
+getBtcPrivateKey
+----------------------
+**Note caution** this method use private key
+
+``` javascript
+rsk3.utils.getBtcPrivateKey(btcNetworkType, rskPrivateKey)
+```
+
+Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
+
+### Parameters
+
+1.  `btcNetworkType` - `String`: MAIN_NET or TEST_NET.
+2.  `rskPrivateKey` - `String`: RSK wallet private key (ECDSA format).
+
+### Returns
+
+`String`: An BTC private key (WIF format).
+
+### Example
+
+``` javascript
+rsk3.utils.getBtcPrivateKey('17b81c99f190d344e07d9dc9cc09f003745e3c69', 'TEST_NET');
+> "8KdhtXts5tz3pZgyDeaaYXSBJVQ6W4wiwSRG"
+```

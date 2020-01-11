@@ -1,4 +1,5 @@
 import isString from 'lodash/isString';
+import isUndefined from 'lodash/isUndefined';
 import Account from './account';
 
 export default class Wallet {
@@ -73,6 +74,10 @@ export default class Wallet {
     add(account) {
         if (isString(account)) {
             account = Account.fromPrivateKey(account, this.accountsModule);
+        }
+
+        if (isUndefined(account)) {
+            throw new Error('account is undefined');
         }
 
         if (!this.accounts[account.address]) {
@@ -170,82 +175,5 @@ export default class Wallet {
         });
 
         return this;
-    }
-
-    /**
-     * Saves the current wallet in the localStorage of the browser
-     *
-     * @method save
-     *
-     * @param {String} password
-     * @param {String} keyName
-     *
-     * @returns {boolean}
-     */
-    /* istanbul ignore next */ save(password, keyName) {
-        console.warn('SECURITY WARNING: Storing of accounts in the localStorage is highly insecure!');
-
-        if (typeof localStorage === 'undefined') {
-            throw new TypeError('window.localStorage is undefined.');
-        }
-
-        try {
-            localStorage.setItem(keyName || this.defaultKeyName, JSON.stringify(this.encrypt(password)));
-        } catch (error) {
-            // code 18 means trying to use local storage in a iframe
-            // with third party cookies turned off
-            // we still want to support using web3 in a iframe
-            // as by default safari turn these off for all iframes
-            // so mask the error
-            if (error.code === 18) {
-                return true;
-            }
-
-            // throw as normal if not
-            throw new Error(error);
-        }
-
-        return true;
-    }
-
-    /**
-     * Loads the stored wallet by his keyName from the localStorage of the browser
-     *
-     * @method load
-     *
-     * @param {String} password
-     * @param {String} keyName
-     *
-     * @returns {Wallet}
-     */
-    /* istanbul ignore next */ load(password, keyName) {
-        console.warn('SECURITY WARNING: Storing of accounts in the localStorage is highly insecure!');
-
-        if (typeof localStorage === 'undefined') {
-            throw new TypeError('window.localStorage is undefined.');
-        }
-
-        let keystore;
-        try {
-            keystore = localStorage.getItem(keyName || this.defaultKeyName);
-
-            if (keystore) {
-                keystore = JSON.parse(keystore);
-            }
-        } catch (error) {
-            // code 18 means trying to use local storage in a iframe
-            // with third party cookies turned off
-            // we still want to support using web3 in a iframe
-            // as by default safari turn these off for all iframes
-            // so mask the error
-            if (error.code === 18) {
-                keystore = this.defaultKeyName;
-            } else {
-                // throw as normal if not
-                throw new Error(error);
-            }
-        }
-
-        return this.decrypt(keystore || [], password);
     }
 }

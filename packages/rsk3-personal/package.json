@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "rsk3 module to interact with the Ethereum blockchain accounts stored in the node.",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.6.0"
   },
   "license": "LGPL-3.0",
   "scripts": {
