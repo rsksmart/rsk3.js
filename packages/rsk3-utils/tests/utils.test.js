@@ -1,7 +1,6 @@
 import {
     isBN,
     hexToNumber,
-    isBigNumber,
     keccak256,
     isAddress,
     toChecksumAddress,
@@ -65,23 +64,6 @@ describe('UtilsTest', () => {
 
         tests.forEach((test) => {
             expect(isBN(test.value)).toEqual(test.is);
-        });
-    });
-
-    it('calls isBigNumber and returns the expected results', () => {
-        const tests = [
-            {value: new BN(3), expected: true},
-            {value: 7, expected: false},
-            {value: '4325', expected: false},
-            {value: {}, expected: false},
-            {value: ['string'], expected: false},
-            {value: [4], expected: false},
-            {value: null, expected: false},
-            {value: undefined, expected: false}
-        ];
-
-        tests.forEach((test) => {
-            expect(isBigNumber(test.value)).toEqual(test.expected);
         });
     });
 
@@ -645,19 +627,19 @@ describe('UtilsTest', () => {
     it('calls getBtcPrivateKey and returns the expected results', () => {
         const tests = [
             {
-                rskAddress: '17b81c99f190d344e07d9dc9cc09f003745e3c69',
+                rskPrivateKey: 'a4731d0ed503d1bf38370ab358165670d1835dac0c86825380847db6711fb532',
                 btcNet: 'MAIN_NET',
-                expected: '4vVhgUdF79RiMLaPL173iBwJuEjsKUzKMw8X'
+                expected: 'L2jNy1WosV7mH1Z5deXx3RxPtC12xZQ2uVUWv9sramd4vHQeQ1Gi'
             },
             {
-                rskAddress: '17b81c99f190d344e07d9dc9cc09f003745e3c69',
+                rskPrivateKey: '962EAAC4217C366AF7F8C57AF7B0ECB40A18680586CE3CD9067C6A9A3A536C34',
                 btcNet: 'TEST_NET',
-                expected: '8KdhtXts5tz3pZgyDeaaYXSBJVQ6W4wiwSRG'
+                expected: 'cScds5eQpQaAGYPfcWtEDYJdyNRn9QLY4p5utHWwNvHV31eNKTNm'
             }
         ];
 
         tests.forEach((test) => {
-            expect(getBtcPrivateKey(test.btcNet, test.rskAddress)).toEqual(test.expected);
+            expect(getBtcPrivateKey(test.btcNet, test.rskPrivateKey)).toEqual(test.expected);
         });
     });
 });

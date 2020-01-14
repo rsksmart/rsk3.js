@@ -124,36 +124,6 @@ rsk3.utils.isBN(number);
 
 ------------------------------------------------------------------------
 
-isBigNumber
------------
-
-``` javascript
-rsk3.utils.isBigNumber(bignumber)
-```
-
-Checks if a given value is a
-[BigNumber.js](http://mikemcl.github.io/bignumber.js/) instance.
-
-### Parameters
-
-1.  `BigNumber` - `Object`: A
-    [BigNumber.js](http://mikemcl.github.io/bignumber.js/) instance.
-
-### Returns
-
-`Boolean`
-
-### Example
-
-``` javascript
-const number = new BigNumber(10);
-
-rsk3.utils.isBigNumber(number);
-> true
-```
-
-------------------------------------------------------------------------
-
 keccak256
 ---------
 
@@ -517,7 +487,7 @@ strings.
 
 ### Parameters
 
-1.  `value` - `String|Number|BN|BigNumber`: The input to convert to HEX.
+1.  `value` - `String|Number|BN`: The input to convert to HEX.
 
 ### Returns
 
@@ -533,9 +503,6 @@ rsk3.utils.toHex(234);
 > "0xea"
 
 rsk3.utils.toHex(new BN('234'));
-> "0xea"
-
-rsk3.utils.toHex(new BigNumber('234'));
 > "0xea"
 
 rsk3.utils.toHex('I have 100€');
@@ -654,7 +621,7 @@ Returns the HEX representation of a given number value.
 
 ### Parameters
 
-1.  `number` - `String|Number|BN|BigNumber`: A number as string or
+1.  `number` - `String|Number|BN`: A number as string or
     number.
 
 ### Returns
@@ -1165,7 +1132,7 @@ Converts a negative numer into a two\'s complement.
 
 ### Parameters
 
-1.  `number` - `Number|String|BigNumber`: The number to convert.
+1.  `number` - `Number|String`: The number to convert.
 
 ### Returns
 
@@ -1214,4 +1181,59 @@ Gets the r, s and v values of an ECDSA signature
 ``` javascript
 rsk3.utils.getSignatureParameters('0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf7922c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc1b');
 > "{ r: '0x5763ab346198e3e6cc4d53996ccdeca0c941cb6cb70d671d97711c421d3bf792', s: '0x2c77ef244ad40e5262d1721bf9638fb06bab8ed3c43bfaa80d6da0be9bbd33dc', v: 27 }"
+```
+
+------------------------------------------------------------------------
+
+privateKeyToRskFormat
+----------------------
+**Note caution** this method use private key
+
+``` javascript
+rsk3.utils.privateKeyToRskFormat(btcPrivateKey)
+```
+
+Convert a BTC private key into RSK private key format
+
+### Parameters
+
+1.  `btcPrivateKey` - `String`: An BTC private key (WIF format).
+
+### Returns
+
+`String`: An RSK private key (ECDSA format).
+
+### Example
+
+``` javascript
+rsk3.utils.privateKeyToRskFormat('cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q');
+> "6ee4ce349f44b796c684991e93037abb405e703de288d331fc7c90cec7fafd8f"
+```
+
+------------------------------------------------------------------------
+
+getBtcPrivateKey
+----------------------
+**Note caution** this method use private key
+
+``` javascript
+rsk3.utils.getBtcPrivateKey(btcNetworkType, rskPrivateKey)
+```
+
+Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
+
+### Parameters
+
+1.  `btcNetworkType` - `String`: MAIN_NET or TEST_NET.
+2.  `rskPrivateKey` - `String`: RSK wallet private key (ECDSA format).
+
+### Returns
+
+`String`: An BTC private key (WIF format).
+
+### Example
+
+``` javascript
+rsk3.utils.getBtcPrivateKey('17b81c99f190d344e07d9dc9cc09f003745e3c69', 'TEST_NET');
+> "8KdhtXts5tz3pZgyDeaaYXSBJVQ6W4wiwSRG"
 ```

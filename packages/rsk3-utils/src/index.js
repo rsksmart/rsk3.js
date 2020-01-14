@@ -3,7 +3,6 @@ import numberToBN from 'number-to-bn';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import isNull from 'lodash/isNull';
-import isUndefined from 'lodash/isUndefined';
 import isBoolean from 'lodash/isBoolean';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
@@ -119,22 +118,6 @@ const _flattenTypes = (includeTuple, puts) => {
  */
 const isBN = (object) => {
     return BN.isBN(object);
-};
-
-/**
- * Returns true if object is BigNumber, otherwise false
- *
- * @method isBigNumber
- *
- * @param {Object} object
- *
- * @returns {Boolean}
- */
-const isBigNumber = (object) => {
-    if (isNull(object) || isUndefined(object)) {
-        return false;
-    }
-    return object && object.constructor && object.constructor.name === 'BN';
 };
 
 /**
@@ -320,7 +303,7 @@ const toHex = (value, returnType) => {
         return returnType ? 'bool' : value ? '0x01' : '0x00';
     }
 
-    if (isObject(value) && !isBigNumber(value) && !isBN(value)) {
+    if (isObject(value) && !isBN(value)) {
         return returnType ? 'string' : utf8ToHex(JSON.stringify(value));
     }
 
@@ -654,7 +637,7 @@ const getUnitValue = (unit) => {
  *
  * @method fromWei
  *
- * @param {String|BN} number can be a BigNumber, number string or a HEX of a decimal
+ * @param {String|BN} number can be a BN, number string or a HEX of a decimal
  * @param {String} unit the unit to convert to, default ether
  *
  * @returns {String} Returns a string
@@ -757,9 +740,13 @@ const getSignatureParameters = (signature) => {
  * @param {string} bitcoinPrivateKey
  */
 const keyBtcToRskInBytes = (btcPrivateKey) => {
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
     var decodedKey = bs58.decode(btcPrivateKey);
-    var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
-    return privKeyBytes;
+    var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
+    return keyInBytes;
 };
 
 /**
@@ -767,8 +754,12 @@ const keyBtcToRskInBytes = (btcPrivateKey) => {
  * @param {string} btcPrivateKey
  */
 const privateKeyToRskFormat = (btcPrivateKey) => {
-    const privKeyBytes = keyBtcToRskInBytes(btcPrivateKey);
-    const privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
+    const keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
+    const privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
     return privKeyInRskFormat;
 };
 
@@ -777,28 +768,40 @@ const privateKeyToRskFormat = (btcPrivateKey) => {
  * @param {string} btcPrivateKey
  */
 const getRskAddress = (btcPrivateKey) => {
+    if (!isString(btcPrivateKey)) {
+        throw new Error('btcPrivateKey should be string type');
+    }
+
     const myWallet = wallet.fromPrivateKey(Buffer.from(keyBtcToRskInBytes(btcPrivateKey)));
     const addressInRskFormat = myWallet.getAddress();
     return addressInRskFormat.toString('hex');
 };
 
 /**
- * Generate BTC private key based on Bitcoin network (mainnet, testnet) and RSK wallet public address
- * @param {string} btcNet MAIN_NET or TEST_NET
- * @param {string} rskAddress RSK wallet public address
+ * Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
+ * @param {string} btcNetworkType MAIN_NET or TEST_NET
+ * @param {string} rskPrivateKey RSK wallet private key
+ * @returns {string} BTC private key (WIF format)
  */
-const getBtcPrivateKey = (btcNet, rskAddress) => {
-    const addressArray = convertHex.hexToBytes(rskAddress);
+const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
+    if (btcNetworkType !== 'MAIN_NET' && btcNetworkType !== 'TEST_NET') {
+        throw new Error('btcNetworkType should be MAIN_NET or TEST_NET');
+    }
+    if (!isString(rskPrivateKey) || rskPrivateKey.length !== 64) {
+        throw new Error('RSK private key input needs to be a 64-letter hex string');
+    }
+
+    const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
     const partialResult = [];
     const result = [];
 
-    if (btcNet === 'MAIN_NET') {
+    if (btcNetworkType === 'MAIN_NET') {
         partialResult.push(0x80);
     } else {
         partialResult.push(0xef);
     }
 
-    for (const element of addressArray) {
+    for (const element of keyByteArray) {
         partialResult.push(element);
     }
 
@@ -816,6 +819,7 @@ const getBtcPrivateKey = (btcNet, rskAddress) => {
 
     return bs58.encode(bufferResult);
 };
+
 const _elementaryName = (name) => {
     if (name.startsWith('int[')) {
         return `int256${name.slice(3)}`;
@@ -874,8 +878,6 @@ const _parseNumber = (argument) => {
         }
     } else if (type === 'number') {
         return new BN(argument);
-    } else if (isBigNumber(argument)) {
-        return new BN(argument.toString(10));
     } else if (isBN(argument)) {
         return argument;
     } else {
@@ -1038,7 +1040,6 @@ export {
     BN,
     toBN,
     isBN,
-    isBigNumber,
     keccak256,
     keccak256 as sha3,
     soliditySha3,
