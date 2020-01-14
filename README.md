@@ -103,3 +103,6 @@ To run single package tests, under the root run
 
 ## Formatting
 Code Formatting is done using `eslint`. `.eslintrc.json` under root configures formatting rules for the whole project, and `.eslintignore` file exclude files watched by eslint.
+
+## Note
+The majority of code in packages are similar to those with the same name in Web3.js, and will be upgraded in sync with Web3.js
