@@ -7,7 +7,6 @@ import {encodeSignature, recover} from 'eth-lib/lib/account';
 import {AbstractWeb3Module} from 'web3-core';
 import Account from './models/account';
 import Wallet from './models/wallet';
-import isString from 'lodash/isString';
 
 export default class Accounts extends AbstractWeb3Module {
     /**
@@ -96,10 +95,6 @@ export default class Accounts extends AbstractWeb3Module {
      * @returns {String}
      */
     hashMessage(data) {
-        if (!isString(data)) {
-            throw new Error('data should be string type');
-        }
-
         if (this.utils.isHexStrict(data)) {
             data = this.utils.hexToBytes(data);
         }
@@ -193,10 +188,6 @@ export default class Accounts extends AbstractWeb3Module {
      * @returns {Object}
      */
     sign(data, privateKey) {
-        if (!isString(data)) {
-            throw new Error('data should be string type');
-        }
-
         if (this.utils.isHexStrict(data)) {
             data = this.utils.hexToBytes(data);
         }
