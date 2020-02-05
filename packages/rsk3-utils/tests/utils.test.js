@@ -16,7 +16,8 @@ import {
     asciiToHex,
     toWei,
     fromWei,
-    toTwosComplement
+    toTwosComplement,
+    jsonInterfaceMethodToString
 } from '../src';
 import BN from 'bn.js';
 import * as CryptoJS from 'crypto-js';
@@ -593,5 +594,100 @@ describe('UtilsTest', () => {
         tests.forEach((test) => {
             expect(toTwosComplement(test.value).replace('0x', '')).toEqual(test.expected);
         });
+    });
+
+    it('calls jsonInterfaceMethodToString and returns the expected results', () => {
+        const abiItem = {
+            anonymous: false,
+            constant: true,
+            inputs: [
+                {
+                    name: 'testMe',
+                    type: 'uint256[3]'
+                },
+                {
+                    name: 'inputA',
+                    type: 'tuple',
+                    components: [
+                        {
+                            name: 'a',
+                            type: 'uint8'
+                        },
+                        {
+                            name: 'b',
+                            type: 'uint8'
+                        }
+                    ]
+                },
+                {
+                    name: 'inputB',
+                    type: 'tuple[]',
+                    components: [
+                        {
+                            name: 'a1',
+                            type: 'uint256'
+                        },
+                        {
+                            name: 'a2',
+                            type: 'uint256'
+                        }
+                    ]
+                },
+                {
+                    name: 'inputC',
+                    type: 'uint8',
+                    indexed: false
+                }
+            ],
+            name: 'testName',
+            outputs: [
+                {
+                    name: 'test',
+                    type: 'uint256'
+                },
+                {
+                    name: 'outputA',
+                    type: 'tuple',
+                    components: [
+                        {
+                            name: 'a',
+                            type: 'uint8'
+                        },
+                        {
+                            name: 'b',
+                            type: 'uint8'
+                        }
+                    ]
+                },
+                {
+                    name: 'outputB',
+                    type: 'tuple[]',
+                    components: [
+                        {
+                            name: 'a1',
+                            type: 'uint256'
+                        },
+                        {
+                            name: 'a2',
+                            type: 'uint256'
+                        }
+                    ]
+                }
+            ],
+            payable: false,
+            stateMutability: 'pure',
+            type: 'function'
+        };
+
+        expect(jsonInterfaceMethodToString(abiItem)).toEqual(
+            'testName(uint256[3],(uint8,uint8),(uint256,uint256)[],uint8)'
+        );
+
+        expect(() => jsonInterfaceMethodToString(['string'])).toThrow();
+        expect(() => jsonInterfaceMethodToString(234)).toThrow();
+        expect(() => jsonInterfaceMethodToString([4])).toThrow();
+        expect(() => jsonInterfaceMethodToString(true)).toThrow();
+        expect(() => jsonInterfaceMethodToString(null)).toThrow();
+        expect(() => jsonInterfaceMethodToString(undefined)).toThrow();
     });
 });
