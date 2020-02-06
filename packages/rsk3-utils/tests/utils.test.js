@@ -689,5 +689,6 @@ describe('UtilsTest', () => {
         expect(() => jsonInterfaceMethodToString(true)).toThrow();
         expect(() => jsonInterfaceMethodToString(null)).toThrow();
         expect(() => jsonInterfaceMethodToString(undefined)).toThrow();
+        expect(() => jsonInterfaceMethodToString({name: 'name'})).toThrow();
     });
 });

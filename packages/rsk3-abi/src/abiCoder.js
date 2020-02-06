@@ -24,7 +24,6 @@ export default class AbiCoder {
      */
     encodeFunctionSignature(functionName) {
         if (isObject(functionName)) {
-            // test case coverage it
             functionName = this.utils.jsonInterfaceMethodToString(functionName);
         }
 
