@@ -7,6 +7,7 @@ import {encodeSignature, recover} from 'eth-lib/lib/account';
 import {AbstractWeb3Module} from 'web3-core';
 import Account from './models/account';
 import Wallet from './models/wallet';
+import isString from 'lodash/isString';
 
 export default class Accounts extends AbstractWeb3Module {
     /**
@@ -87,6 +88,10 @@ export default class Accounts extends AbstractWeb3Module {
 
     /**
      * Hashes a given message
+     *
+     * Hashes the given message to be passed web3.eth.accounts.recover() function.
+     * The data will be UTF-8 HEX decoded and enveloped as follows: "\x19Ethereum Signed Message:\n" +
+     * message.length + message and hashed using keccak256.
      *
      * @method hashMessage
      *
@@ -188,6 +193,14 @@ export default class Accounts extends AbstractWeb3Module {
      * @returns {Object}
      */
     sign(data, privateKey) {
+        if (!isString(data)) {
+            throw new Error('data should be string type');
+        }
+
+        if (!isString(privateKey)) {
+            throw new Error('privateKey should be string type');
+        }
+
         if (this.utils.isHexStrict(data)) {
             data = this.utils.hexToBytes(data);
         }
