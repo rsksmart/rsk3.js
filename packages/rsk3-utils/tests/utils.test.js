@@ -17,9 +17,7 @@ import {
     toWei,
     fromWei,
     toTwosComplement,
-    privateKeyToRskFormat,
-    getRskAddress,
-    getBtcPrivateKey
+    jsonInterfaceMethodToString
 } from '../src';
 import BN from 'bn.js';
 import * as CryptoJS from 'crypto-js';
@@ -598,48 +596,99 @@ describe('UtilsTest', () => {
         });
     });
 
-    it('calls privateKeyToRskFormat and returns the expected results', () => {
-        const tests = [
-            {
-                value: 'cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q',
-                expected: '6ee4ce349f44b796c684991e93037abb405e703de288d331fc7c90cec7fafd8f'
-            }
-        ];
+    it('calls jsonInterfaceMethodToString and returns the expected results', () => {
+        const abiItem = {
+            anonymous: false,
+            constant: true,
+            inputs: [
+                {
+                    name: 'testMe',
+                    type: 'uint256[3]'
+                },
+                {
+                    name: 'inputA',
+                    type: 'tuple',
+                    components: [
+                        {
+                            name: 'a',
+                            type: 'uint8'
+                        },
+                        {
+                            name: 'b',
+                            type: 'uint8'
+                        }
+                    ]
+                },
+                {
+                    name: 'inputB',
+                    type: 'tuple[]',
+                    components: [
+                        {
+                            name: 'a1',
+                            type: 'uint256'
+                        },
+                        {
+                            name: 'a2',
+                            type: 'uint256'
+                        }
+                    ]
+                },
+                {
+                    name: 'inputC',
+                    type: 'uint8',
+                    indexed: false
+                }
+            ],
+            name: 'testName',
+            outputs: [
+                {
+                    name: 'test',
+                    type: 'uint256'
+                },
+                {
+                    name: 'outputA',
+                    type: 'tuple',
+                    components: [
+                        {
+                            name: 'a',
+                            type: 'uint8'
+                        },
+                        {
+                            name: 'b',
+                            type: 'uint8'
+                        }
+                    ]
+                },
+                {
+                    name: 'outputB',
+                    type: 'tuple[]',
+                    components: [
+                        {
+                            name: 'a1',
+                            type: 'uint256'
+                        },
+                        {
+                            name: 'a2',
+                            type: 'uint256'
+                        }
+                    ]
+                }
+            ],
+            payable: false,
+            stateMutability: 'pure',
+            type: 'function'
+        };
 
-        tests.forEach((test) => {
-            expect(privateKeyToRskFormat(test.value)).toEqual(test.expected);
-        });
-    });
+        expect(jsonInterfaceMethodToString(abiItem)).toEqual(
+            'testName(uint256[3],(uint8,uint8),(uint256,uint256)[],uint8)'
+        );
 
-    it('calls getRskAddress and returns the expected results', () => {
-        const tests = [
-            {
-                value: 'cRJGJWKUcvhp3eeW5aAUGnwp9UhWbh5GYfYVN7pJBiMMbBEd3y7q',
-                expected: '17b81c99f190d344e07d9dc9cc09f003745e3c69'
-            }
-        ];
-
-        tests.forEach((test) => {
-            expect(getRskAddress(test.value)).toEqual(test.expected);
-        });
-    });
-
-    it('calls getBtcPrivateKey and returns the expected results', () => {
-        const tests = [
-            {
-                rskPrivateKey: 'a4731d0ed503d1bf38370ab358165670d1835dac0c86825380847db6711fb532',
-                btcNet: 'MAIN_NET',
-                expected: 'L2jNy1WosV7mH1Z5deXx3RxPtC12xZQ2uVUWv9sramd4vHQeQ1Gi'
-            },
-            {
-                rskPrivateKey: '962EAAC4217C366AF7F8C57AF7B0ECB40A18680586CE3CD9067C6A9A3A536C34',
-                btcNet: 'TEST_NET',
-                expected: 'cScds5eQpQaAGYPfcWtEDYJdyNRn9QLY4p5utHWwNvHV31eNKTNm'
-            }
-        ];
-
-        tests.forEach((test) => {
-            expect(getBtcPrivateKey(test.btcNet, test.rskPrivateKey)).toEqual(test.expected);
-        });
+        expect(() => jsonInterfaceMethodToString(['string'])).toThrow();
+        expect(() => jsonInterfaceMethodToString(234)).toThrow();
+        expect(() => jsonInterfaceMethodToString([4])).toThrow();
+        expect(() => jsonInterfaceMethodToString(true)).toThrow();
+        expect(() => jsonInterfaceMethodToString(null)).toThrow();
+        expect(() => jsonInterfaceMethodToString(undefined)).toThrow();
+        expect(() => jsonInterfaceMethodToString({name: 'name'})).toThrow();
     });
 });

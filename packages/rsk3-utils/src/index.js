@@ -14,10 +14,6 @@ import map from 'lodash/map';
 import has from 'lodash/has';
 
 import * as rskUnit from './rbtcUnit';
-import bs58 from 'bs58';
-import wallet from 'ethereumjs-wallet';
-import convertHex from 'convert-hex';
-import sha256 from 'js-sha256';
 const {unitMap} = rskUnit;
 
 // TODO: Let's try to write all functions in this file
@@ -735,91 +731,6 @@ const getSignatureParameters = (signature) => {
     };
 };
 
-/**
- * Decode BTC private key to into bypes
- * @param {string} bitcoinPrivateKey
- */
-const keyBtcToRskInBytes = (btcPrivateKey) => {
-    if (!isString(btcPrivateKey)) {
-        throw new Error('btcPrivateKey should be string type');
-    }
-
-    var decodedKey = bs58.decode(btcPrivateKey);
-    var keyInBytes = decodedKey.slice(1, decodedKey.length - 5);
-    return keyInBytes;
-};
-
-/**
- * Convert a BTC private key into RSK private key format
- * @param {string} btcPrivateKey
- */
-const privateKeyToRskFormat = (btcPrivateKey) => {
-    if (!isString(btcPrivateKey)) {
-        throw new Error('btcPrivateKey should be string type');
-    }
-
-    const keyInBytes = keyBtcToRskInBytes(btcPrivateKey);
-    const privKeyInRskFormat = Buffer.from(keyInBytes).toString('hex');
-    return privKeyInRskFormat;
-};
-
-/**
- * Generate a RSK public address with a BTC private key
- * @param {string} btcPrivateKey
- */
-const getRskAddress = (btcPrivateKey) => {
-    if (!isString(btcPrivateKey)) {
-        throw new Error('btcPrivateKey should be string type');
-    }
-
-    const myWallet = wallet.fromPrivateKey(Buffer.from(keyBtcToRskInBytes(btcPrivateKey)));
-    const addressInRskFormat = myWallet.getAddress();
-    return addressInRskFormat.toString('hex');
-};
-
-/**
- * Convert a RSK private key to BTC private key (WIF format) based on Bitcoin network type (mainnet, testnet)
- * @param {string} btcNetworkType MAIN_NET or TEST_NET
- * @param {string} rskPrivateKey RSK wallet private key
- * @returns {string} BTC private key (WIF format)
- */
-const getBtcPrivateKey = (btcNetworkType, rskPrivateKey) => {
-    if (btcNetworkType !== 'MAIN_NET' && btcNetworkType !== 'TEST_NET') {
-        throw new Error('btcNetworkType should be MAIN_NET or TEST_NET');
-    }
-    if (!isString(rskPrivateKey) || rskPrivateKey.length !== 64) {
-        throw new Error('RSK private key input needs to be a 64-letter hex string');
-    }
-
-    const keyByteArray = convertHex.hexToBytes(rskPrivateKey);
-    const partialResult = [];
-    const result = [];
-
-    if (btcNetworkType === 'MAIN_NET') {
-        partialResult.push(0x80);
-    } else {
-        partialResult.push(0xef);
-    }
-
-    for (const element of keyByteArray) {
-        partialResult.push(element);
-    }
-
-    partialResult.push(0x01);
-    var check = convertHex.hexToBytes(sha256(convertHex.hexToBytes(sha256(partialResult))));
-
-    for (const element of partialResult) {
-        result.push(element);
-    }
-
-    for (var i = 0; i < 4; i++) {
-        result.push(check[i]);
-    }
-    const bufferResult = Buffer.from(result);
-
-    return bs58.encode(bufferResult);
-};
-
 const _elementaryName = (name) => {
     if (name.startsWith('int[')) {
         return `int256${name.slice(3)}`;
@@ -1075,8 +986,5 @@ export {
     padLeft,
     padLeft as leftPad,
     toTwosComplement,
-    getSignatureParameters,
-    privateKeyToRskFormat,
-    getRskAddress,
-    getBtcPrivateKey
+    getSignatureParameters
 };

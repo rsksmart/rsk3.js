@@ -131,6 +131,14 @@ export default class Account {
      * @returns {{version, id, address, crypto}}
      */
     toV3Keystore(password, options) {
+        if (!isString(password) || password.length < 8) {
+            throw new Error('password should be string type and has 8 length at least');
+        }
+
+        if (options && !isUndefined(options.n) && ![2048, 4096, 8192, 16384].includes(options.n)) {
+            throw new Error('options.n should be one of 2048, 4096, 8192, 16384');
+        }
+
         options = options || {};
         const salt = options.salt || randomBytes(32);
         const iv = options.iv || randomBytes(16);
