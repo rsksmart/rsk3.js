@@ -1,5 +1,4 @@
-import isString from 'lodash/isString';
-import isUndefined from 'lodash/isUndefined';
+import {isUndefined, isString} from 'lodash';
 import Account from './account';
 
 export default class Wallet {
@@ -42,6 +41,13 @@ export default class Wallet {
      * @returns {Wallet}
      */
     create(numberOfAccounts, entropy) {
+        // Verify entropy type and length, if defined
+        if (entropy) {
+            if (!isString(entropy) || entropy.length < 32) {
+                throw new Error('entroy should be a hex string with minimum of 32 length.');
+            }
+        }
+
         for (let i = 0; i < numberOfAccounts; ++i) {
             this.add(Account.from(entropy || this.utils.randomHex(32), this.accountsModule));
         }
