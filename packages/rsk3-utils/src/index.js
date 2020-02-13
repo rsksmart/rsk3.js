@@ -34,7 +34,7 @@ const {unitMap} = rskUnit;
 
 const randomHex = (size) => {
     if (!isNumber(size)) {
-        throw new Error('input size needs to be a number');
+        throw new Error('size parameter should be a number.');
     }
 
     return '0x' + randombytes(size).toString('hex');
@@ -51,7 +51,7 @@ const randomHex = (size) => {
  */
 const jsonInterfaceMethodToString = (json) => {
     if (!isObject(json)) {
-        throw new Error('input json needs to be an object');
+        throw new Error('json parameter should be an object.');
     }
 
     if (json.name && json.name.includes('(')) {
@@ -73,11 +73,11 @@ const jsonInterfaceMethodToString = (json) => {
  */
 const _flattenTypes = (includeTuple, puts) => {
     if (!isBoolean(includeTuple)) {
-        throw new Error('input includeTuple needs to be a boolean type.');
+        throw new Error('includeTuple parameter should be a boolean.');
     }
 
     if (!isObject(puts)) {
-        throw new Error('input puts needs to be an object');
+        throw new Error('puts parameter should be an object.');
     }
 
     const types = [];
@@ -140,7 +140,7 @@ const keccak256 = (value) => {
     if (isHexStrict(value) && /^0x/i.test(value.toString())) {
         value = hexToBytes(value);
     } else {
-        throw new Error('input value needs to be a hex string.');
+        throw new Error('value parameter should be a hex string.');
     }
 
     const returnValue = Hash.keccak256(value); // jshint ignore:line
@@ -166,7 +166,7 @@ keccak256._Hash = Hash;
  */
 const toBN = (number) => {
     if (!isString(number) && !isNumber(number) && !isBN(number)) {
-        throw new Error('number parameter should be a string, number or BigNumber.');
+        throw new Error('number parameter should be a string, number or BigNumber object.');
     }
 
     try {
@@ -236,7 +236,7 @@ const isAddress = (address, chainId = null) => {
  */
 function toChecksumAddress(address, chainId = null) {
     if (!isString(address)) {
-        throw new Error('address parameter needs to be a string.');
+        throw new Error('address parameter should be a string.');
     }
 
     if (!/^(0x)?[0-9a-f]{40}$/i.test(address))
@@ -266,7 +266,7 @@ function toChecksumAddress(address, chainId = null) {
  */
 const stripHexPrefix = (string) => {
     if (!isString(string)) {
-        throw new Error('string parameter needs to be a string.');
+        throw new Error('string parameter should be a string.');
     }
 
     return string.startsWith('0x') || string.startsWith('0X') ? string.slice(2) : string;
@@ -353,7 +353,7 @@ const toHex = (value, returnType) => {
  */
 const hexToNumberString = (value) => {
     if (!isString(value) && !isNumber(value) && !isBN(value)) {
-        throw new Error('value parameter should be a string, number or BigNumber.');
+        throw new Error('value parameter should be a string, number or BigNumber object.');
     }
 
     if (isString(value)) {
@@ -374,7 +374,7 @@ const hexToNumberString = (value) => {
  */
 const hexToNumber = (value) => {
     if (!isString(value) && !isNumber(value) && !isBN(value)) {
-        throw new Error('value parameter should be a string, number or BigNumber.');
+        throw new Error('value parameter should be a string, number or BigNumber object.');
     }
 
     return toBN(value).toNumber();
@@ -391,7 +391,7 @@ const hexToNumber = (value) => {
  */
 const numberToHex = (value) => {
     if (!isString(value) && !isNumber(value) && !isBN(value)) {
-        throw new Error('value parameter should be a string, number or BigNumber.');
+        throw new Error('value parameter should be a string, number or BigNumber object.');
     }
 
     if (!isFinite(value) && !isHexStrict(value)) {
@@ -487,7 +487,7 @@ const hexToAscii = (hex) => {
  */
 const utf8ToHex = (value) => {
     if (!isString(value)) {
-        throw new Error('value parameter should be a string');
+        throw new Error('value parameter should be a string.');
     }
 
     value = utf8.encode(value);
@@ -530,7 +530,7 @@ const utf8ToHex = (value) => {
  */
 const asciiToHex = (value, length = 32) => {
     if (!isString(value)) {
-        throw new Error('value parameter should to be a string');
+        throw new Error('value parameter should be a string.');
     }
 
     let hex = '';
@@ -557,7 +557,7 @@ const asciiToHex = (value, length = 32) => {
  */
 const hexToBytes = (hex) => {
     if (!isString(hex)) {
-        throw new Error('hex parameter should to be a string');
+        throw new Error('hex parameter should to be a string.');
     }
 
     hex = hex.toString(16);
