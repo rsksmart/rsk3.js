@@ -142,10 +142,10 @@ export default class Account {
             }
 
             if (!isBuffer(options.salt) || options.salt.length < 32) {
-                throw new Error('options.slat should contain at least 32 bytes, or left undefined.');
+                throw new Error('options.salt should contain at least 32 bytes, or left undefined.');
             }
 
-            if (!isBuffer(options.salt) || options.salt.length < 16) {
+            if (!isBuffer(options.iv) || options.iv.length < 16) {
                 throw new Error('options.iv should contain at least 16 bytes, or left undefined.');
             }
 
