@@ -1,11 +1,6 @@
 /* eslint no-useless-catch: 0 */
 import numberToBN from 'number-to-bn';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
-import isNull from 'lodash/isNull';
-import isBoolean from 'lodash/isBoolean';
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
+import {isString, isNumber, isBoolean, isObject, isArray} from 'lodash';
 import utf8 from 'utf8';
 import randombytes from 'randombytes';
 import BN from 'bn.js';
@@ -38,6 +33,10 @@ const {unitMap} = rskUnit;
  */
 
 const randomHex = (size) => {
+    if (!isNumber(size)) {
+        throw new Error('size parameter should be a number.');
+    }
+
     return '0x' + randombytes(size).toString('hex');
 };
 
@@ -51,7 +50,11 @@ const randomHex = (size) => {
  * @returns {String} full function/event name
  */
 const jsonInterfaceMethodToString = (json) => {
-    if (isObject(json) && json.name && json.name.includes('(')) {
+    if (!isObject(json)) {
+        throw new Error('json parameter should be an object.');
+    }
+
+    if (json.name && json.name.includes('(')) {
         return json.name;
     }
 
@@ -69,7 +72,14 @@ const jsonInterfaceMethodToString = (json) => {
  * @returns {Array} parameters as strings
  */
 const _flattenTypes = (includeTuple, puts) => {
-    // console.log("entered _flattenTypes. inputs/outputs: " + puts)
+    if (!isBoolean(includeTuple)) {
+        throw new Error('includeTuple parameter should be a boolean.');
+    }
+
+    if (!isObject(puts)) {
+        throw new Error('puts parameter should be an object.');
+    }
+
     const types = [];
 
     puts.forEach((param) => {
@@ -129,6 +139,8 @@ const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfa
 const keccak256 = (value) => {
     if (isHexStrict(value) && /^0x/i.test(value.toString())) {
         value = hexToBytes(value);
+    } else {
+        throw new Error('value parameter should be a hex string.');
     }
 
     const returnValue = Hash.keccak256(value); // jshint ignore:line
@@ -139,6 +151,7 @@ const keccak256 = (value) => {
         return returnValue;
     }
 };
+
 // expose the under the hood keccak256
 keccak256._Hash = Hash;
 
@@ -152,6 +165,10 @@ keccak256._Hash = Hash;
  * @returns {BN} BN
  */
 const toBN = (number) => {
+    if (!isString(number) && !isNumber(number) && !isBN(number)) {
+        throw new Error('number parameter should be a string, number or BigNumber object.');
+    }
+
     try {
         return numberToBN(number);
     } catch (error) {
@@ -218,8 +235,8 @@ const isAddress = (address, chainId = null) => {
  * @returns {string} address with checksum applied.
  */
 function toChecksumAddress(address, chainId = null) {
-    if (typeof address !== 'string') {
-        return '';
+    if (!isString(address)) {
+        throw new Error('address parameter should be a string.');
     }
 
     if (!/^(0x)?[0-9a-f]{40}$/i.test(address))
@@ -248,6 +265,10 @@ function toChecksumAddress(address, chainId = null) {
  * @returns {string} address without prefix
  */
 const stripHexPrefix = (string) => {
+    if (!isString(string)) {
+        throw new Error('string parameter should be a string.');
+    }
+
     return string.startsWith('0x') || string.startsWith('0X') ? string.slice(2) : string;
 };
 
@@ -263,6 +284,10 @@ const stripHexPrefix = (string) => {
  * @returns {Boolean}
  */
 const checkAddressChecksum = (address, chainId = null) => {
+    if (!isString(address)) {
+        throw new Error('address parameter needs to be a string.');
+    }
+
     const stripAddress = stripHexPrefix(address).toLowerCase();
     const prefix = chainId != null ? chainId.toString() + '0x' : '';
     const keccakHash = Hash.keccak256(prefix + stripAddress)
@@ -327,7 +352,9 @@ const toHex = (value, returnType) => {
  * @returns {String}
  */
 const hexToNumberString = (value) => {
-    if (!value) return value;
+    if (!isString(value) && !isNumber(value) && !isBN(value)) {
+        throw new Error('value parameter should be a string, number or BigNumber object.');
+    }
 
     if (isString(value)) {
         if (!isHexStrict(value)) throw new Error(`Given value "${value}" is not a valid hex string.`);
@@ -346,8 +373,8 @@ const hexToNumberString = (value) => {
  * @returns {Number}
  */
 const hexToNumber = (value) => {
-    if (!value) {
-        return value;
+    if (!isString(value) && !isNumber(value) && !isBN(value)) {
+        throw new Error('value parameter should be a string, number or BigNumber object.');
     }
 
     return toBN(value).toNumber();
@@ -363,8 +390,8 @@ const hexToNumber = (value) => {
  * @returns {String}
  */
 const numberToHex = (value) => {
-    if (isNull(value) || typeof value === 'undefined') {
-        return value;
+    if (!isString(value) && !isNumber(value) && !isBN(value)) {
+        throw new Error('value parameter should be a string, number or BigNumber object.');
     }
 
     if (!isFinite(value) && !isHexStrict(value)) {
@@ -387,7 +414,9 @@ const numberToHex = (value) => {
  * @returns {String} ascii string representation of hex value
  */
 const hexToUtf8 = (hex) => {
-    if (!isHexStrict(hex)) throw new Error(`The parameter "${hex}" must be a valid HEX string.`);
+    if (!isHexStrict(hex)) {
+        throw new Error(`The parameter "${hex}" must be a valid HEX string.`);
+    }
 
     let string = '';
     let code = 0;
@@ -427,7 +456,9 @@ const hexToUtf8 = (hex) => {
  * @returns {String} ascii string representation of hex value
  */
 const hexToAscii = (hex) => {
-    if (!isHexStrict(hex)) throw new Error('The parameter must be a valid HEX string.');
+    if (!isHexStrict(hex)) {
+        throw new Error('The parameter must be a valid HEX string.');
+    }
 
     let value = '';
 
@@ -455,6 +486,10 @@ const hexToAscii = (hex) => {
  * @returns {String} hex representation of input string
  */
 const utf8ToHex = (value) => {
+    if (!isString(value)) {
+        throw new Error('value parameter should be a string.');
+    }
+
     value = utf8.encode(value);
     let hex = '';
 
@@ -494,6 +529,10 @@ const utf8ToHex = (value) => {
  * @returns {String} hex representation of input string
  */
 const asciiToHex = (value, length = 32) => {
+    if (!isString(value)) {
+        throw new Error('value parameter should be a string.');
+    }
+
     let hex = '';
 
     for (let i = 0; i < value.length; i++) {
@@ -517,6 +556,10 @@ const asciiToHex = (value, length = 32) => {
  * @returns {Array} the byte array
  */
 const hexToBytes = (hex) => {
+    if (!isString(hex)) {
+        throw new Error('hex parameter should to be a string.');
+    }
+
     hex = hex.toString(16);
 
     if (!isHexStrict(hex)) {
@@ -546,6 +589,10 @@ const hexToBytes = (hex) => {
  * @returns {String} the hex string
  */
 const bytesToHex = (bytes) => {
+    if (!isArray(bytes)) {
+        throw new Error('bytes parameter should to be an array.');
+    }
+
     const hex = [];
 
     for (const element of bytes) {
@@ -575,19 +622,23 @@ const bytesToHex = (bytes) => {
  *
  * @method toWei
  *
- * @param {String|BN} number can be a number, number string or a HEX of a decimal
+ * @param {String|BN} number can be a string or a BigNumber object
  * @param {String} unit the unit to convert from, default ether
  *
  * @returns {String|BN} When given a BN object it returns one as well, otherwise a string
  */
 const toWei = (number, unit) => {
-    unit = getUnitValue(unit);
-
     if (!isBN(number) && !isString(number)) {
-        throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
+        throw new Error('number parameter should be a string or an BN object to avoid precision errors.');
     }
 
-    return isBN(number) ? rskUnit.toWei(number, unit) : rskUnit.toWei(number, unit).toString(10);
+    if (!isString(unit)) {
+        throw new Error('unit parameter should be a string.');
+    }
+
+    const unitValue = getUnitValue(unit);
+
+    return isBN(number) ? rskUnit.toWei(number, unitValue) : rskUnit.toWei(number, unitValue).toString(10);
 };
 
 /**
@@ -601,10 +652,14 @@ const toWei = (number, unit) => {
  * @throws error if the unit is not correct
  */
 const getUnitValue = (unit) => {
-    unit = unit ? unit.toLowerCase() : 'ether';
-    if (!rskUnit.unitMap[unit]) {
+    if (!isString(unit)) {
+        throw new Error('unit parameter should be a string.');
+    }
+
+    const unitLowercase = unit ? unit.toLowerCase() : 'ether';
+    if (!rskUnit.unitMap[unitLowercase]) {
         throw new Error(
-            `This unit "${unit}" doesn't exist, please use the one of the following units${JSON.stringify(
+            `This unit "${unitLowercase}" doesn't exist, please use the one of the following units${JSON.stringify(
                 rskUnit.unitMap,
                 null,
                 2
@@ -612,7 +667,7 @@ const getUnitValue = (unit) => {
         );
     }
 
-    return unit;
+    return unitLowercase;
 };
 
 /**
@@ -639,13 +694,17 @@ const getUnitValue = (unit) => {
  * @returns {String} Returns a string
  */
 const fromWei = (number, unit) => {
-    unit = getUnitValue(unit);
-
     if (!isBN(number) && !isString(number)) {
-        throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
+        throw new Error('number parameter should be a string or an BN object to avoid precision errors.');
     }
 
-    return isBN(number) ? rskUnit.fromWei(number, unit) : rskUnit.fromWei(number, unit).toString(10);
+    if (!isString(unit)) {
+        throw new Error('unit parameter should be a string.');
+    }
+
+    const unitValue = getUnitValue(unit);
+
+    return isBN(number) ? rskUnit.fromWei(number, unitValue) : rskUnit.fromWei(number, unitValue).toString(10);
 };
 
 /**
@@ -660,6 +719,16 @@ const fromWei = (number, unit) => {
  * @returns {String} right aligned string
  */
 const padRight = (string, chars, sign) => {
+    if (!isString(string)) {
+        throw new Error('string parameter should be a string.');
+    }
+    if (!isNumber(chars)) {
+        throw new Error('chars parameter should be a number.');
+    }
+    if (!isString(sign)) {
+        throw new Error('sign parameter should be a string.');
+    }
+
     const hasPrefix = /^0x/i.test(string) || typeof string === 'number';
     string = string.toString(16).replace(/^0x/i, '');
 
@@ -680,6 +749,16 @@ const padRight = (string, chars, sign) => {
  * @returns {String} left aligned string
  */
 const padLeft = (string, chars, sign) => {
+    if (!isString(string)) {
+        throw new Error('string parameter should be a string.');
+    }
+    if (!isNumber(chars)) {
+        throw new Error('chars parameter should be a number.');
+    }
+    if (!isString(sign)) {
+        throw new Error('sign parameter should be a string.');
+    }
+
     const hasPrefix = /^0x/i.test(string) || typeof string === 'number';
     string = string.toString(16).replace(/^0x/i, '');
 
@@ -698,6 +777,10 @@ const padLeft = (string, chars, sign) => {
  * @returns {String}
  */
 const toTwosComplement = (number) => {
+    if (!isNumber(number)) {
+        throw new Error('number parameter should be a number.');
+    }
+
     return `0x${toBN(number)
         .toTwos(256)
         .toString(16, 64)}`;
@@ -717,6 +800,10 @@ const getSignatureParameters = (signature) => {
         throw new Error(`Given value "${signature}" is not a valid hex string.`);
     }
 
+    if (signature.length < 132) {
+        throw new Error('signature has to be at least 132 characters long.');
+    }
+
     const r = signature.slice(0, 66);
     const s = `0x${signature.slice(66, 130)}`;
     let v = `0x${signature.slice(130, 132)}`;
@@ -731,7 +818,15 @@ const getSignatureParameters = (signature) => {
     };
 };
 
+/**
+ * Convert various type string format, for example int[param] to int256[param]
+ * @param {string} name
+ */
 const _elementaryName = (name) => {
+    if (!isString(name)) {
+        throw new Error('name parameter should be a string.');
+    }
+
     if (name.startsWith('int[')) {
         return `int256${name.slice(3)}`;
     }
@@ -797,6 +892,10 @@ const _parseNumber = (argument) => {
 };
 
 const _solidityPack = (type, value, arraySize) => {
+    if (!isString(type)) {
+        throw new Error('type parameter should be a string.');
+    }
+
     let size, number;
     type = _elementaryName(type);
 

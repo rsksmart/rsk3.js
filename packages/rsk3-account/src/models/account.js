@@ -1,5 +1,5 @@
 import scrypt from 'scrypt-shim';
-import isString from 'lodash/isString';
+import {isNumber, isString, isBuffer, isArray, includes} from 'lodash';
 import isObject from 'lodash/isObject';
 import isUndefined from 'lodash/isUndefined';
 import * as EthLibAccount from 'eth-lib/lib/account';
@@ -135,8 +135,23 @@ export default class Account {
             throw new Error('password should be string type and has 8 length at least');
         }
 
-        if (options && !isUndefined(options.n) && ![2048, 4096, 8192, 16384].includes(options.n)) {
-            throw new Error('options.n should be one of 2048, 4096, 8192, 16384');
+        // Verify type and length of options parameters
+        if (options) {
+            if (!isNumber(options.n) || !includes([2048, 4096, 8192, 16384], options.n)) {
+                throw new Error('options.n should be number and has value of 2048, 4096, 8192 or 16384');
+            }
+
+            if (!isBuffer(options.salt) || options.salt.length < 32) {
+                throw new Error('options.salt should contain at least 32 bytes, or left undefined.');
+            }
+
+            if (!isBuffer(options.iv) || options.iv.length < 16) {
+                throw new Error('options.iv should contain at least 16 bytes, or left undefined.');
+            }
+
+            if (!isArray(options.uuid) || options.uuid.length !== 16) {
+                throw new Error('options.uuid should be an array with 16 hex numbers, or left undefined.');
+            }
         }
 
         options = options || {};
