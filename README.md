@@ -91,7 +91,8 @@ await new Promise((resolve, reject) => {
 
 
 ## Testing
-Testing is done using `jest`. The configuration file `jest.config.js` and `jesy.preprocessor.js` apply to tests in all packages. 
+
+Testing is done using `jest`. The configuration file `jest.config.js` and `jest.preprocessor.js` apply to tests in all packages.
 
 To run all tests, under the root run
 1. `npm run bootstrap`
