@@ -14,7 +14,7 @@ const config = {
     clearMocks: true,
     resetMocks: true,
     resetModules: true,
-    testMatch: ['/**/*.test.js'],
+    testMatch: ['./**/*.test.js'],
     transform: {
         '^.+\\.js$': '<rootDir>/../../jest.preprocessor.js'
     },
