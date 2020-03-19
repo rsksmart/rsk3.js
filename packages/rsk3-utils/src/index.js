@@ -1,6 +1,6 @@
 /* eslint no-useless-catch: 0 */
 import numberToBN from 'number-to-bn';
-import {isString, isNumber, isBoolean, isObject, isArray} from 'lodash';
+import {isString, isNumber, isBoolean, isObject, isArray, isUndefined, isNull} from 'lodash';
 import utf8 from 'utf8';
 import randombytes from 'randombytes';
 import BN from 'bn.js';
@@ -137,10 +137,12 @@ const isBN = (object) => {
 const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470';
 
 const keccak256 = (value) => {
+    if (!isString(value)) {
+        throw new Error('number parameter should be a number or string.');
+    }
+
     if (isHexStrict(value) && /^0x/i.test(value.toString())) {
         value = hexToBytes(value);
-    } else {
-        throw new Error('value parameter should be a hex string.');
     }
 
     const returnValue = Hash.keccak256(value); // jshint ignore:line
@@ -390,6 +392,10 @@ const hexToNumber = (value) => {
  * @returns {String}
  */
 const numberToHex = (value) => {
+    if (isNull(value) || isUndefined(value)) {
+        return value;
+    }
+
     if (!isString(value) && !isNumber(value) && !isBN(value)) {
         throw new Error('value parameter should be a string, number or BigNumber object.');
     }
@@ -629,7 +635,7 @@ const bytesToHex = (bytes) => {
  */
 const toWei = (number, unit) => {
     if (!isBN(number) && !isString(number)) {
-        throw new Error('number parameter should be a string or an BN object to avoid precision errors.');
+        throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
     }
 
     if (!isString(unit)) {
@@ -718,7 +724,7 @@ const fromWei = (number, unit) => {
  *
  * @returns {String} right aligned string
  */
-const padRight = (string, chars, sign) => {
+const padRight = (string, chars, sign = '0') => {
     if (!isString(string)) {
         throw new Error('string parameter should be a string.');
     }
@@ -748,7 +754,7 @@ const padRight = (string, chars, sign) => {
  *
  * @returns {String} left aligned string
  */
-const padLeft = (string, chars, sign) => {
+const padLeft = (string, chars, sign = '0') => {
     if (!isString(string)) {
         throw new Error('string parameter should be a string.');
     }
@@ -777,7 +783,7 @@ const padLeft = (string, chars, sign) => {
  * @returns {String}
  */
 const toTwosComplement = (number) => {
-    if (!isNumber(number)) {
+    if (!isNumber(number) && !isString(number) && !isBN(number)) {
         throw new Error('number parameter should be a number.');
     }
 
