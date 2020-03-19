@@ -555,7 +555,7 @@ describe('UtilsTest', () => {
 
         expect(() => {
             toWei(1, 'wei');
-        }).toThrow('Please pass numbers as strings or BN objects to avoid precision errors.');
+        }).toThrow('number parameter should be a string or an BN object to avoid precision errors.');
     });
 
     it('calls fromWei and returns the expected results', () => {
