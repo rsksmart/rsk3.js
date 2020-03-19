@@ -135,7 +135,7 @@ export default class Account {
             throw new Error('password should be string type and has 8 length at least');
         }
 
-        if (!isObject(options) && isUndefined(options)) {
+        if (!isObject(options) && !isUndefined(options)) {
             throw new Error('options should be object type.');
         }
 
