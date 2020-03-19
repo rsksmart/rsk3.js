@@ -780,7 +780,7 @@ const padLeft = (string, chars, sign = '0') => {
  */
 const toTwosComplement = (number) => {
     if (!isNumber(number) && !isString(number) && !isBN(number)) {
-        throw new Error('number parameter should be a number.');
+        throw new Error('number parameter should be a number,a string or an BN.');
     }
 
     return `0x${toBN(number)
