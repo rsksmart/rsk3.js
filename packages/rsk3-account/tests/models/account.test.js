@@ -423,10 +423,6 @@ describe('AccountTest', () => {
         }).toThrow('options.n should be number and has value of 2048, 4096, 8192 or 16384');
 
         expect(fromPrivate).toHaveBeenCalledWith(mockKey);
-
-        // expect(randomBytes).toHaveBeenNthCalledWith(1, 32);
-
-        // expect(randomBytes).toHaveBeenNthCalledWith(2, 16);
     });
 
     it('calls encrypt with a unsupported cipher', () => {
@@ -450,17 +446,5 @@ describe('AccountTest', () => {
         }).toThrow('options.n should be number and has value of 2048, 4096, 8192 or 16384');
 
         expect(fromPrivate).toHaveBeenCalledWith(mockKey);
-
-        // expect(randomBytes).toHaveBeenNthCalledWith(1, 32);
-        //
-        // expect(randomBytes).toHaveBeenNthCalledWith(2, 16);
-
-        // expect(pbkdf2Sync).toHaveBeenCalledWith(Buffer.from('password'), Buffer.from('random'), 262144, 32, 'sha256');
-
-        // expect(createCipheriv).toHaveBeenCalledWith(
-        //     'aes-128-ctr',
-        //     Buffer.from('0000000000000000').slice(0, 16),
-        //     Buffer.from('random')
-        // );
     });
 });
