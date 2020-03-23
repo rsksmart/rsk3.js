@@ -106,3 +106,4 @@ Code Formatting is done using `eslint`. `.eslintrc.json` under root configures f
 
 ## Note
 The majority of code in packages are similar to those with the same name in Web3.js, and will be upgraded in sync with Web3.js
+
