@@ -8,6 +8,15 @@
     "publish": {
       "exact": true,
       "skipGit": true
+    },
+    "version": {
+      "allowBranch": [
+        "master",
+        "proj/release-*"
+      ],
+      "conventionalCommits": false,
+      "exact": true,
+      "message": "proj: release %s"
     }
   },
   "packages": [
