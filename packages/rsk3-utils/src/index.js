@@ -137,10 +137,12 @@ const isBN = (object) => {
 const KECCAK256_NULL_S = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470';
 
 const keccak256 = (value) => {
+    if (!isString(value) && !isNumber(value)) {
+        throw new Error('value parameter should be a number or string.');
+    }
+
     if (isHexStrict(value) && /^0x/i.test(value.toString())) {
         value = hexToBytes(value);
-    } else {
-        throw new Error('value parameter should be a hex string.');
     }
 
     const returnValue = Hash.keccak256(value); // jshint ignore:line
@@ -718,7 +720,7 @@ const fromWei = (number, unit) => {
  *
  * @returns {String} right aligned string
  */
-const padRight = (string, chars, sign) => {
+const padRight = (string, chars, sign = '0') => {
     if (!isString(string)) {
         throw new Error('string parameter should be a string.');
     }
@@ -748,7 +750,7 @@ const padRight = (string, chars, sign) => {
  *
  * @returns {String} left aligned string
  */
-const padLeft = (string, chars, sign) => {
+const padLeft = (string, chars, sign = '0') => {
     if (!isString(string)) {
         throw new Error('string parameter should be a string.');
     }
@@ -777,8 +779,8 @@ const padLeft = (string, chars, sign) => {
  * @returns {String}
  */
 const toTwosComplement = (number) => {
-    if (!isNumber(number)) {
-        throw new Error('number parameter should be a number.');
+    if (!isNumber(number) && !isString(number) && !isBN(number)) {
+        throw new Error('number parameter should be a number,a string or an BN.');
     }
 
     return `0x${toBN(number)

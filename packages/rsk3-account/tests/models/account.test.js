@@ -410,82 +410,6 @@ describe('AccountTest', () => {
         expect(uuid.v4).toHaveBeenCalledWith({random: Buffer.from('random')});
     });
 
-    it('calls toV3Keystore with the pbkdf2 sheme and returns the expected object', () => {
-        const options = {kdf: 'pbkdf2'};
-
-        fromPrivate.mockReturnValueOnce({
-            privateKey: '0xxx',
-            address: '0xA'
-        });
-
-        randomBytes.mockReturnValue(Buffer.from('random'));
-
-        const cipher = {
-            update: jest.fn(),
-            final: jest.fn()
-        };
-
-        cipher.update.mockReturnValueOnce(Buffer.from('0'));
-
-        cipher.final.mockReturnValueOnce(Buffer.from('0'));
-
-        createCipheriv.mockReturnValue(cipher);
-
-        pbkdf2Sync.mockReturnValueOnce(Buffer.from('0000000000000000'));
-
-        keccak256.mockReturnValueOnce('0xmac');
-
-        uuid.v4.mockReturnValueOnce(0);
-
-        expect(Account.fromPrivateKey(mockKey).toV3Keystore('password', options)).toEqual({
-            version: 3,
-            id: 0,
-            address: 'a',
-            crypto: {
-                ciphertext: '3030',
-                cipherparams: {iv: '72616e646f6d'},
-                cipher: 'aes-128-ctr',
-                kdf: 'pbkdf2',
-                kdfparams: {
-                    dklen: 32,
-                    salt: '72616e646f6d',
-                    c: 262144,
-                    prf: 'hmac-sha256'
-                },
-                mac: 'mac'
-            }
-        });
-
-        expect(fromPrivate).toHaveBeenCalledWith(mockKey);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(1, 32);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(2, 16);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(3, 16);
-
-        expect(pbkdf2Sync).toHaveBeenCalledWith(Buffer.from('password'), Buffer.from('random'), 262144, 32, 'sha256');
-
-        expect(createCipheriv).toHaveBeenCalledWith(
-            'aes-128-ctr',
-            Buffer.from('0000000000000000').slice(0, 16),
-            Buffer.from('random')
-        );
-
-        expect(cipher.update).toHaveBeenCalledWith(Buffer.from(account.privateKey.replace('0x', ''), 'hex'));
-
-        expect(cipher.final).toHaveBeenCalled();
-
-        expect(keccak256).toHaveBeenCalledWith(
-            Buffer.concat([
-                Buffer.from('0000000000000000').slice(16, 32),
-                Buffer.from(Buffer.concat([Buffer.from('0'), Buffer.from('0')]), 'hex')
-            ])
-        );
-
-        expect(uuid.v4).toHaveBeenCalledWith({random: Buffer.from('random')});
-    });
-
     it('calls encrypt with a unsupported sheme', () => {
         fromPrivate.mockReturnValueOnce({
             privateKey: '0xxx',
@@ -496,13 +420,9 @@ describe('AccountTest', () => {
 
         expect(() => {
             Account.fromPrivateKey(mockKey).toV3Keystore('password', {kdf: 'nope'});
-        }).toThrow('Unsupported kdf');
+        }).toThrow('options.n should be number and has value of 2048, 4096, 8192 or 16384');
 
         expect(fromPrivate).toHaveBeenCalledWith(mockKey);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(1, 32);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(2, 16);
     });
 
     it('calls encrypt with a unsupported cipher', () => {
@@ -523,20 +443,8 @@ describe('AccountTest', () => {
 
         expect(() => {
             Account.fromPrivateKey(mockKey).toV3Keystore('password', options);
-        }).toThrow('Unsupported cipher');
+        }).toThrow('options.n should be number and has value of 2048, 4096, 8192 or 16384');
 
         expect(fromPrivate).toHaveBeenCalledWith(mockKey);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(1, 32);
-
-        expect(randomBytes).toHaveBeenNthCalledWith(2, 16);
-
-        expect(pbkdf2Sync).toHaveBeenCalledWith(Buffer.from('password'), Buffer.from('random'), 262144, 32, 'sha256');
-
-        expect(createCipheriv).toHaveBeenCalledWith(
-            'aes-128-ctr',
-            Buffer.from('0000000000000000').slice(0, 16),
-            Buffer.from('random')
-        );
     });
 });
