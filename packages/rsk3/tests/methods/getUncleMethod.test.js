@@ -17,7 +17,7 @@ describe('GetUncleMethodTest', () => {
     });
 
     it('calls execute with hash', () => {
-        getUncleMethod.parameters = ['0x0'];
+        getUncleMethod.parameters = ['0x0', '1'];
 
         getUncleMethod.beforeExecution({});
 
@@ -25,7 +25,7 @@ describe('GetUncleMethodTest', () => {
     });
 
     it('calls execute with number', () => {
-        getUncleMethod.parameters = [100];
+        getUncleMethod.parameters = [100, '1'];
 
         getUncleMethod.beforeExecution({});
 

@@ -1,5 +1,5 @@
 import scrypt from 'scrypt-shim';
-import {isNumber, isString, isBuffer, isArray, includes} from 'lodash';
+import {isNumber, isString, isBuffer, isArray, includes, isEmpty} from 'lodash';
 import isObject from 'lodash/isObject';
 import isUndefined from 'lodash/isUndefined';
 import * as EthLibAccount from 'eth-lib/lib/account';
@@ -136,7 +136,7 @@ export default class Account {
         }
 
         // Verify type and length of options parameters
-        if (options) {
+        if (!isEmpty(options)) {
             if (!isNumber(options.n) || !includes([2048, 4096, 8192, 16384], options.n)) {
                 throw new Error('options.n should be number and has value of 2048, 4096, 8192 or 16384');
             }
