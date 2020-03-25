@@ -2,13 +2,13 @@
   "name": "rsk3",
   "version": "0.1.2",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
-  "homepage": "https://github.com/rootstock/rsk3.js/tree/master/packages/rsk3#readme",
+  "homepage": "https://github.com/rsksmart/rsk3.js/tree/master/packages/rsk3#readme",
   "bugs": {
-    "url": "https://github.com/rootstock/rsk3.js/issues"
+    "url": "https://github.com/rsksmart/rsk3.js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rootstock/rsk3.js.git"
+    "url": "git+https://github.com/rsksmart/rsk3.js.git"
   },
   "license": "LGPL-3.0",
   "files": [
