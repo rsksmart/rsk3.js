@@ -1,5 +1,5 @@
 {
-  "version": "0.1.2",
+  "version": "0.2.0",
   "lerna": "2.0.0",
   "command": {
     "init": {
@@ -8,6 +8,15 @@
     "publish": {
       "exact": true,
       "skipGit": true
+    },
+    "version": {
+      "allowBranch": [
+        "master",
+        "proj/release-*"
+      ],
+      "conventionalCommits": false,
+      "exact": true,
+      "message": "proj: release %s"
     }
   },
   "packages": [

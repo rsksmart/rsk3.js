@@ -13,6 +13,8 @@
     "bootstrap-local": "lerna bootstrap --force-local",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
+    "release": "lerna version --no-git-tag-version",
+    "publish": "lerna publish from-git",
     "lint": "eslint --cache --fix ./packages/",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
     "test": "npm run build && lerna run test",
