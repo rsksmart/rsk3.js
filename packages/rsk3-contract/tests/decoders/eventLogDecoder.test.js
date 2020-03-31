@@ -3,7 +3,7 @@ import EventLogDecoder from '../../src/decoders/eventLogDecoder';
 import AbiItemModel from '../../src/models/abiItemModel';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../../src/models/abiItemModel');
 
 /**

@@ -8,7 +8,7 @@ import AllEventsLogDecoder from '../../src/decoders/allEventsLogDecoder';
 import AbiModel from '../../src/models/abiModel';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('web3-core-method');
 jest.mock('../../src/abstractContract');

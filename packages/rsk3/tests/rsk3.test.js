@@ -13,12 +13,12 @@ import Rsk3 from '../src';
 // Mocks
 jest.mock('web3-core');
 jest.mock('web3-core-subscriptions');
-jest.mock('rsk3-abi');
-jest.mock('rsk3-account');
-jest.mock('rsk3-personal');
-jest.mock('rsk3-net');
-jest.mock('rsk3-contract');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-abi');
+jest.mock('@rsksmart/rsk3-account');
+jest.mock('@rsksmart/rsk3-personal');
+jest.mock('@rsksmart/rsk3-net');
+jest.mock('@rsksmart/rsk3-contract');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('../src/factories/methodFactory');
 jest.mock('../src/signers/transactionSigner');

@@ -3,7 +3,7 @@ import AbiItemModel from '../../src/models/abiItemModel';
 import MethodEncoder from '../../src/encoders/methodEncoder';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../../src/models/abiItemModel');
 
 /**

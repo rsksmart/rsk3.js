@@ -7,7 +7,7 @@ import AllEventsLogSubscription from '../../src/subscriptions/allEventsLogSubscr
 
 // Mocks
 jest.mock('web3-core-helpers');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('../../src/subscriptions/eventLogSubscription');
 jest.mock('../../src/subscriptions/allEventsLogSubscription');
 

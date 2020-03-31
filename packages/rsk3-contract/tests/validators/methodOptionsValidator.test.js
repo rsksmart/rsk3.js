@@ -3,7 +3,7 @@ import SendContractMethod from '../../src/methods/sendContractMethod';
 import MethodOptionsValidator from '../../src/validators/methodOptionsValidator';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('../../src/methods/sendContractMethod');
 
 /**

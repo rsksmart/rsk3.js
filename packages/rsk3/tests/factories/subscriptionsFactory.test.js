@@ -10,7 +10,7 @@ import {
 import SubscriptionsFactory from '../../src/factories/subscriptionsFactory';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('web3-core-subscriptions');
 

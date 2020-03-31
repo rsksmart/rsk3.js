@@ -4,7 +4,7 @@ import AbiItemModel from '../../src/models/abiItemModel';
 import CallContractMethod from '../../src/methods/callContractMethod';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../../src/models/abiItemModel');
 
 /**
@@ -40,12 +40,18 @@ describe('CallContractMethodTest', () => {
 
         abiCoderMock.decodeParameters.mockReturnValueOnce(['0x0', '0x0']);
 
-        abiItemModelMock.getOutputs.mockReturnValueOnce([{name: '', type: 'bytes'}, {name: '', type: 'bytes'}]);
+        abiItemModelMock.getOutputs.mockReturnValueOnce([
+            {name: '', type: 'bytes'},
+            {name: '', type: 'bytes'}
+        ]);
 
         expect(callContractMethod.afterExecution('0x0')).toEqual(['0x0', '0x0']);
 
         expect(abiCoderMock.decodeParameters).toHaveBeenCalledWith(
-            [{name: '', type: 'bytes'}, {name: '', type: 'bytes'}],
+            [
+                {name: '', type: 'bytes'},
+                {name: '', type: 'bytes'}
+            ],
             '0x0'
         );
     });

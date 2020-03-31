@@ -15,7 +15,7 @@ import {
 import MethodFactory from '../src/factories/methodFactory';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 
 /**

@@ -8,7 +8,7 @@ import AbiItemModel from '../../src/models/abiItemModel';
 import EventLogSubscription from '../../src/subscriptions/eventLogSubscription';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('web3-core-method');
 jest.mock('../../src/abstractContract');

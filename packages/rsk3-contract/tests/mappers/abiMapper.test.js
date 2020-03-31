@@ -4,8 +4,8 @@ import ContractModuleFactory from '../../src/factories/contractModuleFactory';
 import AbiMapper from '../../src/mappers/abiMapper';
 
 // Mocks
-jest.mock('rsk3-abi');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-abi');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('../../src/factories/contractModuleFactory');
 
 /**

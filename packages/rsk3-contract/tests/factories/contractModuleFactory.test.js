@@ -22,8 +22,8 @@ import MethodFactory from '../../src/factories/methodFactory';
 import ContractModuleFactory from '../../src/factories/contractModuleFactory';
 
 // Mocks
-jest.mock('rsk3-abi');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-abi');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('../../src/validators/methodOptionsValidator');
 jest.mock('../../src/mappers/methodOptionsMapper');

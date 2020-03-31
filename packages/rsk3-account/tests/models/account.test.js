@@ -13,7 +13,7 @@ import Account from '../../src/models/account';
 // Mocks
 jest.mock('eth-lib/lib/account');
 jest.mock('eth-lib/lib/hash');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('uuid');
 jest.mock('randombytes');
 jest.mock('pbkdf2');

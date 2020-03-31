@@ -38,7 +38,7 @@ import RskSignTransactionMethod from '../../src/methods/rskSignTransactionMethod
 import RskSignMethod from '../../src/methods/rskSignMethod';
 import RskGetAccountsMethod from '../../src/methods/rskGetAccountsMethod';
 
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 
 /**

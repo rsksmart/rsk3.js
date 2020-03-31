@@ -12,7 +12,7 @@ import EventSubscriptionsProxy from '../src/proxies/eventSubscriptionsProxy';
 import AbstractContract from '../src/abstractContract';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../src/models/abiModel');
 jest.mock('../src/mappers/abiMapper');
 jest.mock('../src/proxies/methodsProxy');

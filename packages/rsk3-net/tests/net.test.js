@@ -4,7 +4,7 @@ import {AbstractWeb3Module} from 'web3-core';
 import Network from '../src/network';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 
 /**

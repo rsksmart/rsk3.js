@@ -4,7 +4,7 @@ import AbiItemModel from '../../src/models/abiItemModel';
 import AllEventsFilterEncoder from '../../src/encoders/allEventsFilterEncoder';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../../src/models/abiModel');
 jest.mock('../../src/models/abiItemModel');
 
