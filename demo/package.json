@@ -1,5 +1,5 @@
 {
-  "name": "rsk3.js-demo",
+  "name": "@rsksmart/rsk3.js-demo",
   "version": "0.0.9",
   "description": "",
   "main": "index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "rsk3-account",
+  "name": "@rsksmart/rsk3-account",
   "namespace": "RSK",
   "version": "0.2.0",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
@@ -23,7 +23,7 @@
     "lodash": "^4.17.11",
     "pbkdf2": "^3.0.17",
     "randombytes": "^2.1.0",
-    "rsk3-utils": "0.2.0",
+    "@rsksmart/rsk3-utils": "0.2.0",
     "scrypt-shim": "github:web3-js/scrypt-shim",
     "uuid": "3.3.2",
     "web3-core": "2.0.0-alpha.1",
