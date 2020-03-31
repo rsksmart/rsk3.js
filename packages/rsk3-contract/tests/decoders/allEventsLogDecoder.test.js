@@ -1,4 +1,4 @@
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import AllEventsLogDecoder from '../../src/decoders/allEventsLogDecoder';
 import AbiModel from '../../src/models/abiModel';
 import AbiItemModel from '../../src/models/abiItemModel';

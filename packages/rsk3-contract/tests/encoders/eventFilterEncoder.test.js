@@ -1,4 +1,4 @@
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import AbiItemModel from '../../src/models/abiItemModel';
 import EventFilterEncoder from '../../src/encoders/eventFilterEncoder';
 

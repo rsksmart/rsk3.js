@@ -1,4 +1,4 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import SendContractMethod from '../../src/methods/sendContractMethod';
 import MethodOptionsValidator from '../../src/validators/methodOptionsValidator';
 

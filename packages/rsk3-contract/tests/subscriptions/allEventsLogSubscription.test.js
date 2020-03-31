@@ -1,4 +1,4 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {LogSubscription} from 'web3-core-subscriptions';
 import {GetPastLogsMethod} from 'web3-core-method';

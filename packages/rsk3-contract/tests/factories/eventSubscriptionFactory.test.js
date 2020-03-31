@@ -1,5 +1,5 @@
 import {formatters} from 'web3-core-helpers';
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 
 import EventSubscriptionFactory from '../../src/factories/eventSubscriptionFactory';
 import EventLogSubscription from '../../src/subscriptions/eventLogSubscription';

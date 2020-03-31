@@ -26,7 +26,7 @@ import {
     VersionMethod,
     GetProofMethod
 } from 'web3-core-method';
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import MethodFactory from '../../src/factories/methodFactory';
 import GetBlockMethod from '../../src/methods/getBlockMethod';

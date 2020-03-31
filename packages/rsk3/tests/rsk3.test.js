@@ -1,11 +1,11 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {AbstractSubscription, LogSubscription} from 'web3-core-subscriptions';
-import {AbiCoder} from 'rsk3-abi';
-import {Accounts} from 'rsk3-account';
-import {Personal} from 'rsk3-personal';
-import {Network} from 'rsk3-net';
-import {ContractModuleFactory} from 'rsk3-contract';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
+import {Accounts} from '@rsksmart/rsk3-account';
+import {Personal} from '@rsksmart/rsk3-personal';
+import {Network} from '@rsksmart/rsk3-net';
+import {ContractModuleFactory} from '@rsksmart/rsk3-contract';
 import TransactionSigner from '../src/signers/transactionSigner';
 import SubscriptionsFactory from '../src/factories/subscriptionsFactory';
 import Rsk3 from '../src';

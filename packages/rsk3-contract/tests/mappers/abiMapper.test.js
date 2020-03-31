@@ -1,5 +1,5 @@
-import * as Utils from 'rsk3-utils';
-import {AbiCoder} from 'rsk3-abi';
+import * as Utils from '@rsksmart/rsk3-utils';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import ContractModuleFactory from '../../src/factories/contractModuleFactory';
 import AbiMapper from '../../src/mappers/abiMapper';
 

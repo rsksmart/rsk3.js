@@ -1,7 +1,7 @@
 import {ChainIdMethod, EstimateGasMethod, GetTransactionCountMethod} from 'web3-core-method';
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 
 import MethodFactory from '../../src/factories/methodFactory';
 import ContractModuleFactory from '../../src/factories/contractModuleFactory';

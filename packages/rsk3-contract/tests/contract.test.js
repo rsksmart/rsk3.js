@@ -1,6 +1,6 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import {AbstractWeb3Module} from 'web3-core';
 import AbiMapper from '../src/mappers/abiMapper';
 import AbiModel from '../src/models/abiModel';
