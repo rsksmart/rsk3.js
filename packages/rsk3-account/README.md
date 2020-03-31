@@ -5,7 +5,7 @@
 ## Usage
 
 ```
-const rsk3Account = require('rsk3-account');
+const rsk3Account = require('@rsksmart/rsk3-account');
 
 // TODO: DEMONSTRATE API
 ```
