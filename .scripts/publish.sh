@@ -13,7 +13,7 @@ for PACKAGE in ${PACKAGES} ; do
     exit 1
   fi
   PACKAGE_SHA_LOCAL=$( npm pack --dry-run 2>&1 >/dev/null | grep "shasum: " | awk '{print $NF}' )
-  npm publish
+  npm publish --access public
   PACKAGE_SHA_REMOTE=$( npm view @rsksmart/${PACKAGE}@${VERSION} dist.shasum )
   echo "\"@rsksmart/${PACKAGE}@${VERSION}\",\"${PACKAGE_SHA_LOCAL}\",\"${PACKAGE_SHA_REMOTE}\""
   if [ "${PACKAGE_SHA_LOCAL}" != "${PACKAGE_SHA_REMOTE}" ] ; then
