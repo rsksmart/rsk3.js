@@ -1,4 +1,4 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import Hash from 'eth-lib/lib/hash';
 import RLP from 'eth-lib/lib/rlp';
@@ -10,7 +10,7 @@ import Account from '../src/models/account';
 import {AbstractWeb3Module} from 'web3-core';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('eth-lib/lib/rlp');
 jest.mock('eth-lib/lib/nat');

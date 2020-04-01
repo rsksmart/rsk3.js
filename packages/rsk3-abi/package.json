@@ -1,7 +1,7 @@
 {
-  "name": "rsk3-abi",
+  "name": "@rsksmart/rsk3-abi",
   "namespace": "RSK",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
+    "@rsksmart/rsk3-utils": "0.3.0",
     "ethers": "^4.0.27",
-    "lodash": "^4.17.11",
-    "rsk3-utils": "0.2.0"
+    "lodash": "^4.17.11"
   },
   "files": [
     "dist"

@@ -1,10 +1,10 @@
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import AllEventsLogDecoder from '../../src/decoders/allEventsLogDecoder';
 import AbiModel from '../../src/models/abiModel';
 import AbiItemModel from '../../src/models/abiItemModel';
 
 // Mocks
-jest.mock('rsk3-abi');
+jest.mock('@rsksmart/rsk3-abi');
 jest.mock('../../src/models/abiModel');
 jest.mock('../../src/models/abiItemModel');
 

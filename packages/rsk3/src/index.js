@@ -1,12 +1,12 @@
 import {AbstractWeb3Module} from 'web3-core';
 import {ProviderDetector, ProvidersModuleFactory} from 'web3-providers';
 import {formatters} from 'web3-core-helpers';
-import {Accounts} from 'rsk3-account';
-import {ContractModuleFactory} from 'rsk3-contract';
-import {Personal} from 'rsk3-personal';
-import {AbiCoder} from 'rsk3-abi';
-import {Network} from 'rsk3-net';
-import * as Utils from 'rsk3-utils';
+import {Accounts} from '@rsksmart/rsk3-account';
+import {ContractModuleFactory} from '@rsksmart/rsk3-contract';
+import {Personal} from '@rsksmart/rsk3-personal';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
+import {Network} from '@rsksmart/rsk3-net';
+import * as Utils from '@rsksmart/rsk3-utils';
 import RskTransactionSigner from './signers/transactionSigner';
 import MethodFactory from './factories/methodFactory';
 import SubscriptionsFactory from './factories/subscriptionsFactory';

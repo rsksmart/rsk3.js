@@ -5,7 +5,7 @@ import {createCipheriv, createDecipheriv} from 'browserify-cipher';
 import uuid from 'uuid';
 import Hash from 'eth-lib/lib/hash';
 import {fromPrivate, sign, decodeSignature} from 'eth-lib/lib/account';
-import {hexToBytes, isHexStrict, keccak256} from 'rsk3-utils';
+import {hexToBytes, isHexStrict, keccak256} from '@rsksmart/rsk3-utils';
 import TransactionSigner from '../__mocks__/transactionSigner';
 import Accounts from '../../src/accounts';
 import Account from '../../src/models/account';
@@ -13,7 +13,7 @@ import Account from '../../src/models/account';
 // Mocks
 jest.mock('eth-lib/lib/account');
 jest.mock('eth-lib/lib/hash');
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('uuid');
 jest.mock('randombytes');
 jest.mock('pbkdf2');

@@ -1,6 +1,6 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
-import {AbiCoder} from 'rsk3-abi';
+import {AbiCoder} from '@rsksmart/rsk3-abi';
 import ContractModuleFactory from './factories/contractModuleFactory';
 
 export AbstractContract from './abstractContract';

@@ -1,4 +1,4 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import GetUncleMethod from '../../src/methods/getUncleMethod';
 

@@ -22,7 +22,10 @@ const config = {
     coveragePathIgnorePatterns: [
         'node_modules',
         'dist',
-    ]
+    ],
+    moduleNameMapper: {
+        '^@rsksmart/(.*)$': '<rootDir>/../../packages/$1/src/index.js',
+    },
 };
 
 /**

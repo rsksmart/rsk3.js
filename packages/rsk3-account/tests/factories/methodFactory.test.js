@@ -1,9 +1,9 @@
 import {ChainIdMethod, GetGasPriceMethod, GetTransactionCountMethod} from 'web3-core-method';
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import MethodFactory from '../../src/factories/methodFactory';
 
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 
 /**

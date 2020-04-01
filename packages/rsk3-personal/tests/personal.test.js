@@ -1,4 +1,4 @@
-import * as Utils from 'rsk3-utils';
+import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {Network} from 'web3-net';
 import {AbstractWeb3Module} from 'web3-core';
@@ -6,7 +6,7 @@ import MethodFactory from '../src/factories/methodFactory';
 import Personal from '../src/personal';
 
 // Mocks
-jest.mock('rsk3-utils');
+jest.mock('@rsksmart/rsk3-utils');
 jest.mock('web3-core-helpers');
 jest.mock('web3-net');
 
