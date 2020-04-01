@@ -13,7 +13,7 @@ properly, store the private keys safely, and test transaction receiving
 and sending functionality properly before using in production!
 
 ``` javascript
-import {Accounts} from 'rsk3-accounts';
+import {Accounts} from '@rsksmart/rsk3-accounts';
 
 // Passing in the eth or rsk3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
 // for accounts.signTransaction().
@@ -132,7 +132,7 @@ Signs an Ethereum transaction with a given private key.
 
 ### Parameters
 
-1.  
+1.
     `tx` - `Object`: The transaction\'s properties object as follows:
 
     :   -   `nonce` - `String`: (optional) The nonce to use when signing
@@ -326,7 +326,7 @@ Recovers the Ethereum address which was used to sign the given data.
 
 ### Parameters
 
-1.  
+1.
 
     `message|signatureObject` - `String|Object`: Either signed message or hash, or the signature object as following values:
 

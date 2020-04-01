@@ -15,8 +15,8 @@ JavaScript objects.
 To use it standalone:
 
 ``` javascript
-import {Contract} from 'rsk3-contract';
-import {Accounts} from 'rsk3-account;}
+import {Contract} from '@rsksmart/rsk3-contract';
+import {Accounts} from '@rsksmart/rsk3-account';
 const contract = new Contract(
     'ws://localhost:8546',
     new Accounts('ws://localhost:8546', options),
@@ -49,7 +49,7 @@ in its `json interface` object.
 2.  `address` - `String` (optional): This address is necessary for
     transactions and call requests and can also be added later using
     `myContract.options.address = '0x1234..'.`
-3.  
+3.
     `options` - `Object` (optional): The options of the contract. Some are used as fallbacks for calls and transactions:
 -   `data` - `String`: The byte code of the contract. Used when
             the contract gets
@@ -225,7 +225,7 @@ instance.
 
 ### Parameters
 
-1.  
+1.
 
     `options` - `Object`: The options used for deployment.
 
@@ -485,7 +485,7 @@ Note this can alter the smart contract state.
 
 ### Parameters
 
-1.  
+1.
 
     `options` - `Object`: The options used for sending.
 
@@ -607,7 +607,7 @@ the smart contract can be different at that time.
 
 ### Parameters
 
-1.  
+1.
 
     `options` - `Object` (optional): The options used for calling.
 
@@ -695,7 +695,7 @@ event or error. Will only fire for a single event.
 
 1.  `event` - `String`: The name of the event in the contract, or
     `"allEvents"` to get all events.
-2.  
+2.
 
     `options` - `Object` (optional): The options used for deployment.
 
@@ -759,7 +759,7 @@ Subscribe to an event
 
 ### Parameters
 
-1.  
+1.
 
     `options` - `Object` (optional): The options used for deployment.
 
@@ -877,7 +877,7 @@ Gets past events for this contract.
 
 1.  `event` - `String`: The name of the event in the contract, or
     `"allEvents"` to get all events.
-2.  
+2.
 
     `options` - `Object` (optional): The options used for deployment.
 

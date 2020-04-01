@@ -5,7 +5,7 @@
 ## Usage
 
 ```
-const rsk3Abi = require('rsk3-abi');
+const rsk3Abi = require('@rsksmart/rsk3-abi');
 
 // TODO: DEMONSTRATE API
 ```
