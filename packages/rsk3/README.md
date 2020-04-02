@@ -1,11 +1,3 @@
 # `rsk3`
 
-> TODO: description
-
-## Usage
-
-```
-const rsk3 = require('rsk3');
-
-// TODO: DEMONSTRATE API
-```
+[Documentation](https://developers.rsk.co/libraries/rsk3js/docs/rsk3/)
