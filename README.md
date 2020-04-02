@@ -97,6 +97,15 @@ Install all dependencies for `npm run bootstrap`
 npm run bootstrap
 ```
 
+If you encounter an error:
+"Maximum call stack size exceeded", you may wish to use
+[`yarn`](https://yarnpkg.com/)
+for the bootstrap process:
+
+```shell
+npm run bootstrap-yarn
+```
+
 Examine formatting of source code using `eslint`
 
 ```shell
