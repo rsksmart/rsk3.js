@@ -3,11 +3,11 @@
 set -e
 
 PACKAGES=$( ls ./packages/ )
-VERSION=$( node -p "require('./package').version" )
+VERSION=$( node -p "require('./lerna.json').version" )
 echo "\"module\",\"shasum_local\",\"shasum_remote\""
 for PACKAGE in ${PACKAGES} ; do
   cd ./packages/${PACKAGE}
-  PACKAGE_VERSION=$( node -p "require('./package').version" )
+  PACKAGE_VERSION=$( node -p "require('./package.json').version" )
   if [ "${VERSION}" != "${PACKAGE_VERSION}" ] ; then
     echo "${PACKAGE} - expected version to be ${VERSION}, but found ${PACKAGE_VERSION}"
     exit 1
