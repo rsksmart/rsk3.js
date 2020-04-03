@@ -1,11 +1,3 @@
 # `rsk3-utils`
 
-> TODO: description
-
-## Usage
-
-```
-const rsk3Utils = require('@rsksmart/rsk3-utils');
-
-// TODO: DEMONSTRATE API
-```
+[Documentation](https://developers.rsk.co/libraries/rsk3js/docs/rsk3-utils/)

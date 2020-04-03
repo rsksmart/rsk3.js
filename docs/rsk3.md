@@ -1,5 +1,3 @@
-
-
 rsk3
 ========
 
@@ -112,7 +110,7 @@ are the currently available option properties on a Rsk3 module:
 ### Example
 
 ``` javascript
-import {Rsk3} from 'rsk3';
+import {Rsk3} from '@rsksmart/rsk3';
 
 const options = {
     defaultAccount: '0x0',
@@ -329,7 +327,7 @@ Will change the provider for its module.
 ### Example
 
 ``` javascript
-import {Rsk3} from 'rsk3';
+import {Rsk3} from '@rsksmart/rsk3';
 
 const rsk3 = new Rsk3('http://localhost:8545');
 
@@ -373,7 +371,7 @@ Contains the current available providers.
 ### Example
 
 ``` javascript
-const {Rsk3} = require('rsk3');
+const {Rsk3} = require('@rsksmart/rsk3');
 
 
 // Using the IPC provider in node.js

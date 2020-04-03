@@ -1,7 +1,7 @@
 {
   "name": "@rsksmart/rsk3-account",
   "namespace": "RSK",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "@rsksmart/rsk3-utils": "0.3.0",
+    "@rsksmart/rsk3-utils": "0.3.1",
     "browserify-cipher": "^1.0.1",
     "eth-lib": "0.2.8",
     "lodash": "^4.17.11",
