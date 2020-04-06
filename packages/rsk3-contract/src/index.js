@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import * as Utils from '@rsksmart/rsk3-utils';
 import {formatters} from 'web3-core-helpers';
 import {AbiCoder} from '@rsksmart/rsk3-abi';

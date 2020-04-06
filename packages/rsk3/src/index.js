@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import {AbstractWeb3Module} from 'web3-core';
 import {ProviderDetector, ProvidersModuleFactory} from 'web3-providers';
 import {formatters} from 'web3-core-helpers';

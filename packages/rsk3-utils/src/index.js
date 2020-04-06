@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 /* eslint no-useless-catch: 0 */
 import numberToBN from 'number-to-bn';
 import {isString, isNumber, isBoolean, isObject, isArray} from 'lodash';

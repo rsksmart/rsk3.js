@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import {formatters} from 'web3-core-helpers';
 import * as Utils from '@rsksmart/rsk3-utils';
 import MethodFactory from './factories/methodFactory';
