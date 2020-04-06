@@ -29,8 +29,8 @@ const config = [
                         {
                             modules: false,
                             targets: {
-                                node: '8',
-                                browsers: 'last 2 versions'
+                                node: '8',  // Compile against node version 8 and up
+                                esmodules: true, // Target browsers supporting ES Modules. When specifying this option, the browsers field will be ignored.
                             }
                         }
                     ]
