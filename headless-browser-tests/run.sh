@@ -22,8 +22,6 @@ if [ "${TEXT_OUTPUT_ACTUAL}" != "${TEXT_OUTPUT_EXPECTED}" ] ; then
 fi
 
 # test html file using puppeteer
-INDEX_PATH="/index.html"
-export INDEX_PATH
 export HTTP_SERVER_PORT
 node ${DIR}/smoke-test.puppeteer.js
 
