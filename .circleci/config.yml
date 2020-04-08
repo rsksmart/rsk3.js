@@ -14,10 +14,10 @@ jobs:
           name: Install
           command: |
                     npm install
-#      - run:
-#          name: Test
-#          command: |
-#                    npm test
+    - run:
+          name: Run headless-browser Tests
+          command: |
+                    npm run test:headless-browser
     - save_cache:
         key: node-deps-v1-{{ .Branch }}-{{ checksum "package.json" }}
         paths:
