@@ -15,6 +15,7 @@ const url = `http://localhost:${process.env.HTTP_SERVER_PORT}`;
   await runTest(testHtmlTitle, browser, results);
   await runTest(testHtmlClassSelector, browser, results);
   await runTest(testJavascriptNoError, browser, results);
+  await runTest(testJavascriptWithError, browser, results);
 
   await tearDown(browser, results);
 })();
@@ -98,4 +99,35 @@ async function testJavascriptNoError(browser) {
   // should not reach the console statement, error thrown when loading the script file
   assert.equal(pageErrors.length, 0,
     'unexpected page errors count');
+}
+
+async function testJavascriptWithError(browser) {
+  const page = await browser.newPage();
+
+  const consoleMessages = [];
+  const pageErrors = [];
+  page
+    .on('console', (message) => {
+      consoleMessages.push(message);
+    });
+  page
+    .on('pageerror', (error) => {
+      error.parsedMessage = error.message.split('\n')[0];
+      pageErrors.push(error);
+    });
+
+  await page.goto(`${url}/javascript-with-error.html`, { waitUntil: 'networkidle0' });
+  await page.waitFor(100);
+
+  // should not reach the console statement, error thrown when loading the script file
+  assert.equal(consoleMessages.length, 0,
+    'unexpected output count');
+
+  assert.equal(pageErrors.length, 1,
+    'unexpected page errors count');
+  assert.equal(
+    pageErrors[0].parsedMessage,
+    'ReferenceError: myFunctionWhichDoesNotExist is not defined',
+    'unexpected page error[0] parsed message',
+  );
 }
