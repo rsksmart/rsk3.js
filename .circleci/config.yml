@@ -10,7 +10,7 @@ jobs:
         - node-deps-v1-{{ .Branch }}-{{ checksum "package.json" }}
         - node-deps-v1-{{ .Branch }}
         - node-deps-v1
-     - run:
+    - run:
           name: Install
           command: |
                     npm install
