@@ -29,8 +29,9 @@ const config = [
                         {
                             modules: false,
                             targets: {
+                                // Compile against node version 8 and up
                                 node: '8',
-                                browsers: 'last 2 versions'
+                                browsers: '>0.25%',
                             }
                         }
                     ]
@@ -40,6 +41,7 @@ const config = [
                     '@babel/plugin-proposal-export-namespace-from',
                     ['@babel/plugin-transform-runtime', {
                         'helpers': true,
+                        'corejs': 3,
                         'regenerator': true
                     }]
                 ]
