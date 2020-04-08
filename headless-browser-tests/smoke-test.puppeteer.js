@@ -12,6 +12,9 @@ const url = `http://localhost:${process.env.HTTP_SERVER_PORT}${process.env.INDEX
     failures: [],
   };
 
+  await runTest(testTitle, browser, results);
+  await runTest(testClassSelector, browser, results);
+
   await tearDown(browser, results);
 })();
 
@@ -45,4 +48,24 @@ async function runTest(testFunction, browser, results) {
       error: ex,
     });
   }
+}
+
+async function testTitle(browser) {
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle0' });
+  // const title = await page.title();
+  const fooH1Text = await page.$eval(
+    '.foo > h1',
+    (el) => (el.innerText),
+  );
+  assert.equal(fooH1Text, '.foo h1',
+    'unexpected inner text for ".foo h1"');
+}
+
+async function testClassSelector(browser) {
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle0' });
+  const title = await page.title();
+  assert.equal(title, 'title',
+    'unexpected title');
 }
