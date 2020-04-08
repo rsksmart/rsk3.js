@@ -16,6 +16,7 @@ const url = `http://localhost:${process.env.HTTP_SERVER_PORT}`;
   await runTest(testHtmlClassSelector, browser, results);
   await runTest(testJavascriptNoError, browser, results);
   await runTest(testJavascriptWithError, browser, results);
+  await runTest(testCssClassSelector, browser, results);
 
   await tearDown(browser, results);
 })();
@@ -130,4 +131,23 @@ async function testJavascriptWithError(browser) {
     'ReferenceError: myFunctionWhichDoesNotExist is not defined',
     'unexpected page error[0] parsed message',
   );
+}
+
+async function testCssClassSelector(browser) {
+  const page = await browser.newPage();
+  await page.goto(`${url}/css.html`, { waitUntil: 'networkidle0' });
+
+  const foobarBgColour = await page.evaluate(() => {
+    const el = document.querySelector('.foo .bar');
+    return window.getComputedStyle(el).getPropertyValue('background-color');
+  });
+  const foobazBgColour = await page.evaluate(() => {
+    const el = document.querySelector('.foo .baz');
+    return window.getComputedStyle(el).getPropertyValue('background-color');
+  });
+
+  assert.equal(foobarBgColour, 'rgb(255, 0, 255)',
+    'unexpected background colour for ".bar"');
+  assert.equal(foobazBgColour, 'rgb(0, 255, 255)',
+    'unexpected background colour for ".baz"');
 }
