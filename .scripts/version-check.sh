@@ -1,4 +1,6 @@
 #!/bin/sh
+# Prior before using lerna to bump the version numbers,
+# make sure that the main package and all of the lerna packages match versions
 
 set -e
 

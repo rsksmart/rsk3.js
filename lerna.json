@@ -12,7 +12,10 @@
     "version": {
       "allowBranch": [
         "master",
-        "proj/release-*"
+        "feat/*",
+        "fix/*",
+        "docs/*",
+        "proj/*"
       ],
       "conventionalCommits": false,
       "exact": true,

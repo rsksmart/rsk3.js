@@ -1,4 +1,5 @@
 #!/bin/sh
+# Computes the checksums of all of the packages remotely (in the registry)
 
 set -e
 

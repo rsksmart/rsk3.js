@@ -1,4 +1,5 @@
 #!/bin/sh
+# Publishes each of the packages to the registry
 
 set -e
 
