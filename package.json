@@ -1,6 +1,6 @@
 {
   "name": "@rsksmart/rsk3.js",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "RSK JavaScript Wallet API repository",
   "engines": {
     "node": ">=8.6.0"
@@ -14,8 +14,12 @@
     "bootstrap": "lerna bootstrap",
     "bootstrap-yarn": "lerna bootstrap --npm-client yarn  -- --no-lockfile",
     "build": "lerna run build",
-    "release": "lerna version --no-git-tag-version",
-    "publish": "lerna publish from-git",
+    "release": "npm run version-check && lerna version --no-git-tag-version && npm run version-update",
+    "version-check": ".scripts/version-check.sh",
+    "version-update": ".scripts/version-update.sh",
+    "publish": ".scripts/publish.sh",
+    "pre-publish-checksums": ".scripts/pre-publish-checksums.sh",
+    "post-publish-checksums": ".scripts/post-publish-checksums.sh",
     "lint": "eslint --cache --fix ./packages/",
     "format": "prettier --config ./.prettierrc --write ./packages/**/*.js",
     "test": "npm run build && lerna run test",
