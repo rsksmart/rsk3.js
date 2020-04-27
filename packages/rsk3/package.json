@@ -14,9 +14,9 @@
   "files": [
     "dist"
   ],
-  "main": "dist/rsk3.cjs.js",
-  "module": "dist/rsk3.esm.js",
-  "browser": "dist/rsk3.umd.js",
+  "main": "dist/@rsksmart/rsk3.cjs.js",
+  "module": "dist/@rsksmart/rsk3.esm.js",
+  "browser": "dist/@rsksmart/rsk3.umd.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",

@@ -29,9 +29,9 @@
     "dist"
   ],
   "homepage": "https://github.com/rsksmart/rsk3.js/tree/master/packages/rsk3-net#readme",
-  "main": "dist/rsk3-net.cjs.js",
-  "module": "dist/rsk3-net.esm.js",
-  "browser": "dist/rsk3-net.umd.js",
+  "main": "dist/@rsksmart/rsk3-net.cjs.js",
+  "module": "dist/@rsksmart/rsk3-net.esm.js",
+  "browser": "dist/@rsksmart/rsk3-net.umd.js",
   "bugs": {
     "url": "https://github.com/rsksmart/rsk3.js/issues"
   }

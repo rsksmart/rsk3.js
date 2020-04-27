@@ -33,7 +33,7 @@
     "dist"
   ],
   "homepage": "https://github.com/rsksmart/rsk3.js/tree/master/packages/rsk3-utils#readme",
-  "main": "dist/rsk3-utils.cjs.js",
-  "module": "dist/rsk3-utils.esm.js",
-  "browser": "dist/rsk3-utils.umd.js"
+  "main": "dist/@rsksmart/rsk3-utils.cjs.js",
+  "module": "dist/@rsksmart/rsk3-utils.esm.js",
+  "browser": "dist/@rsksmart/rsk3-utils.umd.js"
 }

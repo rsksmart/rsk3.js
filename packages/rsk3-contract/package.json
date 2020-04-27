@@ -33,9 +33,9 @@
     "dist"
   ],
   "homepage": "https://github.com/rsksmart/rsk3.js/tree/master/packages/rsk3-contract#readme",
-  "main": "dist/rsk3-contract.cjs.js",
-  "module": "dist/rsk3-contract.esm.js",
-  "browser": "dist/rsk3-contract.umd.js",
+  "main": "dist/@rsksmart/rsk3-contract.cjs.js",
+  "module": "dist/@rsksmart/rsk3-contract.esm.js",
+  "browser": "dist/@rsksmart/rsk3-contract.umd.js",
   "bugs": {
     "url": "https://github.com/rsksmart/rsk3.js/issues"
   }
