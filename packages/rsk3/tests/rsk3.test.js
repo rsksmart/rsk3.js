@@ -78,6 +78,9 @@ describe('rsk3Test', () => {
         expect(rsk3.abiCoder.constructor).toEqual(abiCoderMock);
 
         // Static property of Rsk3;
+        expect(rsk3.utils).toEqual(Utils);
+
+        // Static property of Rsk3;
         expect(Rsk3.utils).toEqual(Utils);
 
         expect(rsk3.formatters).toEqual(formatters);
