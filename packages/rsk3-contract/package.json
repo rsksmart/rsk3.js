@@ -1,7 +1,7 @@
 {
   "name": "@rsksmart/rsk3-contract",
   "namespace": "RSK",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "@rsksmart/rsk3-abi": "0.3.2",
-    "@rsksmart/rsk3-account": "0.3.2",
-    "@rsksmart/rsk3-utils": "0.3.2",
+    "@rsksmart/rsk3-abi": "0.3.3",
+    "@rsksmart/rsk3-account": "0.3.3",
+    "@rsksmart/rsk3-utils": "0.3.3",
     "@types/bn.js": "^4.11.4",
     "lodash": "^4.17.11",
     "web3-core": "2.0.0-alpha.1",
