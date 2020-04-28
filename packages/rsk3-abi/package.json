@@ -1,7 +1,7 @@
 {
   "name": "@rsksmart/rsk3-abi",
   "namespace": "RSK",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.3.1",
-    "@rsksmart/rsk3-utils": "0.3.2",
+    "@rsksmart/rsk3-utils": "0.3.3",
     "ethers": "^4.0.27",
     "lodash": "^4.17.11"
   },
@@ -26,9 +26,9 @@
     "dist"
   ],
   "homepage": "https://github.com/rsksmart/rsk3.js/tree/master/packages/rsk3-abi#readme",
-  "main": "dist/rsk3-abi.cjs.js",
-  "module": "dist/rsk3-abi.esm.js",
-  "browser": "dist/rsk3-abi.umd.js",
+  "main": "dist/@rsksmart/rsk3-abi.cjs.js",
+  "module": "dist/@rsksmart/rsk3-abi.esm.js",
+  "browser": "dist/@rsksmart/rsk3-abi.umd.js",
   "bugs": {
     "url": "https://github.com/rsksmart/rsk3.js/issues"
   }
