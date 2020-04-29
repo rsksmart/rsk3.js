@@ -32,6 +32,9 @@ export default class Rsk3 extends AbstractWeb3Module {
         this.accounts = new Accounts(resolvedProvider, null, options);
         this.personal = new Personal(resolvedProvider, null, this.accounts, options);
         this.abiCoder = new AbiCoder();
+        // utils singleton exposed via instance for backward compatibility with
+        // code written against web3.js
+        this.utils = Utils;
         // TODO: RNS here
         this.formatters = formatters;
         this.subscriptionsFactory = new SubscriptionsFactory(Utils, formatters);
