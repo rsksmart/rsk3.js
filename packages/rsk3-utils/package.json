@@ -1,7 +1,7 @@
 {
   "name": "@rsksmart/rsk3-utils",
   "namespace": "RSK",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Rsk3 module to interact with the RSK nodes networking properties.",
   "repository": {
     "type": "git",
