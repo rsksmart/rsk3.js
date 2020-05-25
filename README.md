@@ -243,3 +243,7 @@ npm run publish
 ## Note
 
 The majority of code in packages are similar to those with the same name in Web3.js, and will be upgraded in sync with Web3.js
+
+## Audit
+
+An independant security audit details can be found here: [/docs/auditreport.pdf](https://github.com/rsksmart/rsk3.js/blob/master/docs/auditreport.md)
