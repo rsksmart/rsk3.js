@@ -246,4 +246,4 @@ The majority of code in packages are similar to those with the same name in Web3
 
 ## Audit
 
-An independant security audit details can be found here: [/docs/auditreport.pdf](https://github.com/rsksmart/rsk3.js/blob/master/docs/auditreport.md)
+An independant security audit details can be found here: [/docs/auditreport.pdf](https://github.com/rsksmart/rsk3.js/blob/master/docs/auditreport.pdf)
