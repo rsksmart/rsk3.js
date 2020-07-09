@@ -3,7 +3,8 @@
   "version": "0.3.4",
   "description": "RSK JavaScript Wallet API repository",
   "engines": {
-    "node": ">=8.6.0"
+    "node": "10.13.0",
+    "npm": "6.9.0"
   },
   "main": "./packages/rsk3/src/index.js",
   "directories": {
