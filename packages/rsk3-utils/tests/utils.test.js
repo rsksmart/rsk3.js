@@ -17,7 +17,12 @@ import {
     toWei,
     fromWei,
     toTwosComplement,
-    jsonInterfaceMethodToString
+    jsonInterfaceMethodToString,
+    getRskAddress,
+    getBtcPrivateKey,
+    getRskPrivateKey,
+    isValidBtcPrivateKey,
+    isValidRskPrivateKey
 } from '../src';
 import BN from 'bn.js';
 import * as CryptoJS from 'crypto-js';
@@ -690,5 +695,194 @@ describe('UtilsTest', () => {
         expect(() => jsonInterfaceMethodToString(null)).toThrow();
         expect(() => jsonInterfaceMethodToString(undefined)).toThrow();
         expect(() => jsonInterfaceMethodToString({name: 'name'})).toThrow();
+    });
+
+    it('calls to getAddress and returns de expected value', () => {
+        const tests = [
+            {
+                value: 'Kxj9x4G2Uvw8CbngATxGZLY4K2EFkjty7mumLabJQEhHw9ZLyZTs',
+                expected: '36eb6a1d1720a6037d0680b8b357fc661a24bfdc'
+            },
+            {
+                value: 'L5eLLCcuBK8WGsSNcm8gBGp8cZUzsCviVF2DuPeiCaPpH1aiEmhE',
+                expected: '3f6ed7d236ccdb6b4cb07018793a206f9c1f93cc'
+            },
+            {
+                value: 'L5EZS1X7DYHjZNH8C44xZVUHRgHcJ3SjugmmArBuKDv1aTWfs878',
+                expected: '138811cdf0544996d39fc41fc2a5d428392ab123'
+            },
+            {
+                value: '',
+                expected: null
+            },
+            {
+                value: null,
+                expected: null
+            },
+            {
+                value: 1,
+                expected: null
+            },
+            {
+                value: 'Ky4fD7LXsQ!!!!!!!QwTKq91g1LFFbRpFhuW4NeBJxn73Do2cSuze1NWcLY',
+                expected: null
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(getRskAddress(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls getRskPrivateKey and returns the expected value', () => {
+        const tests = [
+            {
+                value: 'Kxj9x4G2Uvw8CbngATxGZLY4K2EFkjty7mumLabJQEhHw9ZLyZTs',
+                expected: '2cfc1062d5beff50764f3d1b7a8d2d67ac4736c14caceeeb956bcc815c8a0708'
+            },
+            {
+                value: 'L5eLLCcuBK8WGsSNcm8gBGp8cZUzsCviVF2DuPeiCaPpH1aiEmhE',
+                expected: 'fb5dc57846ff52e06dabbac6552ccc96d1abc9d9068b47ef63a7e51a551b6389'
+            },
+            {
+                value: 'L5EZS1X7DYHjZNH8C44xZVUHRgHcJ3SjugmmArBuKDv1aTWfs878',
+                expected: 'ef22cf81749f9a3398c5b6fd88868e7e371857fbad6be1b4d7d1cc23c8598940'
+            },
+            {
+                value: '',
+                expected: null
+            },
+            {
+                value: null,
+                expected: null
+            },
+            {
+                value: 1,
+                expected: null
+            },
+            {
+                value: 'Ky4fD7LXsQ!!!!!!!QwTKq91g1LFFbRpFhuW4NeBJxn73Do2cSuze1NWcLY',
+                expected: null
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(getRskPrivateKey(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls getBtcPrivateKey and returns the expected btc private key', () => {
+        const tests = [
+            {
+                value: '2cfc1062d5beff50764f3d1b7a8d2d67ac4736c14caceeeb956bcc815c8a0708',
+                expected: 'Kxj9x4G2Uvw8CbngATxGZLY4K2EFkjty7mumLabJQEhHw9ZLyZTs'
+            },
+            {
+                value: 'fb5dc57846ff52e06dabbac6552ccc96d1abc9d9068b47ef63a7e51a551b6389',
+                expected: 'L5eLLCcuBK8WGsSNcm8gBGp8cZUzsCviVF2DuPeiCaPpH1aiEmhE'
+            },
+            {
+                value: 'ef22cf81749f9a3398c5b6fd88868e7e371857fbad6be1b4d7d1cc23c8598940',
+                expected: 'L5EZS1X7DYHjZNH8C44xZVUHRgHcJ3SjugmmArBuKDv1aTWfs878'
+            },
+            {
+                value: '',
+                expected: null
+            },
+            {
+                value: null,
+                expected: null
+            },
+            {
+                value: 1,
+                expected: null
+            },
+            {
+                value: 'Ky4sas',
+                expected: null
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(getBtcPrivateKey(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls isValidBtcPrivateKey and returns the expected validation result', () => {
+        const tests = [
+            {
+                value: 'Kxj9x4G2Uvw8CbngATxGZLY4K2EFkjty7mumLabJQEhHw9ZLyZTs',
+                expected: true
+            },
+            {
+                value: 'L5eLLCcuBK8WGsSNcm8gBGp8cZUzsCviVF2DuPeiCaPpH1aiEmhE',
+                expected: true
+            },
+            {
+                value: 'L5EZS1X7DYHjZNH8C44xZVUHRgHcJ3SjugmmArBuKDv1aTWfs878',
+                expected: true
+            },
+            {
+                value: 'Ky4fD7LXsQQwTKq91g1LFFbRpFhuW4NeBJxn73Do2cSuze1NWcLY',
+                expected: true
+            },
+            {
+                value: '',
+                expected: false
+            },
+            {
+                value: null,
+                expected: false
+            },
+            {
+                value: 1,
+                expected: false
+            },
+            {
+                value: 'Ky4fD7LXsQ!!!!!!!QwTKq91g1LFFbRpFhuW4NeBJxn73Do2cSuze1NWcLY',
+                expected: false
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(isValidBtcPrivateKey(test.value)).toEqual(test.expected);
+        });
+    });
+
+    it('calls isValidRskPrivateKey and returns the expected validation result', () => {
+        const tests = [
+            {
+                value: '2cfc1062d5beff50764f3d1b7a8d2d67ac4736c14caceeeb956bcc815c8a0708',
+                expected: true
+            },
+            {
+                value: 'fb5dc57846ff52e06dabbac6552ccc96d1abc9d9068b47ef63a7e51a551b6389',
+                expected: true
+            },
+            {
+                value: 'ef22cf81749f9a3398c5b6fd88868e7e371857fbad6be1b4d7d1cc23c8598940',
+                expected: true
+            },
+            {
+                value: '',
+                expected: false
+            },
+            {
+                value: null,
+                expected: false
+            },
+            {
+                value: 1,
+                expected: false
+            },
+            {
+                value: 'Ky4sas',
+                expected: false
+            }
+        ];
+
+        tests.forEach((test) => {
+            expect(isValidRskPrivateKey(test.value)).toEqual(test.expected);
+        });
     });
 });

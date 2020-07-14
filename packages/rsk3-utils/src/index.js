@@ -7,6 +7,11 @@ import BN from 'bn.js';
 import Hash from 'eth-lib/lib/hash';
 import map from 'lodash/map';
 import has from 'lodash/has';
+import wallet from 'ethereumjs-wallet';
+import bs58 from 'bs58';
+import sha256 from 'js-sha256';
+import convertHex from 'convert-hex';
+import * as bitcoin from 'bitcoinjs-lib';
 
 import * as rskUnit from './rbtcUnit';
 const {unitMap} = rskUnit;
@@ -1046,6 +1051,122 @@ const soliditySha3 = function() {
     return keccak256(`0x${hexArguments.join('')}`);
 };
 
+/**
+ * Gets the RSK address from BTC private key
+ *
+ * @method getRskAddress
+ *
+ * @param {String} btcPrivateKey BTC Private key.
+
+ * @return {String} RSK address.
+ */
+const getRskAddress = function(btcPrivateKey) {
+    if (!isValidBtcPrivateKey(btcPrivateKey)) return null;
+
+    const myWallet = wallet.fromPrivateKey(Buffer.from(_keyBtcToRskInBytes(btcPrivateKey)));
+    const addressInRskFormat = myWallet.getAddress();
+    return addressInRskFormat.toString('hex');
+};
+
+/**
+ * Checks if BTC Private key is valid.
+ *
+ * @param {*} btcPrivateKey BTC Private key.
+ *
+ * @return {Boolean}
+ */
+const isValidBtcPrivateKey = function(btcPrivateKey) {
+    try {
+        bitcoin.ECPair.fromWIF(btcPrivateKey);
+    } catch (error) {
+        return false;
+    }
+
+    return true;
+};
+
+/**
+ * Get RSK Private Key from BTC Private Key
+ *
+ * @param {String} btcPrivateKey BTC Private key.
+ *
+ * @return {String} RSK Private Key.
+ */
+const getRskPrivateKey = function(btcPrivateKey) {
+    if (!isValidBtcPrivateKey(btcPrivateKey)) return null;
+
+    var privKeyBytes = _keyBtcToRskInBytes(btcPrivateKey);
+    var privKeyInRskFormat = Buffer.from(privKeyBytes).toString('hex');
+    return privKeyInRskFormat;
+};
+
+/**
+ * Checks if RSK Private key is valid.
+ *
+ * @param {*} rskPrivateKey RSK Private key.
+ *
+ * @return {Boolean}
+ */
+const isValidRskPrivateKey = function(rskPrivateKey) {
+    try {
+        const privateKeyBuffer = Buffer.from(rskPrivateKey, 'hex');
+        wallet.fromPrivateKey(privateKeyBuffer);
+    } catch (error) {        
+        return false;
+    }
+
+    return true;
+};
+
+const _keyBtcToRskInBytes = function(privKeyAsExportedByBitcoinDumpprivkey) {
+    var decodedKey = bs58.decode(privKeyAsExportedByBitcoinDumpprivkey);
+    var privKeyBytes = decodedKey.slice(1, decodedKey.length - 5);
+    return privKeyBytes;
+};
+
+/**
+ * Gets BTC private key from RSK private key.
+ *
+ * @method getBtcPrivateKey
+ *
+ * @param {bool} isBtcMainnet Respresents BTC mainnet network.
+ *
+ * @param {String} rskPrivateKey RSK Private Key.
+ *
+ * @return {String} BTC address.
+ */
+
+const getBtcPrivateKey = function(rskPrivateKey, isBtcMainnet = true) {
+    if (!isValidRskPrivateKey(rskPrivateKey)) return null;
+
+    var addressArray = convertHex.hexToBytes(rskPrivateKey);
+    var partialResults = [];
+    var result = [];
+
+    if (isBtcMainnet) {
+        partialResults.push(0x80);
+    } else {
+        partialResults.push(0xef);
+    }
+
+    for (var address of addressArray) {
+        partialResults.push(address);
+    }
+
+    partialResults.push(0x01);
+    var check = convertHex.hexToBytes(sha256(convertHex.hexToBytes(sha256(partialResults))));
+
+    for (var partialResult of partialResults) {
+        result.push(partialResult);
+    }
+
+    for (var i = 0; i < 4; i++) {
+        result.push(check[i]);
+    }
+
+    return bs58.encode(result);
+};
+
 export {
     randomHex,
     jsonInterfaceMethodToString,
@@ -1087,5 +1208,10 @@ export {
     padLeft,
     padLeft as leftPad,
     toTwosComplement,
-    getSignatureParameters
+    getBtcPrivateKey,
+    getRskAddress,
+    getRskPrivateKey,
+    getSignatureParameters,
+    isValidBtcPrivateKey,
+    isValidRskPrivateKey
 };
