@@ -20,7 +20,7 @@
     "@babel/runtime": "^7.5.5",
     "bn.js": "^5.0.0",
     "eth-lib": "^0.2.8",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "number-to-bn": "1.7.0",
     "randombytes": "^2.1.0",
     "randomhex": "0.1.5",
